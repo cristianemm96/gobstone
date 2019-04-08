@@ -1,0 +1,100 @@
+program{
+    /*
+        Proposito: 
+            *Dibuja un reloj analògico simplificado, con un tamaño de 2 celdas y 
+            direccion (desde el centro del reloj, hasta las horas representadas) 
+            determinado por el radio introducido por el parametro del mismo nombre.
+        Precondicion: 
+            * Hay al menos "radio" celdas desde el centro del tablero hacia
+            las 4 direcciones del tablero (Norte, Sur, Este y Oeste.)
+        Parametros: 
+            *radio: es un numero que indica la cantidad de celdas que hay entre el 
+            centro y las horas del reloj.
+    
+    */
+    DibujarRelojAnalógicoSimplificadoDeRadio_(2)
+}
+
+
+procedure DibujarRelojAnalógicoSimplificadoDeRadio_(radio){
+    /*
+        Proposito: 
+            *Dibuja un reloj analògico simplificado, con un tamaño y 
+            direccion (desde el centro del reloj, hasta las horas representadas) 
+            determinado por el radio introducido por el parametro del mismo nombre.
+        Precondicion: 
+            * Hay al menos "radio" celdas desde el centro del tablero hacia
+            las 4 direcciones del tablero (Norte, Sur, Este y Oeste.)
+        Parametros: 
+            *radio: es un numero que indica la cantidad de celdas que hay entre el 
+            centro y las horas del reloj.
+    */
+    //Dibujar las 12 hs.
+    Poner12Hs(radio)
+    //Dibujar las 3 hs.
+    //Poner3Hs(radio)
+    //Dibujar las 6hs.
+    //Poner6Hs(radio)
+    
+   
+    
+}
+
+procedure Poner12Hs(radio){
+    /*
+        Proposito:
+            *Dibuja en el tablero la hora 12 del reloj analogico. 
+        Precondicion:
+            *Hay al menos "radio" celdas hacia el Norte. 
+            *Hay "radio" celdas hacia el sur desde la celda donde se represento la hora 12.
+    */
+        IrALas12Hs(radio)
+        repeat(3){
+            
+        }
+        Dibujar12Hs()
+        VolverAlCentroDelRelojDesdeLas12(radio)
+} 
+   
+   
+procedure IrALas12Hs(radioALas12){
+    /*
+        *Proposito: 
+            *Mueve el cabezal hacia el norte "radio" veces a donde se debe dibujar la
+            12hs.
+        Precondicion:
+            *Hay "radioALas12" celdas hacia el norte.
+    */
+    repeat(radioALas12){
+        Mover(Norte)//reemplazar por "movermuchasveces()"
+    }
+}
+
+procedure Dibujar12Hs(){
+    /*
+        Proposito:
+            *Dibuja las 12 hs en la celda actual.
+        Precondicion: 
+            *No hay bolitas rojas en la celda actual.
+        Observaciones:
+            *La hora "12" se representa con 12 bolitas rojas.
+        
+    */
+    repeat(12){
+        Poner(Rojo)//reemplazar por "ponermuchasveces()"
+    }
+}
+   
+    procedure  VolverAlCentroDelRelojDesdeLas12(radio12){
+    /*
+        Proposito:
+            *Ubica el cabezal en el centro del reloj.
+        Precondicion:
+            *Hay al menos "radio12" celdas hacia el sur.
+            *En la celda inicial estàn representadas las 12hs.
+    */
+    repeat(radio12){
+        Mover(Sur) //reemplazar por "movermuchasveces()"
+    }
+}
+    
