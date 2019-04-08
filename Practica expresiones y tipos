@@ -1,23 +1,17 @@
-//
-// Proposito: Mueve al raton de su celda 20 veces, siguiendo
-// las flechas que indican la salida del laberinto.
-// Precondicion:
-// *Hay flechas que indican al raton el camino hacia la salida.
-// *Hay una distancia de 20 celdas desde la posicion del
-// raton hacia la salida. *Hay un raton en la celda actual.
-// *Hay una salida al final del recorrido.
-//
-procedure SalirDelLaberinto() {
-  AvanzarUnPasoSiguiendoLaFlecha()
+procedure AyudarAEscaparAlRaton(){
+    /*
+        *Proposito: 
+            *Mueve al raton de su celda 20 veces, siguiendo las flechas que indican la salida del laberinto.
+        *Precondicion: 
+            *Hay flechas que indican al raton el camino hacia la salida. 
+            *Hay una distancia de 20 celdas desde la posicion del raton hacia la salida. *Hay un raton en la celda actual. 
+            *Hay una salida al final del recorrido.
+    */
+    repeat(20){
+        MoverAlRatónA_YSacarLaFlecha(dondeApuntaLaFlecha())
+    }
 }
-
-procedure AvanzarUnPasoSiguiendoLaFlecha() {
-  repeat(20) {
-    MoverAlRatónA_YSacarLaFlecha(dondeApuntaLaFlecha())
-  }
-}
-
 
 program {
-  SalirDelLaberinto()
+    AyudarAEscaparAlRaton()
 }
