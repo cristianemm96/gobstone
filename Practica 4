@@ -7,6 +7,8 @@ procedure DibujarBanda_EnDiagonalNEDe_x_(color, alto, largo){
             *alto: es un numero que representa el alto de la banda.
             *largo: el un numero que representa el largo de la banda.
         *Precondicion: Hay al menos "largo"+1 celdas hacia el norte, y "alto"+1 celdas hacia el este.
+        //LARGO + ALTO -1 AL NORTE
+        //LARGO -1 CELDAS AL ESTE
     */
     DibujarUnaParteDeLaBanda(color, alto+1)
     VolverAlInicioDeLaParteDeLaBanda(largo-1)
