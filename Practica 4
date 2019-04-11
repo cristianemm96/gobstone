@@ -1,0 +1,110 @@
+// EJERCICIO N°1
+procedure DibujarBanda_EnDiagonalNEDe_x_(color, alto, largo){
+    /*
+        *Proposito: Dibuja una banda en diagonal, de color "color" y tamaño "alto"x"largo"
+        *Parametros:
+            *color: es el color con el cual se dibujara la banda
+            *alto: es un numero que representa el alto de la banda.
+            *largo: el un numero que representa el largo de la banda.
+        *Precondicion: Hay al menos "largo"+1 celdas hacia el norte, y "alto"+1 celdas hacia el este.
+    */
+    DibujarUnaParteDeLaBanda(color, alto+1)
+    VolverAlInicioDeLaParteDeLaBanda(largo-1)
+    UbicarCabezalEnLaProximaParte()
+    DibujarUnaParteDeLaBanda(color, alto+1)
+    VolverAlInicioDeLaParteDeLaBanda(largo-1)
+    UbicarCabezalEnLaProximaParte()
+    DibujarUnaParteDeLaBanda(color, alto+1)
+    VolverAInicial(largo+1, alto+1)
+}
+
+
+procedure DibujarUnaParteDeLaBanda(color, tamaño){
+    /*
+        *Proposito: Dibuja una linea que conforma una banda en diagonal de tamaño "tamaño", y color "color".
+        *Parametros: 
+            *color: Es el color con el cual se va a dibujar la linea.
+            tamaño: Es el tamaño de la linea en diagonal.
+        *Precondicion: hay almenos "tamaño" celdas hacia el norte, y "tamaño" celdas hacia el este.
+    */
+    repeat(tamaño){
+        Poner(color)
+        Mover(Este)
+        Mover(Norte)
+    }
+    Poner(color)
+}
+
+
+procedure VolverAlInicioDeLaParteDeLaBanda(largoVuelta){
+    /*
+        *Proposito: Ubica el cabezal en el inicio de la parte de la banda dibujada.
+        *Parametros:
+            *largoVuelta: es un numero que indica la cantidad de celdas que debe volver el cabezal
+            de forma diagonal.
+        *Precondicion: hay al menos "largoVuelta" celdas hacia el Oeste, y las mismas hacia el Sur.
+    */
+    repeat(largoVuelta){
+        Mover(Oeste)
+        Mover(Sur)
+    }
+}
+
+
+procedure VolverAInicial(altoDeVuelta, largoDeVuelta){
+    /*
+        *Proposito: Vuelve a la celda inicial, donde empieza la banda.
+        *Parametros:
+            *altoDeVuelta: es un numero que indica la cantidad de celdas que debe moverse el cabezal 
+            en direccion sur
+            *largoDeVuelta: es un numero que indica la cantidad de celdas que debe moverse el cabezal
+            en direccion Oeste.
+        *Precondicion: Hay al menos "altoDeVuelta" celdas hacia el Sur, y "largoDeVuelta" hacia el Oeste.
+    */
+    
+    repeat(altoDeVuelta){
+        Mover(Sur)
+    }
+    
+    repeat(largoDeVuelta){
+        Mover(Oeste)
+    }
+    
+}
+
+procedure UbicarCabezalEnLaProximaParte(){
+    /*
+        Proposito: Ubica el cabezal una celda hacia el norte para dibujar la proxima parte de la banda.
+        Parametros: Hay al menos ua celda hacia el Norte.
+    */
+    Mover(Norte)
+}
+
+program{
+    DibujarBanda_EnDiagonalNEDe_x_(Negro, 3, 5)
+}
+
+//EJERCICIO N° 2
+procedure Mover_SegúnColor_(dirección,color){
+    /*
+        Proposito: Mueve el cabezal en direccion "direccion", dependiendo de la cantidad de colitas color 
+        "color" que haya en la celda actual
+        Parametros:
+            *direccion: es la direccion en la cual se va a mover el cabezal. 
+            *color: es un numero que indica la cantidad de celdas que se debe mover el cabezal.
+        Precondicion: Debe haber al menos una bolita "color" en la celda actual, y "color" celdas
+        hacia el "direccion".
+    */
+    repeat(nroBolitas(color)){
+        Mover(dirección)
+    }
+  
+}
+
+
+
+program{
+    Mover_SegúnColor_(Este, Negro)
+}
+
+//EJERCICIO N° 3
