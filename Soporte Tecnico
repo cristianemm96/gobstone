@@ -1,0 +1,153 @@
+/* REPRESENTACIÓN DEL DOMINIO
+   - los virus se representan con bolitas Rojas, de 1 a 6 
+   - una indicación de que la máquina de la celda actual no 
+     tiene virus (indicación de OK) se representa con una 
+     bolita Verde
+   - el Hall del edificio en la celda 0,0 con la cantidad de 
+     pisos representada por las bolitas Azules
+   - el Hall del piso en la celda del borde Oeste de cada piso, 
+     con la cantidad de máquinas del piso representada por las 
+     bolitas Negras 
+*/
+
+program {
+    RepararEdificio()
+}
+
+procedure RepararEdificio(){
+  /* 
+     PROPÓSITO: 
+       * reparar todas las máquinas del edificio. 
+         El cabezal queda en el Hall del último piso 
+         del edificio (el hall más al Norte)
+     PRECONDICIONES: 
+       * el cabezal debe estar en la hall del edificio
+  */
+    RepararTodosLosPisos(nroBolitas(Azul))
+}
+
+procedure RepararTodosLosPisos(cantidadDePisos){
+    /*
+        Proposito: Repara los "cantidadDePisos" del edificio, yendo uno a uno y limpiando todas las maquinas
+        que hay en cada uno.
+        Parametros: 
+            *cantidadDePisos: es un numero que indica la cantidad de pisos que tiene el edificio.
+        Precondicion:
+            *El cabezal está ubicado en el hall del piso.
+            *En el hall del piso hay un numero que indica la cantidad de maquinas a reparar.
+    */
+    repeat(cantidadDePisos){
+        IrAlProximoPiso()
+        RepararPiso(nroBolitas(Negro))
+    }
+}
+
+
+procedure RepararPiso(cantidadDeMaquinas){
+  /* 
+     PROPÓSITO: 
+       * reparar todas las máquinas del piso actual
+         (sacando todos los Virus de las máquinas del piso)
+     PRECONDICIONES: 
+       * la celda actual es el Hall del piso
+  */
+    repeat(cantidadDeMaquinas){
+        IrAProximaMaquina()
+        RepararMáquina()
+    }
+    VolverAlHallDelPiso(cantidadDeMaquinas)
+}
+
+procedure RepararMáquina(){
+  /* 
+     PROPÓSITO: 
+       * eliminar los virus de la celda actual y dejar 
+         la marca de OK 
+     PRECONDICIONES: 
+       * en la celda actual hay una máquina con virus
+         y sin marcas de OK
+  */
+   QuitarVirus()
+   IndicarOk()
+}
+
+procedure IndicarOk() {
+  /* 
+     PROPÓSITO: 
+       * indicar que la máquina de la celda actual no tiene 
+         virus poniendo la indicación de OK
+     PRECONDICIONES: 
+       * la máquina de la celda actual no tiene virus ni 
+         indicación de OK
+  */
+    Poner(Verde) 
+}
+
+
+procedure QuitarVirus(){
+    /*
+        Proposito: Quita los virus de la máquina de la celda actual.
+        Precondicion: Hay al menos una maquina infectada por un virus en al celda actual.
+    */
+    SacarTodas_(Rojo)
+}
+
+
+procedure SacarTodas_(colorASacar) {
+  /*
+     PROPÓSITO: 
+       * sacar de la celda actual todas las bolitas 
+         del color dado
+     PRECONDICIONES: 
+       * ninguna (es una operación total)
+     PARÁMETROS:
+       * colorASacar es un color, que indica el color 
+          de las bolitas que se deben sacar
+  */
+    Sacar_Veces(colorASacar, nroBolitas(colorASacar))
+}
+
+procedure VolverAlHallDelPiso(cantidadDeMaquinas){
+     /*
+        Proposito: Mueve el cabezal "cantidadDeMaquinas" veces en direccion Oeste, para posicionarlo
+        en el hall del piso actual
+        Parametros:
+            *cantidadDeMaquinas: es un número que representa la cantidad de celdas que se debe mover el cabeza.
+        Precondicion: hay al menos "cantidadDeMaquinas" hacia el Oeste.
+     */
+     
+    repeat(cantidadDeMaquinas){
+        Mover(Oeste)
+    }
+ }
+ 
+ procedure Sacar_Veces(color, cantidadDeVeces){
+     /*
+        Proposito: Saca toda las bolitas de color "color" de la celda actual.
+        Parametros: 
+            *color: el color de bolita que se debe sacar.
+            *cantidadDeVeces: el numero de bolitas que tiene que sacar para sacar todas.  
+        *Precondicion: NINGUNA.
+     */
+     repeat(cantidadDeVeces){
+         Sacar(color)
+     }
+ }
+ 
+procedure IrAlProximoPiso(){
+    /*
+        Proposito: Mueve el cabeza una celda hacia el norte ubicandolo en el hall del proximo piso.
+        Precondicion: Hay al menos una celda en direccion norte de la celda actual, y el hall del piso actual
+        en ella.
+    */
+    Mover(Norte)
+}
+ 
+procedure IrAProximaMaquina(){
+    /*
+        Proposito: Mueve el cabeza una celda en direccion este donde se encuentra la proxima maquina
+        a reparar.
+        Precondicion: Hay al menos una celda en direccion este, y una maquina infectada con virus en ella.
+    */
+    Mover(Este)
+}
