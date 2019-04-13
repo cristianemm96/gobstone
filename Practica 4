@@ -217,3 +217,104 @@ procedure VolverAlHallDelPiso(maquinas){
     }
 }
 
+//EJERCICIO N° 4
+procedure Poner_Semillas(cantidadDeSemillasAPoner){
+    /*
+        Proposito: Pone cantidadDeSemillasAPoner semillas en la parcela actual.
+        Parametros: 
+            *cantidadDeSemillasAPoner: es un numero que representa la cantidad de semillas
+            que se pondran en la celda actual.
+        Precondicion: No hay ninguna semilla en la parcela actual.
+        Observaciones: una bolita roja representa una semilla.
+    */
+    repeat(cantidadDeSemillasAPoner){
+        Poner(Rojo)
+    }
+}
+
+procedure Sacar_Semillas(cantidadDeSemillasASacar) {
+    /*
+        Proposito: saca cantidadDeSemillasASacar de la parcela actual.
+        Parametros: 
+            *cantidadDeSemillasASacar: es un numero que representa la cantidad de semillas
+            que se deben sacar de la parcela actual.
+        Precondicion: Ninguna.
+    */
+}
+
+procedure Poner_Árboles(cantidadDeÁrbolesAPoner){
+    /*
+        *Proposito: Pone cantidadDeÁrbolesAPoner en la parcela actual. 
+        *Parametros:
+            *cantidadDeÁrbolesAPoner: es un numero que representa la cantidadd de arboles
+            a poner.
+        *Precondicion: No hay ningun arbol en la parcela actual.
+        *Observaciones: Una bolita verde representa un arbol.
+    */
+}
+
+procedure Sacar_Árboles(cantidadDeÁrbolesASacar){
+    /*
+        *Proposito: Saca cantidadDeÁrbolesASacar de la parcela actual.
+        *Parametros: 
+            *cantidadDeÁrbolesASacar: es un numero que representa la cantidad de arboles
+            que se quitaran de la parcela actual.
+        *Precondicion: Ninguna.
+    */
+}
+
+procedure PonerBomba(){
+    /*
+        *Proposito: Pone una bomba en la celda actual.
+        *Precondicion: No hay ninguna bomba en la parcela actual.
+        *Observacion: Una bomba esta representada por una bolita negra.
+    */
+}
+
+procedure SacarBomba(){
+    /*
+        *Proposito: Saca una bomba de la parcela actual.
+        *Precondicion: Ninguna.
+    */
+    
+}
+
+procedure Poner_Nutrientes(cantidadDeNutrientesAPoner) {
+    /*
+        Proposito: Pone cantidadDeNutrientesAPoner nutrientes en la parcela actual.
+        Parametros:
+            * cantidadDeNutrientesAPoner: es un numero que representa la cantidad
+            de nutrientes que se pondran en la parcela actual.
+        Precondicion: No hay nutrientes en la parcela actual.
+        Observaciones: Un nutriente está representado por una bolia azul.
+    */
+}
+
+procedure Sacar_Nutrientes(cantidadDeNutrientesASacar){
+    /*
+        *Proposito: quita cantidadDeNutrientesASacar nutrientes de la parcela actual.
+        *Parametros:
+            *cantidadDeNutrientesASacar: es un numero que indica la cantidad de nutrientes
+            que se deben quitar de la parcela actual.
+        *Precondicion: Ninguna.
+    */
+}
+
+
+procedure Poner_SemillasAl_(cantidad, dirección){
+    /*
+        Proposito: Mueve el cabezal en direccion dirección, cantidad de veces, para
+        plantar semillas.
+        Parametros:
+            *cantidad: es un numero que indica la cantidad de veces que se movera
+            el cabezal de parcela.
+            *dirección: indica al direccion hacia donde se movera el cabezal.
+        Precondicion: hay al menos cantidad de parcelas hacia direccion.
+    */
+}
+
+procedure Sacar_ÁrbolesAl_(cantidad, dirección){
+    /*
+        *Proposito: 
+    */
+}
