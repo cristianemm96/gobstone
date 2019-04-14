@@ -414,3 +414,56 @@ procedure Sacar_ÁrbolesAl_(cantidad, dirección){
         *Proposito: 
     */
 }
+//EJERCICIO 7A
+
+
+//EJERCICIO 7 B
+
+procedure InformarBajasAliadas(bajasAliadas) {
+    /*
+        Proposito: representa la cantidad de bajas aliadas en el tablero.
+        Parametros: 
+            *bajasAliadas: es un numero que representa la cantidad de soldados aliados
+            que mueren.
+        Precondicion: hay al menos un soldado enemigo en la celda actual.
+    */
+  repeat(bajasAliadas) {
+    Sacar(Negro)
+  }
+}
+
+procedure InformarBajasEnemigas(bajasEnemigas) {
+    /*
+        Proposito: representa la cantidad de bajas enemigas luego de la batalla en el 
+        tablero.
+        Parametros:
+            *bajasEnemigas: es un numero que representa la cantidad de enemigos que
+            mueren.
+        Precondicion: Ninguna.     
+    */
+  repeat(nroBolitas(Rojo)) {
+    Sacar(Rojo)
+  }
+}
+
+
+procedure PelearLaBatalla(cantidadEnemigos){
+    /*
+        Proposito: Desarrolla una batalla entre dos ejercitos, uno aliado y otro enemigo.
+        Parametros:
+            *cantidadEnemigos: es un numero que representa la cantida de enemigos que hay
+            en la celda actual.
+        Precondicion: El numero de soldados aliados, es mayor que el de los enemigos.
+        Observacion: 
+            *Un soldado enemigo se representa con una bolita roja.
+            *Un soldaod aliado se representa con una bolita negra.
+    */
+    InformarBajasAliadas((cantidadEnemigos) + (cantidadEnemigos div 3) + 1)
+    InformarBajasEnemigas(cantidadEnemigos)
+}
+
+program {
+  PelearLaBatalla(nroBolitas(Rojo))
+}
+
+
