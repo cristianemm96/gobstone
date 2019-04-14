@@ -103,6 +103,102 @@ procedure Mover_SegúnColor_(dirección,color){
   
 }
 
+//EJERCICIO N° 5
+procedure PasarPalabraAMayuscula(numeroDeLetras){
+    /*
+        *Proposito: Pasa una palabra compuesta por numeroDeLetras letras en minusculas,
+        a mayuscula.
+        *Parametros:
+            *numeroDeLetras: es un número que indica la cantidad de letras en minuscula
+            que conforman la palabra.
+        *Precondicion: Hay al menos una bolita roja en la celda actual. De lo contrario
+        no habrían letras minusculas para convertirlas a mayuscula. Hay al menos
+        numeroDeLetras en direccion Este desde la celda actual, y una hacia el norte desde
+        la misma.
+        *Observacion: la cantidad de letras se representan por las bolitas rojas en la celda
+        inicial.
+    */
+    RecorrerPalabraYCambiarTipoDeLetra(numeroDeLetras, nroBolitas(Negro))
+}
+
+procedure RecorrerPalabraYCambiarTipoDeLetra(numeroDeLetras, letra){
+    /*
+        *Proposito: Recorre la palabra de numeroDeLetras letras, cambiando cada letra que
+        la componen, de minuscula a mayuscula.
+        *Parametros: 
+            *numeroDeLetras: es un numero que indica la cantidad de letras que componen a
+            la palabra.
+            *letra: es un numero que indica la letra minuscula en codigo ASCII que debe 
+            cambiarse a mayuscula.
+        *Precondicion: Hay al menos una letra en la palabra, indicada en la celda inicial.
+        Hay al menos numeroDeLetras letras hacia el este.
+    */
+    repeat(numeroDeLetras){
+        IrALaProximaLetra()
+        CambiarLasLetras(nroBolitas(Negro))
+    }
+}
+
+procedure CambiarLasLetras(letra){
+    /*
+        *Proposito: cambia la letra actual de minuscula a mayuscula.
+        *Parametros: 
+            *letra: es un numero que indica la letra minuscula que es en codigo ASCII.
+        *Precondicion: la letra mas pequeña a representar es la representada por
+        el numero 32. Hay una celda hacia el norte desde la celda actual.
+    */
+    PosicionarEnCeldaAEscribir()
+    CambiarLetra(letra)
+    VolverAPalabraEnMinuscula()
+}
+
+
+
+procedure CambiarLetra(letra){
+    /*
+        Proposito: Coloca en la celda actual la letra mayuscula, de la letra representada
+         en minuscula (en codigo ASCII) ubicada en la celda lindante hacia el sur.
+        Parametros:
+            *letra: es un numero que representa una letra en minuscula en codigo ASCII.
+        Precondicion: la letra mas pequeña a representar es la representada por
+        el numero 32.
+    */
+    repeat(letra-32){
+       Poner(Negro)
+   } 
+}
+
+procedure PosicionarEnCeldaAEscribir(){
+    /*
+        Proposito: Mueve el cabezal una celda en direccion norte, a donde se representara
+        la letra en mayuscula, de la minuscula representada en la actual.
+        Precondicion: Hay al menos una celda en direccion norte.
+    */
+    Mover(Norte)
+}
+
+procedure VolverAPalabraEnMinuscula(){
+    /*
+        Proposito: Mueve el cabezal una celda en direccion sur desde la celda actual.
+        Precondicion: Hay al menos una celda en direccion sur.
+    */
+    Mover(Sur)
+}
+
+procedure IrALaProximaLetra(){
+    /*
+        Proposito: Mueve el cabezal hacia la proxima letra minuscula, en direccion Este.
+        Precondicion: Debe haber al menos una celda en direccion Este, y una letra 
+        representada en codigo ASCII en ella.
+    */
+    Mover(Este)
+}
+
+program{
+    PasarPalabraAMayuscula(nroBolitas(Rojo))
+}
+
+
 
 
 program{
