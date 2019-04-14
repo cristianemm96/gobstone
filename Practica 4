@@ -467,3 +467,23 @@ program {
 }
 
 
+// EJERCICIO N°6
+procedure SacarTodas_(colorASacar){
+    /*
+        Proposito: Saca todas la bolitas de color "colorASacar" de la celda actual.
+        Parametros:
+            *colorASacar: es el color a sacar de la celda actual
+    */
+    Sacar__Veces(colorASacar, nroBolitas(colorASacar))
+}
+
+procedure Sacar__Veces(colorAQuitar, cantidadDeVeces){
+    repeat(cantidadDeVeces){
+        Sacar(colorAQuitar)   
+    }
+}
+
+program{
+    SacarTodas_(Rojo)
+    SacarTodas_(Negro)
+}
