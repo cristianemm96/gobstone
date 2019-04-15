@@ -1,0 +1,28 @@
+//SIEMPRE EL MEJOR
+procedure CombatirGikachuVsGarmander() {
+  if (nroBolitas(Rojo) == nroBolitas(Negro)) {
+    Empatan()
+  } elseif (nroBolitas(Rojo) >= nroBolitas(Negro)) {
+    SacarGikachu()
+  } else {
+    SacarGarmander()
+  }
+}
+
+procedure Empatan() {
+  SacarGikachu()
+  SacarGarmander()
+}
+
+procedure SacarGikachu() {
+  SacarTodas_(Negro)
+}
+
+procedure SacarGarmander() {
+  SacarTodas_(Rojo)
+}
+
+
+program {
+  CombatirGikachuVsGarmander()
+}
