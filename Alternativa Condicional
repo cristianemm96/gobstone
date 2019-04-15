@@ -101,3 +101,46 @@ program {
   Mover(Norte)
   SimularInterruptorDeLuz()
 }
+//Y TAMBIEN
+procedure MantenerElCantero() {
+  repeat(9) {
+    MantenerSecciónDelCantero()
+    IrALaSiguienteSecciónDelCantero()
+  }
+  MantenerSecciónDelCantero()
+}
+
+procedure MantenerSecciónDelCantero() {
+  if (not(hayFlor())) {
+    PlantarFlor()
+  }
+}
+
+procedure IrALaSiguienteSecciónDelCantero() {
+  Mover(Este)
+}
+
+procedure PlantarFlor() {
+  if (hayFlor()) {
+    BOOM("Ya hay una flor, ¡y no puedo plantar encima!")
+  } else {
+    PlantarUnaFlor()
+  }
+}
+
+function hayFlor() {
+  return (hayBolitas(Verde) && (hayBolitas(Rojo) && hayBolitas(Rojo)))
+}
+
+procedure PlantarUnaFlor() {
+  repeat(1) {
+    Poner(Rojo)
+    Poner(Rojo)
+  }
+  Poner(Verde)
+}
+
+
+program {
+  MantenerElCantero()
+}
