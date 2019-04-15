@@ -26,3 +26,27 @@ procedure SacarGarmander() {
 program {
   CombatirGikachuVsGarmander()
 }
+
+//NO, NO Y NO
+procedure CompletarLaFilaDePelotas() {
+  repeat(4) {
+    AgregarPelotaSiHaceFalta()
+    IrALaSiguientePosiciónAControlar()
+  }
+  AgregarPelotaSiHaceFalta()
+}
+
+procedure IrALaSiguientePosiciónAControlar() {
+  Mover(Sur)
+}
+
+procedure AgregarPelotaSiHaceFalta() {
+  if (not(hayPelota())) {
+    AgregarPelota()
+  }
+}
+
+
+program {
+  CompletarLaFilaDePelotas()
+}
