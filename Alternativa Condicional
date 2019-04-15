@@ -50,3 +50,54 @@ procedure AgregarPelotaSiHaceFalta() {
 program {
   CompletarLaFilaDePelotas()
 }
+
+//La luz está prendida vs. hay bolitas: mi elección es clara
+
+procedure SimularInterruptorDeLuz() {
+  if (hayLuz()) {
+    ApagarLaLuz()
+  } else {
+    PrenderLaLuz()
+  }
+}
+
+procedure MantenerSecciónDelCantero() {
+  if (hayFlor()) {
+    FertilizarFlor()
+  } else {
+    PlantarFlor()
+  }
+}
+
+function hayLuz() {
+  return (hayBolitas(Azul))
+}
+
+function hayFlor() {
+  return (hayBolitas(Rojo))
+}
+
+procedure PrenderLaLuz() {
+  Poner(Azul)
+  Sacar(Negro)
+}
+
+procedure PlantarFlor() {
+  Poner(Rojo)
+}
+
+procedure ApagarLaLuz() {
+  Poner(Negro)
+  Sacar(Azul)
+}
+
+procedure FertilizarFlor() {
+  Poner(Verde)
+}
+
+
+program {
+  MantenerSecciónDelCantero()
+  Mover(Norte)
+  SimularInterruptorDeLuz()
+}
