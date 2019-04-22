@@ -84,3 +84,40 @@ function manzanasPodridas(){
 program {
     PudrirHasta_Manzanas(manzanas())
 }
+
+// 5A
+procedure Poner_Si_(color, condicion){
+    /*
+        Proposito: Pone una bolita color "color", si es verdadera la condición "condicion".
+        Parametros: 
+            *color: es el color de la bolita que se pondrá en la celda actual.
+            *condicion: es la condicion que se debe cumplir para que se ponga la bolita "color".
+        Precondicion: Ninguna.
+    */
+    if (condicion){
+        Poner(Rojo)
+    }
+}
+
+
+program{
+    Poner_Si_(Rojo, nroBolitas(Rojo)==0)
+}
+
+//5B
+procedure Sacar_Si_(color, condición){
+    /*
+        Proposito: saca una bolita de color "color" si se cumple la condición "condición".
+        Parametros: 
+            *color: es el color de la bolita que se va a sacar de la celda actual.
+            *condición: es la condicion que se debe cumplir para que se saque la bolita de color
+            "color".
+    */
+    if (condición){
+        Sacar(color)
+    }
+}
+
+program {
+    Sacar_Si_(Verde, nroBolitas(Negro)==0)
+}
