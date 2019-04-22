@@ -1,0 +1,86 @@
+//EJERCICIO 4C
+procedure PudrirHasta_Manzanas(cantidadAPudrir){
+    /*
+        Proposito: pudre cantidadAPudrir manzanas, según los gusanos y las manzanas en buen estado
+        que hay en la celda actual.
+        Parametro:
+            *cantidadAPudrir: es un numero que indica la cantidad de manzanas que se van a pudrir.
+        Precondicion: Ninguna, ya que si no hay manzanas en buen estado, o gusanos no se va a pudrir
+        ninguna, pero el procedimiento funciona igual.
+        Observacion: una manzana se representa con una bolita roja, y un gusano con una bolita verde.
+    */
+    if (gusanos() <= manzanas()){
+        PudrirSegunGusanos(gusanos())
+    }
+    else{
+        PudrirSegunManzanas(cantidadAPudrir)
+    }
+}
+
+procedure PudrirSegunGusanos(cantidadDeGusanos){
+    /*
+        Proposito: Pudre cantidadDeGusanos manzanas que hay en la celda actual.
+        Parametro: 
+            *cantidadDeGusanos: es un numero que indica la cantidad de manzanas que se pudriran.
+        Precondicion: Ninguna.
+    */
+    repeat(cantidadDeGusanos){
+       Reemplazar_Y_Por_(Rojo, Verde, Negro)
+    }
+}
+
+procedure PudrirSegunManzanas(cantidadDeManzanas){
+    /*
+        Proposito: Pudre cantidadDeManzanas manzanas que hay en la celda actual.
+        Parametro: 
+            *cantidadDeManzanas: es un numero que indica la cantidad de manzanas que se pudriran.
+        Precondicion: Ninguna.
+    */
+    repeat(cantidadDeManzanas){
+        Reemplazar_Y_Por_(Rojo, Verde, Negro)
+    }
+}
+
+procedure Reemplazar_Y_Por_(primerColorAReemplazar, segundoColorAReemplazar, colorAAgregar){
+    /*
+        Proposito: Quita una bolita de color "primerColorAReemplazar" y una "segundoColorAReemplazar",
+        y pone una "colorAAgregar".
+        Parametros:
+            *primerColorAReemplazar: es el primer color de la bolita que se va a quitar de la celda 
+                                    actual.
+            *segundoColorAReemplazar: es el segundo color de la bolita que se va quitar.
+            *colorAAgregar: es el color de la bolita que se va a poner en la celda actual.
+    */
+    Sacar(primerColorAReemplazar)
+    Sacar(segundoColorAReemplazar)
+    Poner(colorAAgregar)
+}
+
+
+
+
+function gusanos() {
+    /*
+        Proposito: Es un numero que indica al cantidad de gusanos que hay en la celda actual.
+        Precondicion: ninguna.
+        Describe: Un valor numérico.
+    */
+    return (nroBolitas(Verde))
+}
+
+function manzanas(){
+     /*
+        Proposito: Es un numero que indica al cantidad de manzanas que hay en la celda actual.
+        Precondicion: ninguna.
+        Describe: Un valor numérico.
+    */   
+    return (nroBolitas(Rojo))
+}
+
+function manzanasPodridas(){
+    return (Negro)
+}
+
+program {
+    PudrirHasta_Manzanas(manzanas())
+}
