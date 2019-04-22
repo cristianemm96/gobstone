@@ -487,3 +487,125 @@ program{
     SacarTodas_(Rojo)
     SacarTodas_(Negro)
 }
+
+//4 C REFORMADO.
+
+procedure PudrirHasta_Manzanas(cantidadAPudrir){
+    /*
+        Proposito: pudre cantidadAPudrir manzanas, según los gusanos y las manzanas en buen estado
+        que hay en la celda actual.
+        Parametro:
+            *cantidadAPudrir: es un numero que indica la cantidad de manzanas que se van a pudrir.
+        Precondicion: Ninguna.
+        *Observacion: 
+        *Una manzana se representa con una bolita roja.
+        *Un gusano con una bolita verde.
+        *Una manzana podrida se representa con una bolita negra.
+    */
+  
+    repeat(cantidadAPudrir){
+        PudrirManzanaSiHay()
+    }
+}
+
+procedure PudrirManzanaSiHay(){
+    /*
+        Proposito: pudre una manzana de la celda actual, si hay.
+        Una manzana se pudre si hay un gusano en la celda actual.
+        Precondicion: ninguna.
+    */
+    if (sePuedePudrirManzana()){
+        Reemplazar_Y_Por_(manzana(), gusano(), manzanaPodrida())
+    }
+    
+}
+
+procedure Reemplazar_Y_Por_(primerColor, segundoColor, tercerColor){
+
+    /*
+        Proposito: Reemplaza una bolita de color "primerColor" y una "segundoColor" por una
+        "tercerColor".
+        Parametros: 
+            *primerColor: es el color de la primer bolita a reemplazar.
+            *segundoColor: es el color de la segunda bolita a reemplazar.
+            *tercerColor: es el color de la bolita que se va a agregar.
+        Precondicion: Ninguna.
+    */
+    Sacar(primerColor)
+    Sacar(segundoColor)
+    Poner(tercerColor)
+}
+
+
+function sePuedePudrirManzana(){
+    /*
+        Proposito: sensa la celda actual y verifica si se puede pudrir una manzana.
+        Precondicion: Ninguna.
+        Devuelve: un valor de verdad.
+    */
+    return (hayManzanasEnBuenEstado() && hayGusanos())
+}
+
+function hayManzanasEnBuenEstado(){
+    return (hayBolitas(manzana()))
+}
+
+function hayGusanos(){
+    return(hayBolitas(gusano()))
+}
+
+
+function manzana(){
+    /*
+        Proposito: Describe una manzana.
+        Precondicion: Ninguna.
+        Observacion: Una manzana se representa con rojo.
+        Describe: una manzana.
+    */
+    return(Rojo)
+}
+
+
+function gusano(){
+    /*
+        Proposito: Describe un gusano.
+        Precondicion: Ninguna.
+        Observacion: Un gusano se representa con verde.
+        Describe: un gusano.
+    */
+    return(Verde)
+}
+
+
+function manzanaPodrida(){
+    /*
+        Proposito: Describe una manzana podrida.
+        Precondicion: Ninguna.
+        Observacion: Una manzana podrida se representa con verde.
+        Describe: Una manzana podrida.
+    */
+    return(Negro)
+}
+
+function cantidadDeManzanas(){
+    /*
+        Proposito: Contar la cantidad de manzanas de la celda.
+        Precondicion: Ninguna.
+        Describe: una unidad numerica.
+    */
+    return(nroBolitas(manzana()))
+}
+
+
+function cantidadDeGusanos(){
+    /*  Proposito: Contar la cantidad de gusanos de la celda.
+        Precondicion: Ninguna.
+        Describe: una unidad numerica.
+    */
+    return (nroBolitas(gusano()))
+}
+
+
+program {
+    PudrirHasta_Manzanas(cantidadDeManzanas())
+}
