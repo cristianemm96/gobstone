@@ -212,4 +212,30 @@ function puedeGerminar(){
 program {
     GerminarSemilla()
 }
+//
+procedure GerminarSemilla(){
+    /*
+        Proposito: transforma una semilla en árbol en la celda actual si puede .
+        Para germinar una semilla, esta semilla tiene que consumir 3 nutrientes.
+        Precondicion: ninguna.
+        Observaciones: 
+            *Una semilla se representa con una bolita roja.
+            *Un arbol se representa con una bolita verde.
+            *Un nutriente se representa con una bolita azul.
+    */
+    if(puedeGerminar()){
+        Sacar_Nutrientes(3)
+        SacarSemilla()
+        PonerArbol()
+        
+    }    
+}
 
+procedure Sacar_Nutrientes(cantidadDeNutrientes){
+    /*
+        Proposito: Saca "cantidadDeNutrientes" nutrientes de la celda actual.
+        Precondicion: Ninguna.
+        Observacion: Un nutriente se representa con el color Azul.
+    */
+    
+}
