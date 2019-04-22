@@ -121,3 +121,95 @@ procedure Sacar_Si_(color, condición){
 program {
     Sacar_Si_(Verde, nroBolitas(Negro)==0)
 }
+
+//GERMINAR SEMILLA A REPARAR
+procedure GerminarSemilla(){
+    /*
+        Proposito: transforma una semilla en árbol en la celda actual si puede .
+        Para germinar una semilla, esta semilla tiene que consumir 3 nutrientes.
+        Precondicion: ninguna.
+        Observaciones: 
+            *Una semilla se representa con una bolita roja.
+            *Un arbol se representa con una bolita verde.
+            *Un nutriente se representa con una bolita azul.
+    */
+    if(puedeGerminar()){
+        Sacar_Nutrientes(3)
+        SacarSemilla()
+        PonerArbol()
+        
+    }    
+}
+function nutriente(){
+    /*
+        Proposito: Describe un nutriente.
+        Precondicio: Ninguna.
+        Observacion: una unidad de nutriente se representa con azul.
+    */
+    return (Azul)
+}
+procedure GerminarUnaSemilla(semillasASacar, nutrientesASacar){
+    /*
+        Proposito: germina una semilla, consumiendo 3 unidades de nutriente.
+        Precondicion: Ninguna.
+    */
+        Sacar__Veces(nutriente(), nutrientesASacar)
+        Sacar__Veces(Rojo, semillasASacar)
+        PlantarArbol(semillasASacar)
+}
+
+procedure PlantarArbol(semillasASacar){
+    /*
+        Proposito: planta un arbol en la celda actual.
+        Precondicion: Ninguna
+    */
+    repeat(semillasASacar){
+        Poner(Verde)    
+    }
+    
+}
+
+procedure Sacar__Veces(color, cantidad){
+    /*
+        Proposito: Saca una bolita de color "color", "cantidad" veces.
+        Parametros: 
+            *color: es el color de la bolita a sacar.
+            *cantidad: es un numero que indica la cantidad de veces que se
+            sacara una bolita de color "color".
+        Precondicion: debe haber al menos "cantidad" bolitas de color "color".
+    */
+    repeat(cantidad){
+        Sacar(color)
+    }
+}
+
+function hay_Semillas(){
+    /*
+        Proposito: vale verdadero si hay una semilla en la celda actual.
+        Precondiciòn: Ninguna.
+        Describe: un valor de verdad.
+        Observacion: Una semilla se representa con una bolita de color rojo.
+    */
+    return (nroBolitas(Rojo))
+}
+
+function nroDeNutrientesSuficientes(){
+    /*
+        Proposito: sensa la celda actual y cuenta cuantos nutrientes hay.
+        Precondicion: Ninguna.
+        Describe: una unidad numerica.
+        Observacion: un nutriente se representa con una bolita de color azul.
+    */
+    return (nroBolitas(Azul))
+}
+
+
+function puedeGerminar(){
+    return (hay_Semillas()>= 1 && haySuficientesNutrientes()>=3)
+}
+
+
+program {
+    GerminarSemilla()
+}
+
