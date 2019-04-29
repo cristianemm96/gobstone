@@ -307,17 +307,119 @@ program {
 }
 
 //EJERCICO 8 
-function direcciónDelCódigo_(código){
-    /*PROPÓSITO:
-        describe la dirección correspondiente al código dado
-      PRECONDICIONES:
-        * el código está entre 1 y 4
-     PARÁMETROS:
-        * código es un número que codifica una dirección
+procedure LlevarAlCaminanteALaMeta() {
+    /*
+        Proposito: Mueve al caminante reiteradas veces hasta ubicarlo en la meta, dejando
+        huellas en cada celda por las que pasò.
+        Precondiciòn: El caminante se representa con bolitas azules, con una cantidad de 1 a 4, dependiendo hacia donde se
+        dirija. Los cambios de direcciòn se representan con la misma cantidad de bolitas, pero de color verde. Debe haber
+        cambios de direcciòn que dirigan al caminante hacia la meta y una meta al final del recorrido.
+        Observacion: 
+            *El caminante se representa con 1 a 4 bolitas azules.
+            *El cambio de direcciòn se representa con bolitas de color verde
+            *La meta se representa con 1 o màs bolitas rojas.
     */
-   return(
-       if (código==1){
-           Norte
-       }
-   )
+    while (not(estáEnLaMeta())){
+        DejarHuella()
+        DarUnPaso()
+    }
+}
+
+procedure DarUnPaso(){
+    /*
+        Proposito: Mueve al caminante una vez por celda en la direcciòn correspondiente
+        dependiendo si hay o no un indicador de cambio de direcciòn. Si hay un cambio
+        de direcciòn, el caminante imitara la cantidad de bolitas que la direcciòn
+        indicada, y se movera en esa direcciòn. Si no hay indicador, el caminante
+        mantendrà la cantidad de bolitas y seguirà moviendose en la direcciòn en la que
+        se dirige.
+        Precondicion: El caminante no està en la meta.
+        
+    */
+        CambiarDeDirecciónSiHayIndicador()
+        MoverAlCaminanteAl_(direcciónIndicada())
+}
+
+procedure CambiarDeDirecciónSiHayIndicador(){
+    /*
+        Proposito: Analiza si hay un indicador de direcciòn, y en el caso de que lo haya, cambia la direcciòn en la que se mueve
+        el caminante, y imita la cantidad de bolitas del indicador.
+        Precondicion: Ninguna.
+        
+    */
+    if(hayIndicadorDeCambioDeDirección()){
+        Cambiar_ParaImitar_(Azul, Verde)
+    }
+}
+
+    
+function direcciónIndicada(){
+    return(alNorte()||alEste()||alSur()||alOeste())
+}
+
+function alNorte(){
+    return (nroBolitas(indicador())==1)
+}
+
+function alEste(){
+    return (nroBolitas(indicador())==2)
+}
+
+function alSur(){
+    return (nroBolitas(indicador())==3)
+}
+
+function alOeste(){
+    return (nroBolitas(indicador()==4))
+}
+
+function estáEnLaMeta(){
+    return (hayBolitas(Rojo))
+}
+
+
+procedure Cambiar_ParaImitar_(colorACambiar, colorAImitar){
+    /*
+        Proposito: 
+    */
+    repeat(nroBolitas(colorAImitar)){
+        Poner(colorACambiar)
+    }
+    
+     
+ }
+
+procedure MoverAlCaminanteAl_(dirección){
+    Mover_Bolitas_Al_(cantidad, color, dirección)
+}
+
+
+procedure Mover_Bolitas_Al_(cantidad, color, dirección){
+    Mover()    
+}
+
+procedure DejarHuella(){
+    /*
+        Proposito: Señala el camino que lleva al caminante a la meta mediante huellas.
+        Precondicion: Ninguna.
+        Observacion: Una huella se representa con una bolita negra.
+    */
+    Poner(huella())
+}
+
+
+function hayIndicadorDeCambioDeDirección(){
+    return(indicador()>=1 && indicador()<=4))
+}
+
+function indicador(){
+    return(nroBolitas(Verde))
+}
+
+function huella(){
+    return (Negro)
+}
+
+program {
+    LlevarAlCaminanteALaMeta()
 }
