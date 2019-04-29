@@ -1,0 +1,307 @@
+//EJERCICIO 2 PRACTICA 6
+procedure SacarTodas_(color){
+    /*
+        Proposito: Saca todas las bolitas de color "color" de la celda actual.
+        Parametros: 
+            *color: es el color de las bolitas que se deben sacar de la celda.
+        Precondicion: Ninguna.
+        
+    */
+    while (not (hayBolitasColor(color))){
+        Sacar__Bolita(color)
+    }
+}
+
+procedure Sacar__Bolita(color){
+    /*
+        Proposito: Saca una bolita de color "color".
+        Parametros:
+            *color: es el color de las bolita que se debe sacar de la celda.
+        Precondicion: Ninguna.
+    */
+    Sacar(color)
+}
+
+function hayBolitasColor(color){
+    return (nroBolitas(color)==0)
+}
+
+program {
+    SacarTodas_(Rojo)
+}
+
+//EJERCICIO 3 PRACTICA 6 ----------------------------------------------------------------------------------
+procedure VaciarFilaDe_(color){
+    /*
+        Proposito: inspecciona las celdas de la fila actual buscando bolita de color "color"
+        para quitar todas.
+        Parametros: 
+            *color: es el color de las bolitas que se deben quitar.
+        Precondicion: Ninguna.
+    */
+    IrAlBordeOeste()
+    InspeccionaLasCeldas(color)
+}
+
+procedure IrAlBordeOeste(){
+    /*
+        Proposito: Ubica el cabezal en el borde Oeste.
+        Precondicion: Ninguna
+    */
+    IrAlBorde(Oeste)
+}
+
+procedure InspeccionaLasCeldas(color){
+    /*
+        Proposito: Inspecciona las celdas de la fila actual en busqueda de bolitas de color
+        "color" y las quita a toda.
+        Parametro:
+            *color: es el color de las bolita a quitar de la celda.
+        Precondicion: Ninguna.
+    */
+    while  (nohayLugarAlEste()){
+        SacarTodas__(color)
+        IrUnaCeldaAlEste()
+    }
+    SacarTodas__(color)
+}
+
+procedure IrUnaCeldaAlEste(){
+    /*
+        Proposito: Mueve el cabeza una celda en dirección Este.
+        Precondicion: Ninguna.
+    */
+    Mover(Este)
+}
+
+
+function nohayLugarAlEste(){
+    return (puedeMover(Este))
+}
+
+
+procedure SacarTodas__(color) {
+  while (not (nohayBolitasDeColor(color))) {
+    Sacar__Bolita(color)
+  }
+}
+
+procedure Sacar__Bolita(color) {
+  Sacar(color)
+}
+
+function nohayBolitasDeColor(color) {
+  return (nroBolitas(color) == 0)
+}
+
+
+program {
+    VaciarFilaDe_(Rojo)
+}
+
+//EJERCICIO 4 ---------------------------------------------------------------------------------------------------
+procedure VaciarTableroDe_(color){
+    /*
+        Proposito: Ubica el cabezal en el inicio del tablero y luego recorre todas las celdas
+        en busqueda de bolitas de color "color" y las quita.
+        Parametro:
+            *color: Es el color de las bolitas a quitar de las celdas del tablero.
+        Precondición: Ninguna.
+    */
+    IrAlInicioDelTablero()
+    InspeccionarTodoElTablero(color)
+}
+
+
+procedure IrAlInicioDelTablero(){
+    /*
+        Proposito: Ubica el cabezal en la celda con bordes lindante a Oeste y Sur del tablero.
+        Precondicion: Ninguna
+    */
+    IrAlBorde(Oeste)
+    IrAlBorde(Sur)
+}
+
+procedure InspeccionarTodoElTablero(color){
+    /*
+        Proposito: Recorre todo el  tablero en busqueda de bolitas color "color" para quitarlas.
+        Parametro:
+            *color: es el color de las bolitas a quitar de las celdas que las contengan.
+        Precondicion: Ninguna.
+    */
+    while (hayLugarAlNorteYAlEste()){
+        VaciarFilaDe_(color)
+        UbicarEnSiguienteFila()
+    }
+    VaciarFilaDe_(color)
+}
+
+procedure UbicarEnSiguienteFila(){
+    /*
+        Proposito: Mueve el cabezal una celda en direccion Norte.
+        Precondicion: Ninguna.
+    */
+    Mover(Norte)
+}
+
+function hayLugarAlNorteYAlEste(){  
+    return (puedeMover(Norte)&&puedeMover(Este))
+}
+
+procedure VaciarFilaDe_(color){
+    /*
+        Proposito: inspecciona las celdas de la fila actual buscando bolita de color "color"
+        para quitar todas.
+        Parametros: 
+            *color: es el color de las bolitas que se deben quitar.
+        Precondicion: Ninguna.
+    */
+    IrAlBordeOeste()
+    InspeccionaLasCeldas(color)
+    IrAlBordeOeste()
+}
+
+procedure IrAlBordeOeste(){
+    /*
+        Proposito: Ubica el cabezal en el borde Oeste.
+        Precondicion: Ninguna
+    */
+    IrAlBorde(Oeste)
+}
+
+procedure InspeccionaLasCeldas(color){
+    /*
+        Proposito: Inspecciona las celdas de la fila actual en busqueda de bolitas de color
+        "color" y las quita a toda.
+        Parametro:
+            *color: es el color de las bolita a quitar de la celda.
+        Precondicion: Ninguna.
+    */
+    while  (nohayLugarAlEste()){
+        SacarTodas__(color)
+        IrUnaCeldaAlEste()
+    }
+    SacarTodas__(color)
+}
+
+procedure IrUnaCeldaAlEste(){
+    /*
+        Proposito: Mueve el cabeza una celda en dirección Este.
+        Precondicion: Ninguna.
+    */
+    Mover(Este)
+}
+
+
+function nohayLugarAlEste(){
+    return (puedeMover(Este))
+}
+
+
+procedure SacarTodas__(color) {
+  while (not (nohayBolitasDeColor(color))) {
+    Sacar__Bolita(color)
+  }
+}
+
+procedure Sacar__Bolita(color) {
+  Sacar(color)
+}
+
+function nohayBolitasDeColor(color) {
+  return (nroBolitas(color) == 0)
+}
+
+
+program {
+    VaciarTableroDe_(Rojo)
+}
+
+//EJERCICIO 6-------------------------------------------------------------------------------------------------------
+
+procedure VaciarFilaDe_HaciaEl_(color, dirección){
+    /*
+        Proposito: Ubica el cabeza en el borde de la dirección opuesta a "dirección" y luego recorre
+        las filas en dirección "dirección", sensando cada celda en busqueda de bolitas color "color". 
+        Si hay bolitas de color "color" en la celda actual, las quita a todas ellas.
+        Parametros:
+            *color: es el color de las bolitas a quitar de las celdas.
+            *dirección: es la dirección en la que el cabezal recorrerá las celdas de la fila.
+        Precondición: Ninguna.
+    */
+    IrAlInicioDeLaFila(opuesto(dirección))
+    RecorrerYSensarFila(color, dirección)
+}
+
+procedure IrAlInicioDeLaFila(dirección){
+    /*
+        Proposito: Ubica el cabezal en el borde "dirección".
+        Parametro:
+            *dirección: es la dirección del borde en la que se deberá ubicar el cabezal.
+        Precondición: Ninguna
+    */
+    IrAlBorde(dirección)
+}
+
+procedure RecorrerYSensarFila(color, dirección){
+    /*
+        Proposito: Recorre la fila de celdas en dirección "dirección" buscando bolitas de color 
+        "color", para quitar a todas ellas de la celda en la que se ubiquen.
+        Parametros:
+            *color: es el color de bolitas a quitar de la celda actual.
+            dirección: es la dirección en la que va a ser recorrida la fila.
+        Precondición: Ninguna
+    */
+    while (hayLugarAl(dirección)){
+        SacarTodas_(color)
+        MoverEnDirección_(dirección)
+    }
+    SacarTodas_(color)
+}
+
+procedure SacarTodas_(color){
+    /*
+        Proposito: Saca todas las bolita de color "color" de la celda actual.
+        Parametros: 
+            *color: es el color de todas las bolitas que se van a quitar de la celda actual.
+        Precondición: Ninguna
+    */
+    while (hayBolitasColor(color)){
+        Sacar(color)
+    }
+}
+
+procedure MoverEnDirección_(dirección){
+    /*
+        Proposito: Mueve el cabezal una celda en dirección "dirección"
+        Precondición: Ninguna.
+    */
+}
+
+
+function hayLugarAl(dirección){
+    /*  
+        Proposito: Devuelve verdadero si hay una celda en dirección "dirección" desde la celda 
+        actual.
+        Parametros: 
+            *dirección: es el lado lindante de la celda actual, a sensar.
+        Describe: Un valor de verdad
+        Precondición: Ninguna
+    */
+    return (puedeMover(dirección))
+}
+
+function hayBolitasColor(color){
+    /*
+        Proposito: Devuelve verdadero si hay bolitas de color "color" en la celda actual.
+        Parametros:
+            *color: es el color de las bolitas a sensar.
+        Describe: Un valor de verdad.
+        Precondición: Ninguna
+    */
+    return (nroBolitas(color)/=0)
+}
+
+program {
+    VaciarFilaDe_HaciaEl_(Rojo, Este)
+}
