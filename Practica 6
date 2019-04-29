@@ -305,3 +305,19 @@ function hayBolitasColor(color){
 program {
     VaciarFilaDe_HaciaEl_(Rojo, Este)
 }
+
+//EJERCICO 8 
+function direcciónDelCódigo_(código){
+    /*PROPÓSITO:
+        describe la dirección correspondiente al código dado
+      PRECONDICIONES:
+        * el código está entre 1 y 4
+     PARÁMETROS:
+        * código es un número que codifica una dirección
+    */
+   return(
+       if (código==1){
+           Norte
+       }
+   )
+}
