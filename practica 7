@@ -1,0 +1,30 @@
+function tieneBolitas_Al_(color, dirección){
+    /*
+        Proposito: Devuelve si en la celda ubicada al "direcciòn" de la actual
+        hay bolitas de color "color".
+        Parametros: 
+            *color: es el color de la bolita a sensar.
+            *direcciòn: es la direcciòn en la que se encuentra la celda a sensar.
+        Precondiciòn: hay al menos una celda en direcciòn "direcciòn".
+    */
+    Mover(dirección)
+    return(hayBolitas(color))
+}
+
+
+function hayBolitas_Al_(color, dirección){
+    /*
+        Proposito: Sensa si hay una celda lindante en direcciòn "dirección" y si la misma
+        tiene bolitas de color "color"
+        Parametros:
+            color: es el color de la bolita a sensar.
+            direcciòn: es la direcciòn de la celda lindante a sensar.
+        Precondicion: Ninguna.
+        
+    */
+    return (puedeMover(dirección) && tieneBolitas_Al_(color, dirección))
+}
+
+program{
+    return(hayBolitas_Al_(Verde, Sur))
+}
