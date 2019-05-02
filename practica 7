@@ -28,3 +28,21 @@ function hayBolitas_Al_(color, dirección){
 program{
     return(hayBolitas_Al_(Verde, Sur))
 }
+---------------------------------------------------------------------------
+P4
+function máximoEntre_Y_(valor1, valor2){
+    /*
+        Proposito: Analiza si "valor1" es mayor que "valor2" o viceversa.
+        Parametros:
+            valor1: es el primer valor a comparar.
+            valor2: es el segundo valor a comparar.
+        Precondiciòn:Ninguna.
+    */
+    return (choose valor1 when (valor1>valor2)
+                   valor2 otherwise
+    )
+}
+
+program{
+    return(máximoEntre_Y_(4, 4))
+}
