@@ -129,3 +129,40 @@ procedure IrAlInicioDelTalbero(){
 program{
     return (nroFilas())
 }
+
+P7------------------------------------------------------------------------------------------------------------------
+function distanciaAlBorde_(dirección){
+    /*
+        Proposito: Cuenta la cantida de celdas que hay entre
+        la celda donde se encuentra ubicado el cabezal, y 
+        el borde del extremo "dirección".
+        Parametros: 
+            *dirección: indica la dirección en la cual se debe
+            mover el cabezal.
+        Precondición: Ninguna.
+    */
+    celdasAlBorde := 0
+    while(not(noHayLugarAl(dirección))){
+        Mover(dirección)
+        celdasAlBorde :=
+                        celdasAlBorde + 1
+    }
+    return (celdasAlBorde)
+}
+
+function noHayLugarAl(dirección){
+    /*
+        Proposito: Vale verdad cuando el cabezal no puede moverse
+        en dirección "dirección".
+        Parametros:
+            *dirección: indica la dirección en la que debe 
+            moverse el cabeza.
+        Precondición: Ninguna
+    */
+    return (not(puedeMover(dirección)))
+}
+
+program{
+    return (distanciaAlBorde_(Oeste))
+}
+
