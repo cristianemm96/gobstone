@@ -91,3 +91,41 @@ function numBolitasColor(color){
 program{
     return (nroBolitas_EnLaFilaActual(Rojo))
 }
+
+P6----------------------------------------------------------------------------------------------------------------------
+function nroFilas(){
+    /*
+        Proposito: cuenta la cantidad de celdas que tiene la fila
+        actual.
+        Describe: Un valor numérico.
+        Precondición: Ninguna.
+    */
+    IrAlInicioDelTalbero()
+    cantidadDeFilas:= 0
+    while (puedeMover(Norte)){
+        cantidadDeFilas :=  
+                        cantidadDeFilas + 1
+        Mover(Norte)
+    }
+    return (cantidadDeFilas + 1)
+}
+
+function nroColumnas(){
+    IrAlInicioDelTalbero()
+    cantidadDeColumnas := 0
+    while (puedeMover(Este)){
+        cantidadDeColumnas :=
+                         cantidadDeColumnas + 1
+        Mover(Este)
+    }
+    return (cantidadDeColumnas + 1)
+}
+
+procedure IrAlInicioDelTalbero(){
+    IrAlBorde(Sur)
+    IrAlBorde(Oeste)
+}
+
+program{
+    return (nroFilas())
+}
