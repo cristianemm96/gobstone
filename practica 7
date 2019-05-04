@@ -46,3 +46,48 @@ function máximoEntre_Y_(valor1, valor2){
 program{
     return(máximoEntre_Y_(4, 4))
 }
+
+
+P5----------------------------------------------------------------------------------------------------------------------
+
+function nroBolitas_EnLaFilaActual(color){
+    /*
+        Proposito: Analiza la cantidad de bolita de color "color"
+        que hay en las celdas de la fila actual.
+        Describe: Un valor numérico.
+        Parametros: 
+            color: es el color de las bolitas a contar.
+        Precondición: Ninguna.
+    */
+    IrAlInicioDeLaFila()
+    cantidadDeBolitas := 0
+    while (puedeMover(Este)){
+        cantidadDeBolitas := cantidadDeBolitas 
+                           + numBolitasColor(color)
+        IrASiguienteCelda()
+    }
+    return ( cantidadDeBolitas + numBolitasColor(color))
+}
+
+procedure IrASiguienteCelda(){
+    /*
+        Proposito: Mueve el cabezal una celda en dirección Este.
+        Precondición: Debe haber al menos una celda en
+        dirección Este.
+    */
+    
+    Mover(Este)
+}
+
+procedure IrAlInicioDeLaFila(){
+    IrAlBorde(Sur)
+    IrAlBorde(Oeste)
+}
+
+function numBolitasColor(color){
+    return (nroBolitas(color))
+}
+
+program{
+    return (nroBolitas_EnLaFilaActual(Rojo))
+}
