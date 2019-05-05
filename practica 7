@@ -209,3 +209,46 @@ procedure IrALaSiguienteCelda(){
 program{
     return (nroTotalDeÁrbolesEnElTerreno())
 }
+
+p10-----------------------------------------------------------------------------------------------------------
+function nroVacías(){
+    IrAlInicioDelTablero()
+    celdasVacías := 0
+    while (not(esLaUltimaCelda())){
+        celdaVacías := 
+                    celdasVacías + estaVacíaONo()
+        IrASiguienteCelda()
+    }
+    return (celdasVacías + estaVacíaONo())
+}
+
+function esLaUltimaCelda(){
+    return (not(puedeMover(Norte)) && not(puedeMover(Este)))
+}
+
+function estaVacíaONo(){
+    estaVacía:= 0
+    if (nroBolitas(Verde) == 0){
+        estaVacía:= estaVacía + 1
+    }
+    return (estaVacía)
+}
+
+procedure IrAlInicioDelTablero(){
+    IrAlBorde(Sur)
+    IrAlBorde(Oeste)
+}
+
+procedure IrASiguienteCelda(){
+    if(puedeMover(Este)){
+        Mover(Este)
+    }
+    else{
+        IrAlBorde(Oeste)
+        Mover(Norte)
+    }
+}
+
+program{
+    return (nroVacías())
+}
