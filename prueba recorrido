@@ -1,0 +1,73 @@
+procedure LimpiarTablero(){
+    /*
+        Proposito: Quita la basura de las celdas que la contienen, para dejando limpio el tablero.
+        Precondición: Ninguna.
+        Observación: la basura se representa con 2 bolitas negras.
+    */
+    IrAlInicioDelTablero()
+    while (not (esLaUltimaCelda())){
+        QuitarBasuraSiCorresponde()
+        IrALaSiguienteCelda()
+    }
+    QuitarBasuraSiCorresponde()
+}
+
+procedure IrAlInicioDelTablero(){
+    /*
+        Proposito: Mueve el cabezal hacia la celda inicial, ubicada en el extremo Sur-Oeste.
+        Precondición: Ninguna.
+    */
+    IrAlBorde(Sur)
+    IrAlBorde(Este)
+}
+
+procedure QuitarBasuraSiCorresponde(){
+    /*
+        Proposito: Analiza la celda actual, y si hay basura en ella, la quita.
+        Precondición: Ninguna.
+    */
+    
+        QuitarBasura()
+    
+}
+
+procedure QuitarBasura(){
+    repeat(2){
+        Sacar(basura())
+    }
+}
+
+procedure IrALaSiguienteCelda(){
+    /*
+        Proposito: Mueve el cabezal a lo largo de todo el tablero, desde el borde Oeste hacia el Este,
+        en dirección norte.
+    */
+    if(puedeMover(Este)){
+        Mover(Este)
+    }
+    else{
+        IrAlBorde(Oeste)
+        Mover(Norte)
+    }
+}
+
+function esLaUltimaCelda(){
+    return (not(puedeMover(Norte)) && not(puedeMover(Este)))
+}
+
+function basura(){
+    return(Negro)
+}
+
+
+function hayBasura(){
+    return(nroBolitas(basura()) == 2)
+}
+
+function puedeIrAlEste(){
+    return (puedeMover(Este))
+}
+
+program{
+    LimpiarTablero()
+}
