@@ -166,3 +166,46 @@ program{
     return (distanciaAlBorde_(Oeste))
 }
 
+P8-------------------------------------------------------------------------------------------------------------------------
+function árbol(){
+    return (Verde)
+}
+
+function nroTotalDeÁrbolesEnElTerreno(){
+    IrALaCeldaInicial()
+    cantidadDeArboles := 0
+    while (not(esLaUltimaCelda())){
+        cantidadDeArboles := 
+                            cantidadDeArboles + nroDeArboles()
+        IrALaSiguienteCelda()
+    }
+    return (cantidadDeArboles + nroDeArboles())
+     
+}
+
+function nroDeArboles(){
+    return(nroBolitas(árbol()))
+}
+
+function esLaUltimaCelda(){
+    return (not(puedeMover(Norte)) && not(puedeMover(Este)))
+}
+
+procedure IrALaCeldaInicial(){
+    IrAlBorde(Sur)
+    IrAlBorde(Oeste)
+}
+
+procedure IrALaSiguienteCelda(){
+    if(puedeMover(Este)){
+        Mover(Este)
+    }
+    else{
+        IrAlBorde(Oeste)
+        Mover(Norte)
+    }
+}
+
+program{
+    return (nroTotalDeÁrbolesEnElTerreno())
+}
