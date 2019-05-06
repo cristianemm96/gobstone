@@ -278,3 +278,88 @@ procedure IrASiguienteCelda(){
 program{
    return (nroVacías())
 }
+
+p15-------------------------------------------------------------------------------------------------------------------------------
+function nroVacías(){
+    IrAlInicioDelTablero()
+    celdasVacías := 0
+    while (not(esLaUltimaCelda())){
+        celdasVacías := celdasVacías + estaVacíaONo()
+        IrASiguienteCelda()
+    }
+     celdasVacías := celdasVacías + estaVacíaONo()
+    return (celdasVacías)
+}
+
+function esLaUltimaCelda(){
+    return (not(puedeMover(Norte)) && not(puedeMover(Este)))
+}
+
+function estaVacíaONo(){
+   nroDeVacías:= 0
+   if (estaVacia()){
+       nroDeVacías := 1
+   }
+   else{
+       nroDeVacías := 0
+   }
+   return (nroDeVacías)
+}
+
+
+function estaVacia(){
+    return (noHayAzul() && noHayNegro() && noHayRojo() && noHayVerde())
+}
+
+
+function noHayAzul(){
+    return (not(hayBolitas(Azul)))
+}
+
+function noHayNegro(){
+    return (not(hayBolitas(Negro)))
+}
+
+function noHayRojo(){
+    return (not(hayBolitas(Rojo)))
+}
+
+function noHayVerde(){
+    return (not(hayBolitas(Verde)))
+}
+
+
+procedure IrAlInicioDelTablero(){
+    IrAlBorde(Sur)
+    IrAlBorde(Oeste)
+}
+
+procedure IrASiguienteCelda(){
+    if(puedeMover(Este)){
+        Mover(Este)
+    }
+    else{
+        IrAlBorde(Oeste)
+        Mover(Norte)
+    }
+}
+
+procedure IrANésimaVacía_(n){
+    if (nroVacías()>=n){
+        UbicarCelda(n)
+    }
+}
+
+procedure UbicarCelda(n){
+    celdasVacíasYaVistas:= 0
+    while (not( celdasVacíasYaVistas == n )){
+        celdasVacíasYaVistas:= celdasVacíasYaVistas + estaVacíaONo()
+        IrASiguienteCelda()
+    }
+    celdasVacíasYaVistas:= celdasVacíasYaVistas + estaVacíaONo()
+}
+
+program {
+    IrANésimaVacía_(1)
+}
+
