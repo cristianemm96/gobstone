@@ -1,0 +1,94 @@
+procedure IrAlInicio() {
+  /*
+    Proposito: Mueve al Lucho a la celda inicial ubicada en la esquina Sur-Oeste.
+    Precondición: El Lucho está en el tablero.
+  */
+  Sacar(lucho())
+  IrAlBorde(Sur)
+  IrAlBorde(Oeste)
+  Poner(lucho())
+}
+
+function lucho() {
+  /*
+    
+  */
+  return (Negro)
+}
+
+function esLaUltimaCelda() {
+  return (not(puedeMover(Norte)) && not(puedeMover(Este)))
+}
+
+procedure PrenderLasLucesDelTablero() {
+  while (not (esLaUltimaCelda())) {
+    RecorrerTablero()
+    PrenderSiCorresponde()
+  }
+  PrenderSiCorresponde()
+}
+
+function luz() {
+  return (Azul)
+}
+
+function luzApagada() {
+  return (nroBolitas(luz()) == 1)
+}
+
+procedure PrenderSiCorresponde() {
+  if (luzApagada()) {
+    Poner(luz())
+  }
+}
+
+function cantidadDeLucesPrendidas() {
+  cantidadLuces := 0
+  while (not (esLaUltimaCelda())) {
+    cantidadLuces := cantidadLuces + hayLuzPrendidaONo()
+    RecorrerTablero()
+  }
+  cantidadLuces := cantidadLuces + hayLuzPrendidaONo()
+  return (cantidadLuces)
+}
+
+procedure PonerVeces(color, cantidad) {
+  repeat(cantidad) {
+    Poner(color)
+  }
+}
+
+procedure RecorrerTablero() {
+  if (puedeMover(Este)) {
+    Sacar(lucho())
+    Mover(Este)
+    Poner(lucho())
+  } else {
+    Sacar(lucho())
+    IrAlBorde(Oeste)
+    Mover(Norte)
+    Poner(lucho())
+  }
+}
+
+function hayLuzPrendidaONo() {
+  luzPrendida := 0
+  if (hayLuzPrendida()) {
+    luzPrendida := luzPrendida + 1
+  } else {
+    luzPrendida := luzPrendida + 0
+  }
+  return (luzPrendida)
+}
+
+function hayLuzPrendida() {
+  return (nroBolitas(luz()) == 2)
+}
+
+
+program {
+  IrAlInicio()
+  PrenderLasLucesDelTablero()
+  IrAlInicio()
+  PonerVeces(Rojo, cantidadDeLucesPrendidas())
+}
