@@ -215,11 +215,11 @@ function nroVacías(){
     IrAlInicioDelTablero()
     celdasVacías := 0
     while (not(esLaUltimaCelda())){
-        celdaVacías := 
-                    celdasVacías + estaVacíaONo()
+        celdasVacías := celdasVacías + estaVacíaONo()
         IrASiguienteCelda()
     }
-    return (celdasVacías + estaVacíaONo())
+     celdasVacías := celdasVacías + estaVacíaONo()
+    return (celdasVacías)
 }
 
 function esLaUltimaCelda(){
@@ -227,12 +227,38 @@ function esLaUltimaCelda(){
 }
 
 function estaVacíaONo(){
-    estaVacía:= 0
-    if (nroBolitas(Verde) == 0){
-        estaVacía:= estaVacía + 1
-    }
-    return (estaVacía)
+   nroDeVacías:= 0
+   if (estaVacia()){
+       nroDeVacías := 1
+   }
+   else{
+       nroDeVacías := 0
+   }
+   return (nroDeVacías)
 }
+
+
+function estaVacia(){
+    return (noHayAzul() && noHayNegro() && noHayRojo() && noHayVerde())
+}
+
+
+function noHayAzul(){
+    return (not(hayBolitas(Azul)))
+}
+
+function noHayNegro(){
+    return (not(hayBolitas(Negro)))
+}
+
+function noHayRojo(){
+    return (not(hayBolitas(Rojo)))
+}
+
+function noHayVerde(){
+    return (not(hayBolitas(Verde)))
+}
+
 
 procedure IrAlInicioDelTablero(){
     IrAlBorde(Sur)
@@ -250,5 +276,5 @@ procedure IrASiguienteCelda(){
 }
 
 program{
-    return (nroVacías())
+   return (nroVacías())
 }
