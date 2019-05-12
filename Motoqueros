@@ -1,0 +1,69 @@
+//EJERCICIO 1 --------------------------------------------------------------------------------------------------------
+function elMotoqueroEstáActivo(){
+    /* 
+        Proposito: Vale verdadero cuando hay un motoquero activo.
+        Precondición: Ninguna.
+        Resultado: Booleano.
+    */
+    return (hayBolitas(Verde))
+}
+//EJERCICIO 2 --------------------------------------------------------------------------------------------------------
+function cantidadDeVecinosActivos(){
+    /*
+        Proposito: Cuenta la cantida de vecinos que tiene el motoquero actual.
+        Precondición: Ninguna.
+        Resultado: Un número.
+        Observación: hay entre  0 y 8 vecinos.
+    */
+    return (nroVecinosOrtogonales())
+}
+
+function nroVecinosOrtogonales(){
+    /*
+        Proposito: Cuenta la cantidad de vecinos que hay en direcciones ortogonales.
+        Precondición: Ninguna
+        Resultado: Un número.
+        Observación: hay entre 0 y 4 vecinos.
+    */
+    dirActual := minDir()
+    nroVecinos := 0
+    while (dirActual /= maxDir()){
+        nroVecinos := nroVecinos + hayVecinosAl(dirActual)
+        dirActual := siguiente(dirActual)
+    }
+    return (nroVecinos + hayVecinosAl(dirActual))
+}
+
+function hayVecinosAl(direccion){
+    /*
+        Proposito: Sensa si el vecino en direccion
+        "direccion" es motoquero activo.
+        Precondición: Ninguna.
+        Resultado: Un número.
+    */
+    return (choose 1 when (hayVecinoActivoAl_(direccion))
+                   0 otherwise)    
+}    
+
+function hayVecinoActivoAl_(dirección){
+    /*
+        Proposito: Sensa si se puede mover al vecino ubicado en "dirección" y si es activo.
+        Precondición: Ninguna.
+        Resultado: Booleano.
+        Parametros:
+            *precondición: es una dirección
+    */
+    return (puedeMover(dirección) && estadoDelVecinoAl_(dirección))
+}   
+
+function estadoDelVecinoAl_(direccion){
+    /*
+        Proposito: Se mueve al vecino a "direccion" y sensa si es activo o no.
+        Precondición: Hay a menos un vecino en dirección "dirección".
+        Resultado: Booleano
+        Parametros: 
+            *dirección: es una dirección
+    */
+    Mover(direccion)
+    return(elMotoqueroEstáActivo())
+}
