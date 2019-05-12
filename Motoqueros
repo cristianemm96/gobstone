@@ -1,4 +1,4 @@
-//EJERCICIO 1 --------------------------------------------------------------------------------------------------------
+// -------------------------------------------- EJERCICIO 1 ---------------------------------------
 function elMotoqueroEstáActivo(){
     /* 
         Proposito: Vale verdadero cuando hay un motoquero activo.
@@ -7,7 +7,7 @@ function elMotoqueroEstáActivo(){
     */
     return (hayBolitas(Verde))
 }
-//EJERCICIO 2 --------------------------------------------------------------------------------------------------------
+//----------------------------------------------- EJERCICIO 2 ----------------------------------
 function cantidadDeVecinosActivos(){
     /*
         Proposito: Cuenta la cantida de vecinos que tiene el motoquero actual.
@@ -17,7 +17,7 @@ function cantidadDeVecinosActivos(){
     */
     return (nroVecinosOrtogonales())
 }
-
+//CONTADOR EN DIRECCIONES ORTOGONALES --------------------------------------------------------------------
 function nroVecinosOrtogonales(){
     /*
         Proposito: Cuenta la cantidad de vecinos que hay en direcciones ortogonales.
@@ -65,5 +65,64 @@ function estadoDelVecinoAl_(direccion){
             *dirección: es una dirección
     */
     Mover(direccion)
+    return(elMotoqueroEstáActivo())
+}
+
+//CONTADOR EN DIRECCIONES DIAGONALES----------------------------------------------
+
+function nroVecinosDiagonales(){
+    /*
+        Proposito: Cuenta los vecinos activos que hay en direcciones diagonales.
+        Precondición: Ninguna.
+        Resultado: Un número.
+        Observación: hay entre 0 y 4 vecinos.
+    */
+    dirActual := minDir()
+    nroVecinosActivos := 0
+    while (dirActual /= maxDir()){
+        nroVecinosActivos := nroVecinosActivos + hayVecinosActivosAl_(dirActual, siguiente(dirActual))
+        dirActual := siguiente(dirActual)    
+    }
+    return (nroVecinosActivos + hayVecinosActivosAl_(dirActual, siguiente(dirActual)))
+}
+
+function hayVecinosActivosAl_ (dirPrincipal, dirSecundaria){
+    /*
+        Proposito: Sensa si hay vecinos activos en la direccion "dirPrincipal" y
+        "dirSecundaria".
+        Precondición: Ninguna.
+        Parametro:
+            *dirPrincipal: es una dirección.
+            *dirSecundaria: es una dirección.
+        Resultado: Un número.
+        Observación: vale 1 o 0.
+    */
+    return (choose 1 when (esActivoAl_Y_(dirPrincipal, dirSecundaria))
+                   0 otherwise)
+}
+
+function esActivoAl_Y_(dir1, dir2){
+    /*
+        Proposito: Sensa si el vecino en direccion "dir1" y "dir2" es activo.
+        Precondición: Ninguna.
+        Parametros:
+            *dir1: es una dirección.
+            dir2: es una dirección.
+        Resultado: Booleano.
+    */
+    return (puedeMover(dir1) && puedeMover(dir2) && hayVecinoAl_Y_(dir1, dir2))
+}
+
+function hayVecinoAl_Y_(dir1, dir2){
+    /*
+        Proposito: Mueve el cabezal al vecino ubicado en la dirección "dir1" y "dir2".
+        Precondición: Hay lugar al "dir1" y luego al "dir2".
+        Parametros:
+            *dir1: es una dirección.
+            *dir2: es una dirección.
+        Resultado: Un booleano.
+    */
+    Mover(dir1)
+    Mover(dir2)
     return(elMotoqueroEstáActivo())
 }
