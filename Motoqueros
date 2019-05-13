@@ -128,7 +128,6 @@ function hayVecinoAl_Y_(dir1, dir2){
 }
 
 //----------------------------- EJERCICIO 3 ----------------------//
-
 procedure ProcesarMotoquero() {
     /*
         Proposito: Recorre todo el tablero procesando a cada motoquero.
@@ -140,6 +139,40 @@ procedure ProcesarMotoquero() {
             activo.
         Precondición: Ninguna.
     */
+    ProcesarTodosLosMotoqueros()
+    IrAlInicio()
+    AplicarPautasACadaMotoquero()
+    
+}
+procedure IrAlInicio(){
+    IrAlBorde(Sur)
+    IrAlBorde(Oeste)
+}
+procedure AplicarPautasACadaMotoquero(){
+    /*
+        Proposito: Incentiva o aburre a los motoqueros dependiendo su estado y su entorno.
+        Precondición: Ninguna.
+    */
+    while (not esLaÚltimaCelda()){
+        ActualizarEstadoDeMotoquero()
+        IrAlSiguienteMotoquero()
+    }
+    ActualizarEstadoDeMotoquero()
+}
+
+
+procedure ActualizarEstadoDeMotoquero(){
+    if(hayBolitas(seAburrio())){
+        Sacar(motoquero())
+        Sacar(seAburrio())
+    }
+    elseif(hayBolitas(fueIncentivado())){
+        Poner(motoquero())
+        Sacar(fueIncentivado())
+    }
+}
+
+procedure ProcesarTodosLosMotoqueros(){
     while (not esLaÚltimaCelda()){
         ProcesarSegúnEstadoDeMotoquero()
         IrAlSiguienteMotoquero()
@@ -165,6 +198,9 @@ procedure ProcesarSegúnEstadoDeMotoquero(){
     elseif (elMotoqueroEstáActivo() && cantidadDeVecinosActivos() == 2){
         
     }
+    elseif (elMotoqueroEstáActivo() && cantidadDeVecinosActivos() == 3){
+        
+    }
 }
 
 procedure IrAlSiguienteMotoquero(){
@@ -172,6 +208,7 @@ procedure IrAlSiguienteMotoquero(){
         Proposito: Recorre el tablero sensando a todos los motoqueros presentes.
         Precondición: Ninguna.
     */
+    
     if(puedeMover(Este)){
         Mover(Este)
     }
@@ -182,24 +219,42 @@ procedure IrAlSiguienteMotoquero(){
 }
 
 procedure IncentivarAlMotoquero(){
-    /*
+     /*
         Proposito: Incentiva al motoquero actual.
         Precondición: El motoquero tiene que tener 3 vecinos activos.
         Observación: El motoquero se incentiva con una bolita de color azul.
     */
+    
     Poner(Azul)
 }
 
 procedure AburrirAlMotoquero(){
-    /*
+     /*
         Proposito: Aburre al motoquero actual.
         Precondición: El motoquero activo tiene menos de 2 vecinos.
         Observación: El motoquero se aburre con una bolita color roja.
     */
+    
     Poner(Rojo)
 }
 
+function fueIncentivado(){
+    return(Azul)
+}
+
+function seAburrio(){
+    return(Rojo)
+}
+
+function motoquero(){
+    return(Verde)
+}
 
 function esLaÚltimaCelda(){
+    /*
+        Proposito: Vale verdadero cuando no puede moverse en dirección Norte, y en dirección Este.
+        Precondición: Ninguna.
+        Resultado: Booleano.
+    */
     return (not puedeMover(Norte) && not puedeMover(Este))
 }
