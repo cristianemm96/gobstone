@@ -258,3 +258,26 @@ function esLaÚltimaCelda(){
     */
     return (not puedeMover(Norte) && not puedeMover(Este))
 }
+
+//----------------------EJERCICIO 5---------------------------------
+
+function hayMotoquerosActivosSinClub(){
+    /*
+        Proposito: Vale verdadero cuando el motoquero no tiene club.
+        Precondición: Ninguna.
+        Resultado: Booleano.
+        Observación: El motoquero tiene club, si tiene bolitas negras en el.
+    */
+    return(elMotoqueroEstáActivo() && nroBolitas(Negro) == 0)
+}
+
+procedure  IrAMotoqueroActivoSinClub(){
+    /*
+        Proposito: Ubica el cabezal en el primer motoquero sin club que encuentre.
+        Precondición: Ninguna.
+    */
+    while (not hayMotoquerosActivosSinClub() && not esLaÚltimaCelda()){
+        IrAlSiguienteMotoquero()
+        AsignarClub_AMotoquerosConectados(númeroDeClub)
+    }
+}
