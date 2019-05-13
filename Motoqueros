@@ -126,3 +126,80 @@ function hayVecinoAl_Y_(dir1, dir2){
     Mover(dir2)
     return(elMotoqueroEstáActivo())
 }
+
+//----------------------------- EJERCICIO 3 ----------------------//
+
+procedure ProcesarMotoquero() {
+    /*
+        Proposito: Recorre todo el tablero procesando a cada motoquero.
+            *A: Si es motoquero activo con menos de dos vecinos activos, se inactiva.
+            *B: Si es motoquero activo con más de tres vecinos activos, pasa a la inactividad.
+            *C: Si es motoquero activo con exactamente dos o tres vecinos activos continúa 
+            activo.
+            *D: Si es motoquero inactivo con exactamente tres vecinos activos se convierte en 
+            activo.
+        Precondición: Ninguna.
+    */
+    while (not esLaÚltimaCelda()){
+        ProcesarSegúnEstadoDeMotoquero()
+        IrAlSiguienteMotoquero()
+    }
+    ProcesarSegúnEstadoDeMotoquero()
+}
+
+procedure ProcesarSegúnEstadoDeMotoquero(){
+    /*
+        Proposito: Dependiendo del estado del motoquero, lo procesa y actualiza su estado
+        en el caso de que deba ser incentivado, o deba aburrirse, o su estado no cambia.
+        Precondición: Ninguna.
+    */
+    if (not elMotoqueroEstáActivo() && cantidadDeVecinosActivos() == 3){
+        IncentivarAlMotoquero()
+    }
+    elseif (elMotoqueroEstáActivo() && cantidadDeVecinosActivos() < 2){
+        AburrirAlMotoquero()
+    }
+    elseif (elMotoqueroEstáActivo() && cantidadDeVecinosActivos() > 3 ){
+        AburrirAlMotoquero()
+    }
+    elseif (elMotoqueroEstáActivo() && cantidadDeVecinosActivos() == 2){
+        
+    }
+}
+
+procedure IrAlSiguienteMotoquero(){
+    /*
+        Proposito: Recorre el tablero sensando a todos los motoqueros presentes.
+        Precondición: Ninguna.
+    */
+    if(puedeMover(Este)){
+        Mover(Este)
+    }
+    else {
+        IrAlBorde(Oeste)
+        Mover(Norte)
+    }
+}
+
+procedure IncentivarAlMotoquero(){
+    /*
+        Proposito: Incentiva al motoquero actual.
+        Precondición: El motoquero tiene que tener 3 vecinos activos.
+        Observación: El motoquero se incentiva con una bolita de color azul.
+    */
+    Poner(Azul)
+}
+
+procedure AburrirAlMotoquero(){
+    /*
+        Proposito: Aburre al motoquero actual.
+        Precondición: El motoquero activo tiene menos de 2 vecinos.
+        Observación: El motoquero se aburre con una bolita color roja.
+    */
+    Poner(Rojo)
+}
+
+
+function esLaÚltimaCelda(){
+    return (not puedeMover(Norte) && not puedeMover(Este))
+}
