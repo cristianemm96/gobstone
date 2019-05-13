@@ -1,0 +1,137 @@
+function cantidadDeCanales(){
+    /*
+        Proposito: Cuenta la cantida de canales que no tienen ningún avión en el.
+        Precondición: Ninguna
+        Resultado: Un Numero.
+        
+    */
+    return(canalesLibres())
+} 
+
+function canalesLibres(){
+    /*
+        Proposito: Recorre el tablero buscando canales libres.
+        Precondición: Ninguna
+        Resultado: Un Numero
+    */
+    nroCanalesLibres := 0
+    while (puedeMover(Este)){
+        nroCanalesLibres := nroCanalesLibres + esCanalLibre()
+        Mover(Este)
+    }
+    return (nroCanalesLibres + esCanalLibre())
+}
+
+function esCanalLibre(){
+    /*
+        Proposito: Analiza si el canal actual está vacío.
+        Precondición: Ninguna.
+        Resultado: Un número
+    */
+    nroAviones:= 0
+    while (puedeMover(Norte)){
+        nroAviones := nroAviones + hayAvión()
+        Mover(Norte)
+    }
+    return (choose 1 when (nroAviones == 0)
+                    0 otherwise)
+}
+
+function hayAvión(){
+    /*
+        Proposito: Analiza si en la celda actual hay o no aviones.
+        Precondición: Ninguna.
+        Resultado: Un Numero.
+    */
+    return (choose 1 when (hayBolitas(Azul))
+                    0 otherwise)
+}
+
+function esCanalActualLibre(){
+    return (esCanalLibre() == 1)
+}
+
+procedure IrACanalLibreParaDespegar(){
+    while (not  esCanalActualLibre()){
+        Mover(Este)
+    }
+}
+
+procedure IrACanalLibreParaAterrizar(){
+    while (not esCanalActualLibre()){
+        Mover(Este)
+    }
+    IrAlBorde(Norte)
+}
+
+function cantidadDeAvionesTotales(){
+    cantidadDeAviones := 0
+    while (not esLaÚltimaCelda()){
+       cantidadDeAviones := cantidadDeAviones +  hayAvión()
+       IrALaSiguienteCelda()
+    }
+    return (cantidadDeAviones + hayAvión())
+}
+
+procedure IrALaSiguienteCelda(){
+    if (puedeMover(Este)){
+        Mover(Este)
+    }
+    else {
+        IrAlBorde(Oeste)
+        Mover(Norte)
+    }
+}
+
+function cantidadDeCanalesConColisiónInminente(){
+    return (nroCanalesConColision())
+}
+
+
+
+function nroCanalesConColision(){
+    nroCanales := 0
+    while (puedeMover(Este)){
+        nroCanales := nroCanales + puedeHaberColision()
+        Mover(Este)
+    }
+    return (nroCanales + puedeHaberColision())
+}
+
+
+function puedeHaberColision(){
+    nroPosiblesColisiones := 0
+    while (puedeMover(Norte)){
+       nroPosiblesColisiones := nroPosiblesColisiones + nroAterrizajes() +nroDeDespegues()
+       Mover(Norte)
+    }
+    return (choose 1 when (nroPosiblesColisiones /= 0 )
+                   0 otherwise)
+}
+
+
+//function seDespegaOAterriza(){
+   return (nroAterrizajes()+nroDeDespegues())
+}
+
+
+function nroAterrizajes(){
+    return (choose 1 when (hayBolitas(Rojo)&& hayBolitas(Azul))
+                    0 otherwise)
+}
+
+function nroDeDespegues(){
+    return (choose 1 when (hayBolitas(Azul)&& hayBolitas(Verde))
+                   0 otherwise)
+}
+
+
+function esLaÚltimaCelda(){
+    return (not puedeMover(Norte) && not puedeMover(Este))
+}
+
+
+
+program {
+      return(cantidadDeCanalesConColisiónInminente())
+}
