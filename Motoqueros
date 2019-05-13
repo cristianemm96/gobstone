@@ -281,3 +281,48 @@ procedure  IrAMotoqueroActivoSinClub(){
         AsignarClub_AMotoquerosConectados(númeroDeClub)
     }
 }
+function hayMotoquerosActivosSinClub(){
+    /*
+        Proposito: Vale verdadero cuando el motoquero no tiene club.
+        Precondición: Ninguna.
+        Resultado: Booleano.
+        Observación: El motoquero tiene club, si tiene bolitas negras en el.
+    */
+    return(hayBolitas(Verde) && nroBolitas(Negro) == 0)
+}
+
+---------------------------
+function hayVecinosSinClubAl_(dirActual){
+    if(puedeMover(dirActual)){
+        Mover(dirActual)
+    }
+    return (hayMotoquerosActivosSinClub())
+}
+
+procedure AsignarClub(){
+    dirActual := minDir()
+    Poner__Veces(2, Negro)
+    while (dirActual /= maxDir()){
+        AsignarClubAl_(dirActual, 2)
+        dirActual := siguiente (dirActual)
+    }
+    AsignarClubAl_(dirActual, 2)
+}
+
+procedure AsignarClubAl_(dirActual, nro){
+    if(hayVecinosSinClubAl_(dirActual)){
+        Mover(dirActual)
+        Poner__Veces(nro, Negro)
+        Mover(opuesto (dirActual))
+    }
+}
+
+procedure  Poner__Veces(nro, color){
+    repeat(nro){
+        Poner(color)
+    }
+}
+
+program{
+    AsignarClub()
+}
