@@ -1,0 +1,257 @@
+//EJERCICIO 1
+function algúnPaloDeLaMano(){
+    /*
+        CONTRATO: ENUNCIADO.
+        PRECONDICIÒN: 
+            *El cabezal se encuentra sobre la mano de un jugador.
+            *Hay al menos una carta en la celda actual.
+    */
+    paloActual := minPalo()
+    while (not hayCartaDe_(paloActual){
+        paloActual := siguiente(paloActual)
+    }
+    return(paloActual)
+}
+
+//EJERCICIO 2
+
+function salieronLasBuenasDel_Palo(palo){
+    /*
+        CONTRATO: Enunciado.
+    */
+    //Deberían sumar 42.
+    IrAlInicioDeUnRecorrido__(Este, Norte)
+    sumaDeCartasDelPalo := númeroDeLaCartaActualDe_(palo)
+    while (not estoyElFinalDeUnRecorrido_(Este, Norte)){
+        sumaDeCartasDelPalo := sumaDeCartasDelPalo +  númeroDeLaCartaActualDe_(palo)
+    PasarASiguienteCelda__(Este, Norte)
+    return (sumaDeCartasDelPalo == 42)
+    }
+}
+
+function númeroDeLaCartaActualDe_(palo){
+    /*
+        Proposito: Indica el nùmero de la carta sobre la cual se encuentra
+        el cabezal que sea de palo "palo", si y solo si, hay carta en la 
+        celda actual y la misma no es la carta que indica el palo de triunfo.
+        En otro caso, indica 0.
+        Precondición: Ninguna.
+        Parametros: 
+            *palo: un palo que indica de que palo es la carta de la cual
+            se desea el numero.
+        Resultado: Nùmero.
+    */
+    return (choose 
+            numeroDeCartaDe_(palo) when  (hayCartaDePalo_(palo) && not es IndicadorDePaloDeTriunfo())
+            0 otherwise
+                        )
+}
+
+
+// EJERCICIO 3
+
+function puntajeDelJugador(){
+    /*
+        CONTRATO: ENUNCIADO.
+    */
+    IrAlRecipienteDelJugador_(jugadorActual())
+    return (cantidadDePuntosEnRecipiente())
+}
+
+function jugadorActual(){
+    /*
+        Proposito: Describe el jugador (es decir la direccion) de cuya
+        mano se encunetra parado el cabezal.
+        Precondiciòn: El cabezal se encuentra parado sobre la mano
+        del jugador.
+        Resultado: Direcciòn (osea, un jugador).
+    */
+    dirActual := minDir()
+    while (puedeMover(dirActual)){
+        dirActual := siguiente (dirActual)
+    }
+    return(dirActual)
+}
+
+
+
+function cantidadDePuntosEnRecipiente(){
+    
+}
+
+
+//EJERCICIO 4
+
+procedure AcreditarEl_Al_(puntaje, jugador){
+    /*
+        CONTRATO: Enunciado.
+    */
+    IrAlRecipienteDelJugador_(jugador)
+    AcreditarEl_EnElRecipienteActual(puntaje)
+}
+
+procedure AcreditarEl_EnElRecipienteActual(puntaje){
+    /*
+        PROPÓSITO: Acredita tantos puntos como "puntaje"
+        a la celda de puntos asociada al recipiente actual.
+        Precondiciòn: El cabezal se encuentra sobre el recipiente
+        de algùn jugador.
+        PARAMETRO: 
+            PUNTAJE: Un nùmero que acredita cuantos puntos se deben
+            acreditar en el recipiente. Mayor o igual a 0.
+    */
+    if (puedeMover(Norte)){
+        AcreditarEl_Hacia_(puntaje, Norte)
+    }
+    else {
+        AcreditarEl_Hacia_(puntaje, Este)
+    }
+}
+
+procedure AcreditarEl_Hacia_(puntaje, direccion){
+    /*
+        Proposito: Acredita tantos puntos como "puntaje" en la celda lindante
+        en direccion "direcciòn".
+        Precondiciòn: hay una celda lindante en direcciòn "direcciòn", y
+        el cabezal se encuentra parado sobre un recipiente.
+        "direccion" solo puede ser Norte o Este.
+        Parametros: puntaje es un numero que indica cuantos puntos se deben
+        acreditar en el recipiente. Mayhor o Igual a 0.
+        direccion; una direccion quqe indica hacia que lugar se 
+        encuentra la celda de puntos asociados al recipiente actual.
+    */
+    Mover(direccion)
+    AcreditarEl_(puntaje)
+}
+
+procedure AcreditarEl_(puntaje){
+    /*
+        Proposito: Acredita tantos puntos como "puntaje" en la celda lindante
+        en direccion "direcciòn".
+        Precondiciòn: hay una celda lindante en direcciòn "direcciòn", y
+        el cabezal se encuentra parado sobre un recipiente.
+        "direccion" solo puede ser Norte o Este.
+        Parametros: puntaje es un numero que indica cuantos puntos se deben
+        acreditar en el recipiente. Mayhor o Igual a 0.
+        direccion; una direccion quqe indica hacia que lugar se 
+        encuentra la celda de puntos asociados al recipiente actual.
+    */
+    repeat(puntaje){
+        AgregarUnPunto()
+    }
+}
+
+
+
+//EJERCICIO 5
+
+procedure IrAlPrimerJugadorDeLaRonda(){
+    /*
+        Contrato: Enunciado
+    */
+    IrHastaLaCartaDelPaloDelTriunfo()
+    IrHastaLaManoDe_(jugador)
+    
+}
+
+procedure IrHastaLaCartaDelPaloDelTriunfo(){
+    /*
+        Proposito: Posiciona el cabezal en la celda en la que se encuentra
+        la carta con el palo del triunfo.
+        Precondiciòn: Hay una representaciòn valida de Gubste.
+    */
+    while (not esIndicadorDePaloDeTriunfo()){
+        PasarASiguienteCelda__(Este, Norte)
+    }
+    
+}
+
+function jugadorALaDerecha(){
+    /*
+        Proposito: Describe el jugador (direccion) del jugador el cual
+        se encuentra a la derecha de la celda actual.
+        Precondiciòn: El Cabeza no se encuentra ni en la fila ni en la columna
+        central.
+    */
+    return (choose
+        Norte when (columnaActual() > nroColumnaDelMedio() && filaActual() >  nroFilaDelMedio())
+        Sur when (columnaActual() < nroColumnaDelMedio() && filaActual() <  nroFilaDelMedio())
+        Este when (columnaActual() > nroColumnaDelMedio() && filaActual() <  nroFilaDelMedio())
+        Oeste otherwise
+    
+    
+    )
+}
+
+procedure IrHastaLaManoDe_(jugador){
+    /*
+        Proposito: Posiciona el cabezal sobre las cartas de la mano
+        del jugador "jugador".
+        Precondiciòn: Hay una representaciòn valida de gubste en el tablero.
+        Parametros:
+            jugador: Un jugador (direcciòn) sobre cuya mano se desea posicionar
+            el cabeza.
+    */
+    IrAlBorde(jugador)
+    IrAlCentroEntre_(siguiente(jugador))
+}
+
+procedure IrAlCentroEntre_(direccion){
+    /*
+        Proposito:Posiciona el cabezal en la celda central de la fila o columna actual (fila central
+        de la columna, si se pasa como direccion Sur o Norte, columna central de la fila si se pasa
+        Este u Oeste)
+        Precondicion: Debe haber una cantidad impar de filas y columnas. El tablero es
+        cuadrado.
+        Parametros:
+            *direccion: Una direccion que indica si pararse en el centro de una columna o fila.
+    */
+    IrAlBorde(direccion)
+    Mover__Veces(opuesto(direccion), nroFilaDelMedio())
+}
+
+function nroDeColumnaDelMedio(){
+    /*
+    Proposito: Describe el numero de la columna central del tablero.
+    Precondiciòn: la cantidad de columna es impar.
+    Resultado: numero
+    */
+    return (cantidadDeColumnas()/2)
+}
+
+function nroDeFilaDelMedio(){
+    /*
+    Proposito: Describe el numero de la columna central del tablero.
+    Precondiciòn: la cantidad de columna es impar.
+    Resultado: numero
+    */
+    return (cantidadDeFilas()/2)
+}
+
+//Punto 6
+
+procedure JugarRondaDeFormaSimple(paloDeTriunfo){
+    IrAPrimerJugadorDeLaRonda()
+    jugadorAlQueLeToca := jugadorActual()
+    paloAJugar := paloDelTriunfo
+    repeat(4){
+        DescartarCartaDe_(paloAJugar)
+        paloAJugar := siguiente(paloAJugar)
+        jugadorAlQueLeToca := previo (jugadorAlQueLeToca)
+        IrHastaLaManoDe_(jugadorAlQueLeToca)
+    }
+}
+
+procedure DescartarCartaDe_(palo){
+    /*
+        Proposito: Descarta una carta de la mano actual de palo "palo".
+        Precondicion: La mano del jugador sobre la que se encuentra el 
+        cabezal tiene una carta de palo "palo".
+        Parametros:
+            *palo: El palo de la carta de la cual se quiere descartar el jugador.
+    */
+    nùmeroDeCartaADescartar := nùmeroCartaDe_(palo)
+    SacarCartaDe_(palo)
+    Mover(opuesto(jugadorActual()))
+    PonerCartaDe_(palo,  nùmeroDeCartaADescartar)
+}
