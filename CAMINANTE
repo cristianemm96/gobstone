@@ -1,0 +1,156 @@
+function direcciónDelCódigo_(código){
+    /* PROPÓSITO:
+            describe la dirección correspondiente al código dado
+        PRECONDICIONES:
+            * el código está entre 1 y 4
+        PARÁMETROS:
+            * código es un número que codifica una dirección
+    */
+    return (choose Norte when (código == 1)
+                   Este when (código == 2)
+                   Sur when (código == 3)
+                   Oeste otherwise)
+    
+}
+
+function direccionIndicada(){
+    /*
+        Proposito: describe la dirección en la que está mirando el
+        caminante.
+        Precondición: Ninguna
+        Resultado: Un número.
+    */
+    return(nroBolitas(caminante()))
+}
+
+
+function caminante(){
+    /*
+        Proposito: Asigna el color Azul al caminante.
+        Precondición: Ninguna.
+        Resultado: Color
+    */
+    return(Azul)
+}
+
+function indicador(){
+    /*
+        Proposito: Asigna el color Verde al indicador
+        de dirección.
+        Precondición: Ninguna.
+        Resultado: Color.
+    */
+    return(Verde)
+}
+
+function huella(){
+    /*
+        Proposito: Asigna el color Negro a la huella que
+        deja el caminante en cada celda visitada.
+        Precondición: Ninguna.
+        Resultado: Color.
+    */
+    return(Negro)
+}
+
+
+function estáEnLaMeta(){
+    /*
+        Proposito: Vale verdadero cuando el caminante esta en la meta.
+        Precondición: Ninguna.
+        Resultado: Booleano.
+        Observación: La meta se representa con n>0 numeros de bolitas rojas.
+    */
+    return(hayBolitas(meta()))
+}
+
+function meta(){
+    /*
+        Proposito: Asigna el color Rojo a la meta.
+        Precondición: Ninguna.
+        Resultado: Color.
+    */
+    return(Rojo)
+}
+
+function hayIndicadorDeCambioDeDirección(){
+    return(hayBolitas(Verde))
+}
+
+procedure LlevarAlCaminanteALaMeta(){
+    /*
+        Proposito: Lleva al caminante a la meta.
+        Precondición: En el tablero esta representado
+        un escenario valido para el caminante.
+    */
+    while (not estáEnLaMeta()){
+        DejarUnaHuella()
+        DarUnPaso()
+    }
+}
+
+procedure DejarUnaHuella(){
+    Poner(huella())
+}
+
+procedure DarUnPaso(){
+    CambiarDeDirecciónSiHayIndicador()
+    MoverAlCaminanteAl_(direcciónDelCódigo_(direccionIndicada()))
+}
+
+procedure CambiarDeDirecciónSiHayIndicador(){
+    if (hayIndicadorDeCambioDeDirección()){
+    Cambiar_ParaImitar_(caminante(), indicador())
+    }
+}
+
+procedure Cambiar_ParaImitar_(colorACambiar, colorAImitar){
+    SacarDireccionActual_(nroBolitas(colorACambiar))
+    PonerDireccionDeIndicador(nroBolitas(colorAImitar))
+}
+
+procedure SacarDireccionActual_(colorACambiar){
+    repeat(colorACambiar){
+        Sacar(caminante())
+    }
+}
+
+procedure  PonerDireccionDeIndicador(colorAImitar){
+    repeat(colorAImitar){
+        Poner(caminante())
+    }
+}
+
+procedure Cambiar_Por_(colorACambiar, colorAImitar){
+    
+}
+
+procedure MoverAlCaminanteAl_(dirección){
+    Mover_Bolitas_Al_(nroBolitas(caminante()), caminante(), dirección)
+}
+
+procedure  Mover_Bolitas_Al_(cantidad, color, dirección){
+    Sacar__Veces(color, cantidad)
+    Mover(dirección)
+    Poner__Veces(color, cantidad)
+}
+
+procedure Sacar__Veces(color, cantidad){
+    repeat(cantidad){
+        Sacar(color)
+    }
+}
+
+procedure Poner__Veces(color, cantidad){
+    /*
+      Proposito: Poner "cantidad" veces bolitas de color "color".
+      Precondición: Ninguna.
+    */
+    repeat(cantidad){
+        Poner(color)
+    }
+}
+
+program{
+     LlevarAlCaminanteALaMeta()
+}
