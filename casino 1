@@ -1,0 +1,86 @@
+//Ejecicio 1
+procedure AgregarApuestaDe_Al_Para_(monto, nroApostado, nroJugador){
+    /*
+        Proposito: Agrega la apuesta indicada en alguna celda vacía.
+        Precondición: Hay al menos una celda vacía donde ubicar la apuesta.
+        Parametros: 
+            *Monto: es el dinero que apuesta el jugador.
+            *nroApostado: es el numero al cual apuesta el jugador.
+            *nroJugador: es el numero que identifica al jugador.
+    */
+    BuscarCeldaVacía()
+    AgregarApuesta(monto, nroApostado, nroJugador)
+}
+
+procedure BuscarCeldaVacía(){
+    /*
+        Proposito: Busca una celda vacía en la cual se ubicará al nuevo apostador.
+        Precondición: Hay al menos una celda vacía en el tablero.
+    */
+    while (not esCeldaVacía()){
+        PasarASiguienteCelda()
+    }
+}
+
+procedure PasarASiguienteCelda(){
+    if(puedeMover(Este)){
+        Mover(Este)
+    }
+    else{
+        IrAlBorde(Oeste)
+        Mover(Norte)
+    }
+}
+
+procedure AgregarApuesta(monto, nroApostado, nroJugador){
+    /*
+        Proposito: Agrega la apuesta del jugador "nroJugador", la cual consiste en
+        "monto" pesos al "nroApostado".
+        Parametros: 
+            *monto: es el dinero apostado.
+            *nroApostado: es el numero al cual se apuesta.
+            *nroJugador: es el numero que identifica al jugador.
+        Precondición: Ninguna.
+    */
+    IngresarMonto_(monto)
+    IngresarNumeroApostado_(nroApostado)
+    IngresarJugador_(nroJugador)
+}
+
+procedure IngresarMonto_(monto){
+    Poner__Veces(monto, monto())
+}
+
+procedure IngresarNumeroApostado_(nroApostado){
+    Poner__Veces(nroApostado, número())
+}
+
+procedure IngresarJugador_(nroJugador){
+    Poner__Veces(nroJugador, jugador())
+}
+
+procedure Poner__Veces(cantidad, color){
+    repeat(cantidad){
+        Poner(color)
+    }
+}
+
+function esCeldaVacía(){
+    return (not hayBolitas(jugador()) && not hayBolitas(número()) && not hayBolitas(monto()) )
+}
+
+function jugador(){
+    return(Rojo)
+}
+
+function número(){
+    return(Azul)
+}
+
+function monto(){
+    return(Verde)
+}
+
+program {
+   AgregarApuestaDe_Al_Para_(10, 6, 12) 
+}
