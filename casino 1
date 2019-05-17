@@ -76,6 +76,44 @@ function jugador(){
 function número(){
     return(Azul)
 }
+//EJERCICIO 2 
+
+function esUltimaCelda(){
+    return (not puedeMover(Norte) && not puedeMover(Este))
+}
+
+procedure PagarYCobrarAl_(nroQueSalió){
+    while (not esUltimaCelda()){
+        AnalizarApuestas(nroQueSalió)
+        PasarASiguienteCelda()
+    }
+    AnalizarApuestas(nroQueSalió)
+}
+
+procedure AnalizarApuestas(nroQueSalió){
+    nroApostado := nroBolitas(número())
+    if (nroApostado == nroQueSalió){
+        PagarAlGanador()
+    }
+    else{
+        CobrarAlPerdedor()
+    }
+}
+
+procedure PagarAlGanador(){
+    Poner__Veces(nroBolitas(monto()) * 5, monto())
+}
+
+procedure CobrarAlPerdedor(){
+    Sacar__Veces(monto(), nroBolitas(monto()))
+}
+
+procedure Sacar__Veces(color, cantidad){
+    repeat(cantidad){
+        Sacar(color)
+    }
+}
+
 
 function monto(){
     return(Verde)
