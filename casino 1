@@ -119,6 +119,26 @@ function monto(){
     return(Verde)
 }
 
+//EJERCICIO 3
+
+procedure RecogerPropinas(){
+    while (not esUltimaCelda()){
+        CobrarPropinas()
+        PasarASiguienteCelda()
+    }
+    
+}
+
+procedure CobrarPropinas(){
+    if(nroBolitas(monto()) >= 15){
+        CobrarPropina()
+    }
+}
+
+procedure CobrarPropina(){
+    Sacar(monto())
+}
+
 program {
    AgregarApuestaDe_Al_Para_(10, 6, 12) 
 }
