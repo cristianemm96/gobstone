@@ -139,6 +139,84 @@ procedure CobrarPropina(){
     Sacar(monto())
 }
 
-program {
-   AgregarApuestaDe_Al_Para_(10, 6, 12) 
+//EJERCICIO D
+procedure SeVaElJugador_(nroJugador){
+    /* Propuesta: Borra todas las celdas que registran
+       una apuesta del jugador indicado.
+       Precondición: Ninguna.
+       Parametros:
+            *nroJugador: es un numero.
+    */
+    while (not esUltimaCelda()){
+        BorrarApuestaAlJugador_(nroJugador)
+        PasarASiguienteCelda()
+    }
+    BorrarApuestaAlJugador_(nroJugador)
 }
+
+procedure BorrarApuestaAlJugador_(nroJugador){
+    /*
+        Procedure: Si en la celda actual esta la apuesta del jugador "nroJugador",
+        borra su apuesta.
+        Precondición. Ninguna.
+        Parametros:
+            *nroJugador: es un numero
+    */
+    if(nroBolitas(jugador()) == nroJugador){
+        BorrarJugador()
+        BorrarApuesta()
+        BorrarMonto()
+    }
+}
+
+procedure BorrarJugador(){
+    Sacar__Veces(jugador(), nroBolitas(jugador()))
+}
+
+procedure BorrarApuesta(){
+    Sacar__Veces(número(), nroBolitas(número()))
+}
+
+procedure BorrarMonto(){
+    Sacar__Veces(monto(), nroBolitas(monto()))
+}
+
+
+
+//Ejercicio E
+
+procedure DuplicarApuestasAl_(nroApostado){
+    /*
+        Proposito: duplica el monto de las apuestas al número "nroApostado".
+        Precondición: Ninguna.
+    */
+    while(not esUltimaCelda()){
+        DuplicarAl_(nroApostado)
+        PasarASiguienteCelda()
+    }
+    DuplicarAl_(nroApostado)
+}
+
+procedure DuplicarAl_(nroApostado){
+    /*
+        Proposito: Duplica el monto a los jugadores que hayan apostado "nroApostado".
+        Precondición: Ninguna.
+    */
+    if(nroBolitas(número())==nroApostado){
+        DuplicarApuesta()
+    }
+}
+
+procedure DuplicarApuesta(){
+    cantidadApostada := nroBolitas(monto())
+    Sacar__Veces(monto(), nroBolitas(monto()))
+    Poner__Veces(cantidadApostada * 2, monto())
+}
+
+
+
+program{
+    DuplicarApuestasAl_(1)
+}
+
+
