@@ -362,4 +362,21 @@ procedure UbicarCelda(n){
 program {
     IrANésimaVacía_(1)
 }
+------------------------------------------------------------------------------------------------
+//EJERCICIO 11 
+function colorMínimoConBolitas(){
+    /* Proposito: denote el color más chico (en el orden Azul, Negro, Rojo, Verde) del cual hay 
+    bolitas en la celda actual.
+    Precondición: Hay al menos un color en la celda actual.
+    Resultado: Un color
+    */
+    colorActual := minColor()
+    while(not hayBolitas(colorActual)){
+        colorActual := siguiente(colorActual)
+    }
+    return(colorActual)
+}
 
+program{
+    return(colorMínimoConBolitas())
+}
