@@ -1,3 +1,4 @@
+//color con mayor cantidad de bolitas en la celda actual.
 function hayBolitasDeColor(){
     colorMax := minColor()
     colorActual := siguiente(colorMax)
@@ -16,4 +17,65 @@ function  esMayorColor(colorActual, colorMax){
 
 program{
     return(hayBolitasDeColor())
+}
+//color con mayor cantidad de bolitas en todo el tablero.
+procedure IrASiguienteCelda(){
+    if(puedeMover(Este)){
+        Mover(Este)
+    }
+    else{
+        IrAlBorde(Oeste)
+        Mover(Norte)
+    }
+}
+
+function mayorCantidadDeBolitasColor(){
+    return (choose Azul when (nroDeBolitasAzules() > nroDeBolitasNegras() && nroDeBolitasAzules() > nroDeBolitasRojas() && nroDeBolitasAzules() > nroDeBolitasVerdes())
+                   Negro when (nroDeBolitasNegras() > nroDeBolitasAzules() && nroDeBolitasNegras() > nroDeBolitasRojas() && nroDeBolitasNegras() > nroDeBolitasVerdes())
+                   Rojo when (nroDeBolitasRojas() > nroDeBolitasAzules() && nroDeBolitasRojas() > nroDeBolitasNegras() && nroDeBolitasRojas() > nroDeBolitasVerdes())   
+                   Verde otherwise)
+}
+
+function nroDeBolitasAzules(){
+    cantidadDeBolitas := 0
+    while (not esUltimaCelda()){
+        cantidadDeBolitas := cantidadDeBolitas + nroBolitas(Azul)
+        IrASiguienteCelda()
+    }
+    return (cantidadDeBolitas + nroBolitas(Azul))   
+}
+
+function esUltimaCelda(){
+    return (not puedeMover(Norte) && not puedeMover(Oeste))
+}
+
+function nroDeBolitasNegras(){
+    cantidadDeBolitas := 0
+    while (not esUltimaCelda()){
+        cantidadDeBolitas := cantidadDeBolitas + nroBolitas(Negro)
+        IrASiguienteCelda()
+    }
+    return (cantidadDeBolitas + nroBolitas(Negro))   
+}
+
+function nroDeBolitasRojas(){
+    cantidadDeBolitas := 0
+    while (not esUltimaCelda()){
+        cantidadDeBolitas := cantidadDeBolitas + nroBolitas(Rojo)
+        IrASiguienteCelda()
+    }
+    return (cantidadDeBolitas + nroBolitas(Rojo))
+}
+
+function nroDeBolitasVerdes(){
+    cantidadDeBolitas := 0
+    while (not esUltimaCelda()){
+        cantidadDeBolitas := cantidadDeBolitas + nroBolitas(Verde)
+        IrASiguienteCelda()
+    }
+    return (cantidadDeBolitas + nroBolitas(Verde))
+}
+
+program {
+    return (mayorCantidadDeBolitasColor())
 }
