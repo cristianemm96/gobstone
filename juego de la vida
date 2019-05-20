@@ -1,0 +1,62 @@
+//TRABAJO INTEGRADOR DEL "JUEGO DE LA VIDA"
+
+//EJERCICIO 1
+
+//A
+
+function esCélulaViva(){
+    /*
+        Proposito: Describe si una célula está viva o no.
+        Precondición: Ninguna.
+        Resultado: Booleano.
+        Observacion: Una celula viva se representa con una bolita de color verde.
+    */
+    return(hayBolitas(Verde))
+}
+
+//B
+
+function nroDeVecinas(){
+    /*
+        Proposito: describe el número de células vivas que son vecinas de la célula actual.
+        Precondición: Ninguna.
+        Resultado: Número.
+    */
+    return (nroDeCelulasOctogonales()) //+ nroDeCelulasDiagonales())
+}
+
+function nroDeCelulasOctogonales(){
+    /*
+        Proposito: describe el numero de celulas vivas que son vecinas de la celula actual,
+        en las cuatro direcciones Octogonales.
+        Precondición: Ninguna.
+        Resultado: Un número.
+    */
+    nroDeVivas := 0
+    dirActual := minDir()
+    while (dirActual /= maxDir()){
+        nroDeVivas := nroDeVivas + esCelulaOctogonalAl_(dirActual)
+        dirActual := siguiente (dirActual)
+    }
+    return (nroDeVivas + esCelulaOctogonalAl_(dirActual))
+}
+
+function esCelulaOctogonalAl_(dirActual){
+    return(choose 1 when (hayActivaAl_(dirActual))
+                  0 otherwise)   
+}
+
+function hayActivaAl_(dirActual){
+    return (puedeMover(dirActual) && esVecinaActivaAl(dirActual))
+}
+
+function esVecinaActivaAl(dirActual){
+    Mover(dirActual)
+    return(esCélulaViva())
+}
+
+
+program{
+    return(nroDeVecinas())
+}
+
