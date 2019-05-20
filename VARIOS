@@ -1,0 +1,19 @@
+function hayBolitasDeColor(){
+    colorMax := minColor()
+    colorActual := siguiente(colorMax)
+    while (colorActual /= maxColor()){
+        colorMax := esMayorColor(colorActual, colorMax)
+        colorActual := siguiente (colorActual)
+    }
+    colorMax := esMayorColor(colorMax, colorActual)
+    return(colorMax)
+}
+
+function  esMayorColor(colorActual, colorMax){
+    return (choose colorMax when (nroBolitas(colorMax)> nroBolitas(colorActual))
+                    colorActual otherwise)
+}
+
+program{
+    return(hayBolitasDeColor())
+}
