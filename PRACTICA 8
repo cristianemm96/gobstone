@@ -98,3 +98,7 @@ type  Fecha is record {
 program {
      return (díaSiguiente_(lo))
 }
+
+dia <- diaSiguienteDeDia_Mes_Año(dia(fecha), mes(fecha), año(fecha))
+mes <- mesSiguienteDeDia_Mes_Año(dia(fecha), mes(fecha), año(fecha))
+año <- añoSiguienteDeDia_Mes_Año(dia(fecha), mes(fecha), año(fecha))
