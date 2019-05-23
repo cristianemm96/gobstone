@@ -15,12 +15,12 @@ function cantidadDeVecinosActivos(){
         Resultado: Un número.
         Observación: hay entre  0 y 8 vecinos.
     */
-    return (nroVecinosOrtogonales())
+    return (nroVecinosOctogonales())
 }
-//CONTADOR EN DIRECCIONES ORTOGONALES --------------------------------------------------------------------
-function nroVecinosOrtogonales(){
+//CONTADOR EN DIRECCIONES OCTOGONALES --------------------------------------------------------------------
+function nroVecinosOctogonales(){
     /*
-        Proposito: Cuenta la cantidad de vecinos que hay en direcciones ortogonales.
+        Proposito: Cuenta la cantidad de vecinos que hay en direcciones octogonales.
         Precondición: Ninguna
         Resultado: Un número.
         Observación: hay entre 0 y 4 vecinos.
@@ -128,7 +128,7 @@ function hayVecinoAl_Y_(dir1, dir2){
 }
 
 //----------------------------- EJERCICIO 3 ----------------------//
-procedure ProcesarMotoquero() {
+procedure ProcesarMotoquero(){
     /*
         Proposito: Recorre todo el tablero procesando a cada motoquero.
             *A: Si es motoquero activo con menos de dos vecinos activos, se inactiva.
@@ -139,190 +139,147 @@ procedure ProcesarMotoquero() {
             activo.
         Precondición: Ninguna.
     */
-    ProcesarTodosLosMotoqueros()
-    IrAlInicio()
-    AplicarPautasACadaMotoquero()
-    
-}
-procedure IrAlInicio(){
-    IrAlBorde(Sur)
-    IrAlBorde(Oeste)
-}
-procedure AplicarPautasACadaMotoquero(){
-    /*
-        Proposito: Incentiva o aburre a los motoqueros dependiendo su estado y su entorno.
-        Precondición: Ninguna.
-    */
-    while (not esLaÚltimaCelda()){
-        ActualizarEstadoDeMotoquero()
+    while (not esUltimaCelda()){
+        AnalizarMotoquero()
         IrAlSiguienteMotoquero()
     }
-    ActualizarEstadoDeMotoquero()
-}
-
-
-procedure ActualizarEstadoDeMotoquero(){
-    if(hayBolitas(seAburrio())){
-        Sacar(motoquero())
-        Sacar(seAburrio())
-    }
-    elseif(hayBolitas(fueIncentivado())){
-        Poner(motoquero())
-        Sacar(fueIncentivado())
-    }
-}
-
-procedure ProcesarTodosLosMotoqueros(){
-    while (not esLaÚltimaCelda()){
-        ProcesarSegúnEstadoDeMotoquero()
-        IrAlSiguienteMotoquero()
-    }
-    ProcesarSegúnEstadoDeMotoquero()
-}
-
-procedure ProcesarSegúnEstadoDeMotoquero(){
-    /*
-        Proposito: Dependiendo del estado del motoquero, lo procesa y actualiza su estado
-        en el caso de que deba ser incentivado, o deba aburrirse, o su estado no cambia.
-        Precondición: Ninguna.
-    */
-    if (not elMotoqueroEstáActivo() && cantidadDeVecinosActivos() == 3){
-        IncentivarAlMotoquero()
-    }
-    elseif (elMotoqueroEstáActivo() && cantidadDeVecinosActivos() < 2){
-        AburrirAlMotoquero()
-    }
-    elseif (elMotoqueroEstáActivo() && cantidadDeVecinosActivos() > 3 ){
-        AburrirAlMotoquero()
-    }
-    elseif (elMotoqueroEstáActivo() && cantidadDeVecinosActivos() == 2){
-        
-    }
-    elseif (elMotoqueroEstáActivo() && cantidadDeVecinosActivos() == 3){
-        
-    }
+    AnalizarMotoquero()
 }
 
 procedure IrAlSiguienteMotoquero(){
-    /*
-        Proposito: Recorre el tablero sensando a todos los motoqueros presentes.
-        Precondición: Ninguna.
-    */
-    
     if(puedeMover(Este)){
         Mover(Este)
     }
-    else {
+    else{
         IrAlBorde(Oeste)
         Mover(Norte)
     }
 }
 
-procedure IncentivarAlMotoquero(){
-     /*
-        Proposito: Incentiva al motoquero actual.
-        Precondición: El motoquero tiene que tener 3 vecinos activos.
-        Observación: El motoquero se incentiva con una bolita de color azul.
+procedure AnalizarMotoquero(){
+    /*
+        Proposito: Analiza al motoquero actual, y dependiendo su contexto, lo incentiva o lo
+        aburre cuando se deba.
+        Precondición: Ninguna.
+        Observación: 
+            *A: Si es motoquero activo con menos de dos vecinos activos, se aburre.
+            *B: Si es motoquero activo con más de tres vecinos activos, se aburre.
+            *C: Si es motoquero activo con exactamente dos o tres vecinos activos continúa 
+            activo.
+            *D: Si es motoquero inactivo con exactamente tres vecinos activos se incentiva.
     */
-    
-    Poner(Azul)
+    if (elMotoqueroEstáActivo() &&  cantidadDeVecinosActivos() < 2) {
+        AburrirMotoquero()
+    }
+    elseif (elMotoqueroEstáActivo() &&  cantidadDeVecinosActivos() > 3){
+        AburrirMotoquero()
+    }
+    elseif (elMotoqueroEstáActivo() &&  (cantidadDeVecinosActivos() == 2 || cantidadDeVecinosActivos() == 3 )){
+        
+    }
+    elseif (not elMotoqueroEstáActivo() && cantidadDeVecinosActivos() == 3){
+        IncentivarMotoquero()
+    } 
 }
 
-procedure AburrirAlMotoquero(){
-     /*
-        Proposito: Aburre al motoquero actual.
-        Precondición: El motoquero activo tiene menos de 2 vecinos.
-        Observación: El motoquero se aburre con una bolita color roja.
+procedure AburrirMotoquero(){
+    /*
+        Proposito: Aburre al motoquero.
+        Precondición: Ninguna.
+        Observación: Un motoquero se aburre con una bolita de color rojo.
     */
-    
     Poner(Rojo)
 }
 
-function fueIncentivado(){
-    return(Azul)
+procedure IncentivarMotoquero(){
+    /*
+        Proposito: Incentiva al motoquero.
+        Precondición: Ninguna.
+        Observación: Un motoquero se incentiva con una bolita de color azul.
+    */
+    Poner(Azul)
 }
 
-function seAburrio(){
-    return(Rojo)
+function esUltimaCelda(){
+    /*
+        Proposito: Analiza si es el ultimo motoquero del tablero, ubicado en la esquina
+        Norte-Este.
+        Precondición: Ninguna.
+        Resultado: Booleano.
+    */
+    return(not puedeMover(Norte) && not puedeMover(Este))
+}
+
+//------------------------EJERCICIO 4-----------------------------
+
+procedure Simular_Fases(cantidadDeFases){
+    /*
+        Proposito: Simula la interacción de la convención de motoqueros durante cantidadDeFases
+        fases.
+        Parametros: 
+            *cantidadDeFases: Es un númeroo.
+        Precondición: Ninguna.
+    */
+    IrAlInicioDeLaConvencion()
+    AplicarPautasAMotoqueros(cantidadDeFases)
+}
+
+procedure AplicarPautasAMotoqueros(cantidadDeFases){
+    repeat(cantidadDeFases){
+        CambiarEstadoDeMotoqueros()
+    }
+}
+
+procedure CambiarEstadoDeMotoqueros(){
+    
+    while (not esUltimaCelda()){
+        AplicarPautasAlMotoquero()
+        IrAlSiguienteMotoquero()
+    }
+    AplicarPautasAlMotoquero()
+}
+
+procedure AplicarPautasAlMotoquero(){
+    if(elMotoqueroSeAburrio()){
+        Sacar(motoquero())
+        Sacar(Rojo)
+    }
+    elseif(elMotoqueroSeIncentivó()){
+        Poner(motoquero())
+        Sacar(Azul)
+    }
+}
+
+procedure IrAlInicioDeLaConvencion(){
+    IrAlBorde(Sur)
+    IrAlBorde(Oeste)
 }
 
 function motoquero(){
     return(Verde)
 }
 
-function esLaÚltimaCelda(){
-    /*
-        Proposito: Vale verdadero cuando no puede moverse en dirección Norte, y en dirección Este.
-        Precondición: Ninguna.
-        Resultado: Booleano.
-    */
-    return (not puedeMover(Norte) && not puedeMover(Este))
+function elMotoqueroSeAburrio(){
+    return(hayBolitas(Rojo))
 }
 
-//----------------------EJERCICIO 5---------------------------------
-
-function hayMotoquerosActivosSinClub(){
-    /*
-        Proposito: Vale verdadero cuando el motoquero no tiene club.
-        Precondición: Ninguna.
-        Resultado: Booleano.
-        Observación: El motoquero tiene club, si tiene bolitas negras en el.
-    */
-    return(elMotoqueroEstáActivo() && nroBolitas(Negro) == 0)
+function elMotoqueroSeIncentivó(){
+    return(hayBolitas(Azul))
 }
 
-procedure  IrAMotoqueroActivoSinClub(){
-    /*
-        Proposito: Ubica el cabezal en el primer motoquero sin club que encuentre.
-        Precondición: Ninguna.
-    */
-    while (not hayMotoquerosActivosSinClub() && not esLaÚltimaCelda()){
-        IrAlSiguienteMotoquero()
-        AsignarClub_AMotoquerosConectados(númeroDeClub)
+//-----------------EJERCICIO 5 ---------------------------
+
+function cantidadDeClubesEnLaConvención(){
+    nroDeClub := 0
+    while (hayMotoquerosActivosSinClub()){
+        nroDeClub := nroDeClub + 1
+        IrAMotoqueroActivoSinClub()
+        AsignarClub_AMotoquerosConectados(nroDeClub)
     }
-}
-function hayMotoquerosActivosSinClub(){
-    /*
-        Proposito: Vale verdadero cuando el motoquero no tiene club.
-        Precondición: Ninguna.
-        Resultado: Booleano.
-        Observación: El motoquero tiene club, si tiene bolitas negras en el.
-    */
-    return(hayBolitas(Verde) && nroBolitas(Negro) == 0)
-}
-
----------------------------
-function hayVecinosSinClubAl_(dirActual){
-    if(puedeMover(dirActual)){
-        Mover(dirActual)
-    }
-    return (hayMotoquerosActivosSinClub())
-}
-
-procedure AsignarClub(){
-    dirActual := minDir()
-    Poner__Veces(2, Negro)
-    while (dirActual /= maxDir()){
-        AsignarClubAl_(dirActual, 2)
-        dirActual := siguiente (dirActual)
-    }
-    AsignarClubAl_(dirActual, 2)
-}
-
-procedure AsignarClubAl_(dirActual, nro){
-    if(hayVecinosSinClubAl_(dirActual)){
-        Mover(dirActual)
-        Poner__Veces(nro, Negro)
-        Mover(opuesto (dirActual))
-    }
-}
-
-procedure  Poner__Veces(nro, color){
-    repeat(nro){
-        Poner(color)
-    }
+    return (nroDeClub)
 }
 
 program{
-    AsignarClub()
+    ProcesarMotoquero()
+    Simular_Fases(2)
 }
