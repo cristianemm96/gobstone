@@ -226,7 +226,10 @@ procedure Simular_Fases(cantidadDeFases){
 
 procedure AplicarPautasAMotoqueros(cantidadDeFases){
     repeat(cantidadDeFases){
+        ProcesarMotoquero()
+        IrAlInicioDeLaConvencion()
         CambiarEstadoDeMotoqueros()
+        IrAlInicioDeLaConvencion()
     }
 }
 
@@ -269,17 +272,64 @@ function elMotoqueroSeIncentivó(){
 
 //-----------------EJERCICIO 5 ---------------------------
 
-function cantidadDeClubesEnLaConvención(){
-    nroDeClub := 0
-    while (hayMotoquerosActivosSinClub()){
-        nroDeClub := nroDeClub + 1
-        IrAMotoqueroActivoSinClub()
-        AsignarClub_AMotoquerosConectados(nroDeClub)
+//function cantidadDeClubesEnLaConvención(){
+    /*
+        Proposito: Cuenta la cantidad de clubes de motoqueros que hay en la convención.
+        Precondición: Ninguna.
+        Resultado: Un Número
+    */
+    //nroDeClub := 0
+    //while (hayMotoquerosActivosSinClub()){
+        //nroDeClub := nroDeClub + 1
+        //IrAMotoqueroActivoSinClub()
+        //AsignarClub_AMotoquerosConectados(nroDeClub)
+    //}
+    //return (nroDeClub)
+//}
+
+procedure IrAMotoqueroActivoSinClub(){
+    IrAlInicioDeLaConvencion()
+    while (not hayMotoqueroSinClub() == 1){
+        IrAlSiguienteMotoquero()
     }
-    return (nroDeClub)
 }
 
+function hayMotoquerosActivosSinClub(){
+    /*
+        Proposito: Vale verdadero si hay motoqueros activos sin club en la convención.
+        Precondición: Ninguna.
+        Resultado: Un Booleano.
+    */
+    motoqueroSinClub := 0
+    while (not esUltimaCelda()){
+        motoqueroSinClub := motoqueroSinClub +  hayMotoqueroSinClub()
+        IrAlSiguienteMotoquero()
+    }
+    motoqueroSinClub := motoqueroSinClub +  hayMotoqueroSinClub()
+    return(motoqueroSinClub >= 1)
+}
+
+function hayMotoqueroSinClub(){
+    /*
+        
+    */
+    return (choose 1 when (elMotoqueroEstáActivo() && noHayClubAsignado()  )
+                   0    otherwise              
+    )
+}
+
+function noHayClubAsignado(){
+    /*
+        Proposito: Vale verdadero cuando el motoquero no tiene un club asignado.
+        Precondición: Ninguna.
+        Observación: Un club se representa con bolitas negras.
+    */
+    return (nroBolitas(Negro) == 0)
+}
+
+
+
+//----------------------------------------------------------//
 program{
-    ProcesarMotoquero()
-    Simular_Fases(2)
+    IrAMotoqueroActivoSinClub()
 }
