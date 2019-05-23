@@ -1,0 +1,100 @@
+type DíaDeLaSemana is variant {
+    /*
+        Proposito: Modelar los dìas de una semana.
+    */
+    case Lunes{}
+    case Martes{}
+    case Miercoles{}
+    case Jueves{}
+    case Viernes{}
+    case Sabado{}
+    case Domingo{}
+}
+
+function díaSiguiente_(díaDeLaSemana){
+    /*
+        Proposito: Dado un día de la semana, devuelve el día siguiente.
+        Parametro: DìaDeLaSemana.
+        Resultado: DìaDeLaSemana.
+    */
+    return (matching (díaDeLaSemana) select
+                    Martes on Lunes
+                    Miercoles on Martes
+                    Jueves on Miercoles
+                    Viernes on Jueves
+                    Sabado  on Viernes
+                    Domingo on Sabado
+                    Lunes on Domingo
+                    boom("No es un dìa de la semana") otherwise
+    )
+}
+
+function díaPrevio_(díaDeLaSemana){
+    /*
+        Proposito: Dado un día de la semana, devuelve el día previo.
+        Parametro: DìaDeLaSemana.
+        Resultado: DìaDeLaSemana.
+    */
+    return( matching (díaDeLaSemana) select
+                    Domingo on Lunes
+                    Lunes on Martes
+                    Martes on Miercoles
+                    Miercoles on Jueves
+                    Jueves on Viernes
+                    Viernes on Sabado
+                    Sabado on Domingo
+                    boom("No es un dìa de la semana") otherwise
+        )
+}
+
+function esDíaDeFinDeSemana_(díaDeLaSemana){
+    /*
+        Proposito: Dado un día de la semana, devuelve si es fin de semana.
+        Parametro: DìaDeLaSemana.
+        Resultado: DìaDeLaSemana.
+    */
+    return(díaDeLaSemana == Sabado || díaDeLaSemana == Domingo)
+}
+
+//// ejercicio 4
+
+type Mes is variant {
+    /*
+        Proposito: Modela los meses del año.
+    */
+    case Enero{}
+    case Febrero{}
+    case Marzo{}
+    case Abril{}
+    case Mayo{}
+    case Junio{}
+    case Julio{}
+    case Agosto{}
+    case Septiembre{}
+    case Octubre{}
+    case Noviembre{}
+    case Diciembre{}
+}
+
+type  Fecha is record {
+    /*
+        Proposito: Modela una fecha en calendario gregoriano.
+        INVARIANTE DE REPRESENTACION: 
+            *si el mes es Enero, Marzo, Mayo, Julio,
+            Agosto, Octubre o Diciembre, el dìa debe estar
+            entre 1y 31.
+            *si el mes es Abril,  Junio, Septiembre o Noviembre,
+            dia debe estar entre 1 y 30.
+            *si el mes es Febrero y el año NO es bisiesto, dìa
+            debe estar entre 1 y 28.
+            *si el mes es Febrero y el año es bisiesto dia debe estar entre 1 y 29.
+    */
+    field dia //Numero
+    field mes //Mes
+    field año //Año
+}
+
+
+program {
+     return (díaSiguiente_(lo))
+}
