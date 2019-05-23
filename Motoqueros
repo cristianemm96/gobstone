@@ -272,20 +272,42 @@ function elMotoqueroSeIncentivó(){
 
 //-----------------EJERCICIO 5 ---------------------------
 
-//function cantidadDeClubesEnLaConvención(){
+function cantidadDeClubesEnLaConvención(){
     /*
         Proposito: Cuenta la cantidad de clubes de motoqueros que hay en la convención.
         Precondición: Ninguna.
         Resultado: Un Número
     */
-    //nroDeClub := 0
-    //while (hayMotoquerosActivosSinClub()){
-        //nroDeClub := nroDeClub + 1
-        //IrAMotoqueroActivoSinClub()
-        //AsignarClub_AMotoquerosConectados(nroDeClub)
-    //}
-    //return (nroDeClub)
-//}
+    nroDeClub := 0
+    while (hayMotoquerosActivosSinClub()){
+        nroDeClub := nroDeClub + 1
+        IrAMotoqueroActivoSinClub()
+        AsignarClub_AMotoquerosConectados(nroDeClub)
+    }
+    return (nroDeClub)
+}
+
+procedure AsignarClub_AMotoquerosConectados(nroDeClub){
+    /*
+        Proposito: Asigna el club "nroDeClub" al motoquero actual y sus vecinos.
+        Parametros: 
+            nroDeClub: es un numero.
+        Precondición: Ninguna.
+    */
+    AsignarClub_AlMotoqueroActual(nroDeClub)
+    AsignarClub_AVecinos(nroDeClub)
+}
+
+procedure AsignarClub_AlMotoqueroActual(nroDeClub){
+    repeat(nroDeClub){
+        Poner(Negro)
+    }
+}
+
+procedure AsignarClub_AVecinos(nroDeClub){
+    
+}
+
 
 procedure IrAMotoqueroActivoSinClub(){
     IrAlInicioDeLaConvencion()
@@ -331,5 +353,5 @@ function noHayClubAsignado(){
 
 //----------------------------------------------------------//
 program{
-    IrAMotoqueroActivoSinClub()
+    return (cantidadDeClubesEnLaConvención())
 }
