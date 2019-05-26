@@ -99,6 +99,168 @@ program {
      return (díaSiguiente_(lo))
 }
 
+//---------------- EJERCICIO 6 --------------------
+//-------------PUNTO A
+
+function sonConvivientes_Y_(personaA, personaB){
+    return (domicilio(personaA) == domicilio(personaB))
+}
+
+function personaA(){
+    return (
+        Persona(
+            dni <- "39334812",
+            domicilio <- "127 2150",
+            fechaNacimiento <- Fecha(dia <- 11, mes <- Enero, año <-1996),
+            esDonante <- False
+        )    
+    )
+}
+
+
+function personaB(){
+    return (
+        Persona(
+            dni <- "12214092",
+            domicilio <- "127 2150",
+            fechaNacimiento <- Fecha(dia <- 17, mes <- Febrero, año <-1956),
+            esDonante <- False
+        )    
+    )    
+}
+
+
+//-------------- PUNTO B
+
+function personaNacidaDe_El_(personaMadre, fechaNac){
+    return(
+        Persona(
+            dni <- sinAsignar(),
+            domicilio <- domicilio(personaMadre),
+            fechaNacimiento <- Fecha(dia <- dia(fechaNac), mes <- mes(fechaNac), año <- año(fechaNac)),
+            esDonante <- False
+        )
+    )
+}
+
+function sinAsignar(){
+    return ("")
+}
+
+//program{
+//    return(personaNacidaDe_El_(personaB(), Fecha(dia <- 11, mes <- Enero, año <- 1996)))
+//}
+
+//------------- PUNTO D
+
+function persona_ConDomicilioNuevoEn_(esLaPersona, domicilioNuevo){
+    return(
+        Persona(
+            dni <- dni(esLaPersona),
+            domicilio <- domicilioNuevo,
+            fechaNacimiento <- fechaNacimiento(esLaPersona),
+            esDonante <- esDonante(esLaPersona)
+        )
+    )
+}
+
+
+program{
+    return (persona_ConDomicilioNuevoEn_(personaA(), Persona(domicilioNuevo | domicilio <- domicilio "127 2150")))
+}
+
+
+
 dia <- diaSiguienteDeDia_Mes_Año(dia(fecha), mes(fecha), año(fecha))
 mes <- mesSiguienteDeDia_Mes_Año(dia(fecha), mes(fecha), año(fecha))
 año <- añoSiguienteDeDia_Mes_Año(dia(fecha), mes(fecha), año(fecha))
+
+//EJERCICIO 6---------------------------
+type Mes is variant {
+    /*
+        Proposito: Modela los meses del año.
+    */
+    case Enero{}
+    case Febrero{}
+    case Marzo{}
+    case Abril{}
+    case Mayo{}
+    case Junio{}
+    case Julio{}
+    case Agosto{}
+    case Septiembre{}
+    case Octubre{}
+    case Noviembre{}
+    case Diciembre{}
+}
+
+type  Fecha is record {
+    /*
+        Proposito: Modela una fecha en calendario gregoriano.
+        INVARIANTE DE REPRESENTACION: 
+            *si el mes es Enero, Marzo, Mayo, Julio,
+            Agosto, Octubre o Diciembre, el dìa debe estar
+            entre 1y 31.
+            *si el mes es Abril,  Junio, Septiembre o Noviembre,
+            dia debe estar entre 1 y 30.
+            *si el mes es Febrero y el año NO es bisiesto, dìa
+            debe estar entre 1 y 28.
+            *si el mes es Febrero y el año es bisiesto dia debe estar entre 1 y 29.
+    */
+    field dia //Numero
+    field mes //Mes
+    field año //Año
+}
+
+type Persona is record {
+    /*Proposito: Modela el registro de una persona*/
+    field dni             // String
+    field domicilio       //String
+    field fechaNacimiento // Fecha
+    field esDonante       // Booleano
+}
+
+
+type Alumno is record{
+    /*  
+        Proposito: Modela un alumno universitario.
+    */
+    field esAlumno          // Persona
+    field legajo            // String
+    field fechaIngreso      // Fecha
+    field materiasRendidas  // Número
+    field materiasAprobadas // Número
+}
+
+function alumnoA(){
+    return
+    (
+        Persona 
+        (
+            dni <- "39334812",
+            domicilio <- "127 2150",
+            fechaNacimiento <- Fecha(dia <- 11, mes <- Enero, año <- 1996),
+            esDonante <- False
+        )
+    )
+
+}
+
+function alumno_IngresanteEn_Con_(esElAlumno, esFecha, nroLegajo){
+    return
+    (
+        Alumno
+        (
+            esAlumno <- esElAlumno,
+            legajo <- nroLegajo,
+            fechaIngreso <- esFecha,
+            materiasRendidas <- "0",
+            materiasAprobadas <- "0"
+        )
+    )
+}
+
+program{
+    return
+    (alumno_IngresanteEn_Con_(alumnoA(), Fecha(dia <- 20, mes <- Julio, año <- 2015), "38140"))
+}
