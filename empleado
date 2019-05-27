@@ -1,0 +1,98 @@
+type Mes is variant {
+    /*
+        Proposito: Modela los meses del año.
+    */
+    case Enero{}
+    case Febrero{}
+    case Marzo{}
+    case Abril{}
+    case Mayo{}
+    case Junio{}
+    case Julio{}
+    case Agosto{}
+    case Septiembre{}
+    case Octubre{}
+    case Noviembre{}
+    case Diciembre{}
+}
+
+type  Fecha is record {
+    /*
+        Proposito: Modela una fecha en calendario gregoriano.
+        INVARIANTE DE REPRESENTACION: 
+            *si el mes es Enero, Marzo, Mayo, Julio,
+            Agosto, Octubre o Diciembre, el dìa debe estar
+            entre 1y 31.
+            *si el mes es Abril,  Junio, Septiembre o Noviembre,
+            dia debe estar entre 1 y 30.
+            *si el mes es Febrero y el año NO es bisiesto, dìa
+            debe estar entre 1 y 28.
+            *si el mes es Febrero y el año es bisiesto dia debe estar entre 1 y 29.
+    */
+    field dia //Numero
+    field mes //Mes
+    field año //Año
+}
+
+type Persona is record {
+    /*Proposito: Modela el registro de una persona*/
+    field dni             // String
+    field domicilio       //String
+    field fechaNacimiento // Fecha
+    field esDonante       // Booleano
+}
+
+
+type Empleado is record {
+    /*
+    Proposito: Modelar los datos de un empleado.
+    */
+    field identidad     //Persona
+    field puestoLaboral //Puesto
+    field sueldo        // Nùmero        
+}
+
+type Puesto is variant {
+    /* PROPÓSITO: modelar los diferentes puestos que hay dentro
+    de una empresa de software
+    */
+    case GestorDeProyecto {}
+    case LíderDeProyecto {}
+    case Desarrollador {}
+    case Operador {}
+}
+
+function empleado_ConSueldoActualizadoA_(esEmpleado, nuevoSalario){
+    return
+    (
+        Empleado(
+        identidad <- Persona
+                            (dni <- dni(esEmpleado)
+                            , domicilio <- domicilio(esEmpleado)
+                            ,fechaNacimiento <- Fecha(dia <- dia(esEmpleado), mes <- mes(esEmpleado), año <- año(esEmpleado))
+                            ,esDonante <- esDonante(esEmpleado))
+        ,puestoLaboral <- puestoLaboral(esEmpleado)
+        ,sueldo <- nuevoSalario
+    )
+    )
+}
+
+function empleadoA(){
+    return
+    (
+        Empleado(
+            identidad <- Persona
+                            (dni <- 39334812
+                            , domicilio <- "5454 Nº5454"
+                            ,fechaNacimiento <- Fecha(dia <- 11, mes <- Enero, año <- 1996)
+                            ,esDonante <- True)
+            ,puestoLaboral <- Desarrollador
+            ,sueldo <- 60
+        )
+    )
+}
+
+program {
+    return (empleado_ConSueldoActualizadoA_(empleadoA(), Empleado(empleado | sueldo <- 80)))
+}
+
