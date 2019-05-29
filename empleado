@@ -90,4 +90,24 @@ program {
     return (empleado_ConSueldoActualizadoA_(empleadoA(), 80))
 }
 
+//------------EJERCICIO B-----------------
+
+function empleado_ConNuevoPuesto_(empleado, nuevoPuesto){
+    /*
+        Proposito: actualiza el puesto laboral al empleado "empleado".
+        Resultado Empleado
+        parametros:
+            *empleado: es un empleado.
+            *nuevoPuesto: puesto laboral.
+    */
+    return
+    (
+        Empleado(empleado| puestoLaboral <- nuevoPuesto)
+    )
+}
+
+program {
+    return (empleado_ConNuevoPuesto_(empleadoA(), LíderDeProyecto))
+}    
+
 
