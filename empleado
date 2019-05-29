@@ -110,4 +110,27 @@ program {
     return (empleado_ConNuevoPuesto_(empleadoA(), LíderDeProyecto))
 }    
 
+//---------------EJERCICIO C--------------
+function categoríaDelPuesto_(puestoActual){
+    /*
+        Proposito: Devuelve la categoría que le corresponde al puesto "puestoActual".
+        Parametros: Puesto: es un puesto.
+        Resultado: Numero.
+        Inv Rep: El parametro tiene que ser una categoría valida.
+    */
+    return
+    (
+        matching (puestoActual) select
+            4 on GestorDeProyecto
+            3 on LíderDeProyecto
+            2 on Desarrollador
+            1 on Operador
+            boom("No es una categoría valida") otherwise
+    )
+}
+
+program {
+    return (categoríaDelPuesto_(LíderDeProyecto))
+}
+    
 
