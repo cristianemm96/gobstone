@@ -62,20 +62,14 @@ type Puesto is variant {
     case Operador {}
 }
 
-function empleado_ConSueldoActualizadoA_(esEmpleado, nuevoSalario){
+function empleado_ConSueldoActualizadoA_(empleado, nuevoSueldo){
     return
     (
-        Empleado(
-        identidad <- Persona
-                            (dni <- dni(esEmpleado)
-                            , domicilio <- domicilio(esEmpleado)
-                            ,fechaNacimiento <- Fecha(dia <- dia(esEmpleado), mes <- mes(esEmpleado), año <- año(esEmpleado))
-                            ,esDonante <- esDonante(esEmpleado))
-        ,puestoLaboral <- puestoLaboral(esEmpleado)
-        ,sueldo <- nuevoSalario
+        Empleado(empleado| sueldo <- nuevoSueldo)
     )
-    )
+
 }
+
 
 function empleadoA(){
     return
@@ -93,6 +87,7 @@ function empleadoA(){
 }
 
 program {
-    return (empleado_ConSueldoActualizadoA_(empleadoA(), Empleado(empleado | sueldo <- 80)))
+    return (empleado_ConSueldoActualizadoA_(empleadoA(), 80))
 }
+
 
