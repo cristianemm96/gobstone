@@ -161,10 +161,30 @@ function empleadoConMayorCargoEntre_Y(empleado1, empleado2){
               empleado2 otherwise       
     )
 }
-
+/*
 program{
     return
     (
     empleadoConMayorCargoEntre_Y(empleadoA(), empleadoB())
     )
 }
+*/
+
+//--------------EJERCICIO E---------------------
+
+function tienenIgualSueldo_Y_(empleado1, empleado2){
+    /*
+        Proposito: Describe si empleado1 y empleado2 tienen el mismo sueldo.
+    */
+    return
+    (
+        sueldo(empleado1) == sueldo(empleado2)
+    )
+}
+
+/*
+program{
+    return(tienenIgualSueldo_Y_(empleadoA(), empleadoB()))
+}
+*/
+
