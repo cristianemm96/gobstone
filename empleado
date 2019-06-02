@@ -134,3 +134,37 @@ program {
 }
     
 
+//--------------EJERCICIO D-------------------
+function empleadoB(){
+    return
+    (
+        Empleado(
+            identidad <- Persona
+                            (dni <- 17555446
+                            , domicilio <- "5454 Nº5454"
+                            ,fechaNacimiento <- Fecha(dia <- 11, mes <- Enero, año <- 1996)
+                            ,esDonante <- True)
+            ,puestoLaboral <- GestorDeProyecto
+            ,sueldo <- 60
+        )
+    )
+}
+
+
+function empleadoConMayorCargoEntre_Y(empleado1, empleado2){
+    /*
+        Proposito: Describe al empleado con mayor categoría, entre empleado1 y empleado2.
+    */
+    return
+    (
+        choose empleado1 when (categoríaDelPuesto_(puestoLaboral(empleado1)) > categoríaDelPuesto_(puestoLaboral(empleado2)))
+              empleado2 otherwise       
+    )
+}
+
+program{
+    return
+    (
+    empleadoConMayorCargoEntre_Y(empleadoA(), empleadoB())
+    )
+}
