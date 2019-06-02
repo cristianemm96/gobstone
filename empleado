@@ -188,3 +188,24 @@ program{
 }
 */
 
+//------------EJERCICIO F --------------
+
+function empleado_ConAumentoEn_PorBonoDeFinalizaciónDeProyecto(empleado, porcentaje){
+    /*
+        Proposito: Aplica un aumento de "porcentaje" por ciento al sueldo del empleado "empleado".
+    */
+    sueldo := sueldo(empleado)
+    porcentajeDelSueldo := (sueldo * porcentaje) div 100
+    sueldo := sueldo + porcentajeDelSueldo
+    return(sueldo)
+}
+
+/*
+program{
+    return
+    (
+    empleado_ConAumentoEn_PorBonoDeFinalizaciónDeProyecto(empleadoB(), 50)
+    )
+}
+*/
+
