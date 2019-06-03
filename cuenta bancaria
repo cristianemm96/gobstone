@@ -1,0 +1,217 @@
+//PUNTO 11 
+
+//----------------------EJERCICIO A----------------
+type Cuenta is record{
+    /*
+        Proposito: Modelar una cuenta bancaria.
+    */
+    field nroDeLaCuenta  // NÚMERO
+    field nombreCliente  // STRING
+    field tipoDeLaCuenta // TIPO DE CUENTA
+    field tipoDeMoneda   // MONEDA        
+    field saldoDeCuenta  // NÚMERO     
+}
+
+type TipoDeCuenta is variant {
+    /*  PROPÓSITO: modelar los diferentes tipos de cuenta que
+        ofrece el banco
+    */
+    case CuentaCorriente {}
+    case CajaDeAhorro {}
+    case CuentaSueldo {}
+}
+
+type Moneda is variant {
+    /* PROPÓSITO: modelar los diferentes tipos de moneda con los
+        que trabaja el banco
+    */
+    case Pesos {}
+    case Dólares {}
+    case Euros {}
+    case Reales {}
+}
+
+function cuentaA(){
+    /*
+        Proposito: Modela la cuenta de un cliente.
+        Resultado: Una cuenta.
+    */
+    return
+    (
+        Cuenta
+        (
+            nroDeLaCuenta <- 1854,
+            nombreCliente <- "Mariño, Cristian",
+            tipoDeLaCuenta <- CajaDeAhorro,
+            tipoDeMoneda <- Dólares,
+            saldoDeCuenta <- 10000
+        )
+    )
+}
+
+function cuentaB(){
+    /*
+        Proposito: Modela la cuenta de un cliente.
+        Resultado: Una cuenta.
+    */
+    return
+    (
+        Cuenta
+        (
+            nroDeLaCuenta <- 1959,
+            nombreCliente <- "Mariño, Emanuel",
+            tipoDeLaCuenta <- CajaDeAhorro,
+            tipoDeMoneda <- Reales,
+            saldoDeCuenta <- 15000
+        )
+    )
+}
+
+function cuenta_ConSaldoActualizadoA_(unaCuenta, nuevoSaldo){
+    /*
+        Proposito: dada una cuenta y un nuevo saldo describe la cuenta con el saldo actualizado.
+        Resultado: Una cuenta.
+    */
+    return
+    (
+        Cuenta(unaCuenta| saldoDeCuenta <- nuevoSaldo)
+    )
+}
+/*
+program{
+    return(cuenta_ConSaldoActualizadoA_(cuentaA(), 110))
+}
+*/
+
+//-----------------EJERCICIO B----------------------
+
+
+function cuenta_ConTipoDeCuentaCambiadoA_(laCuenta, nuevaMoneda){
+    /*
+        Proposito: actualizar el tipo de moneda a "nuevaMoneda" de la cuenta "laCuenta"
+        Resultado: Una cuenta.
+    */
+    return
+    (
+        Cuenta(laCuenta | tipoDeMoneda <- nuevaMoneda)
+    )
+}
+/*
+program{
+    return(cuenta_ConTipoDeCuentaCambiadoA_(cuentaA(), Pesos))
+}
+*/
+
+//-----------------------EJERCICIO C---------------------------
+
+function cuenta_ConTipoCambiadoSegúnDisposición(laCuenta){
+    /*
+        Proposito: Actualiza el tipo de cuenta de "laCuenta" cuando es una cuenta de sueldo
+        y tiene un saldo mayor a $25000.
+        Resultado: Cuenta
+    */
+   tipoDeCuenta := tipoDeLaCuenta(laCuenta)
+    if (cumpleConDisposición(laCuenta)){
+        tipoDeCuenta := CajaDeAhorro
+    }
+    else{
+        tipoDeCuenta := tipoDeCuenta
+    }
+    return
+    (Cuenta(laCuenta| tipoDeLaCuenta <- tipoDeCuenta))
+}
+
+
+function cumpleConDisposición(laCuenta){
+    /*
+        Proposito: Analiza si la cuenta "laCuenta" cumple la disposición del cambio del tipo
+        de cuenta.
+        Resultado: Booleano
+    */
+    return
+    (
+        tipoDeLaCuenta(laCuenta) == CuentaSueldo && saldoDeCuenta(laCuenta) > 25000
+    )
+}
+/*
+program{
+    return(cuenta_ConTipoCambiadoSegúnDisposición(cuentaA()))
+}
+*/
+
+//--------------------EJERCICIO D---------------------------
+
+function saldoEnPesosDe_(laCuenta){
+    /*
+        Proposito: Describe el saldo en pesos de la cuenta "laCuenta".
+        Resultado: Número
+    */
+    return
+    (
+        choose dolaresAPesos(laCuenta) when (tipoDeMoneda(laCuenta) == Dólares)
+               eurosAPesos(laCuenta) when (tipoDeMoneda(laCuenta) == Euros)
+               realesAPesos(laCuenta) when (tipoDeMoneda(laCuenta) == Reales)
+               boom("No es una moneda valida") otherwise
+    )
+}
+
+function dolaresAPesos(laCuenta){
+    /*
+        Proposito: Describe el saldo en pesos de la cuenta "laCuenta", la cual tiene saldo
+        en dolares.
+        Resultado: Número.
+    */
+    return
+    (
+        saldoDeCuenta(laCuenta) * 50
+    )
+}
+
+function eurosAPesos(laCuenta){
+    /*
+        Proposito: Describe el saldo en pesos de la cuenta "laCuenta", la cual tiene saldo
+        en euros.
+        Resultado: Número.
+    */
+    return
+    (
+        saldoDeCuenta(laCuenta) * 60
+    )
+}
+
+function realesAPesos(laCuenta){
+    /*
+        Proposito: Describe el saldo en pesos de la cuenta "laCuenta", la cual tiene saldo
+        en reales.
+        Resultado: Número.
+    */
+    return
+    (
+        saldoDeCuenta(laCuenta) * 15
+    )
+}
+
+/*
+program{
+    return(saldoEnPesosDe_(cuentaA()))
+}
+*/
+
+//------------------------ EJERCICIO E ----------------------------------
+
+function númeroDeCuentaConMayorSaldoEntre_Y_(cuenta1, cuenta2){
+    /*
+        Proposito: Devuelve la cuenta con mayor saldo, entre "cuenta1" y "cuenta2".
+        Resultado: Cuenta
+    */
+    return
+    (
+        choose cuenta1 when (saldoEnPesosDe_(cuenta1) > saldoEnPesosDe_(cuenta2))
+               cuenta2 otherwise
+    )
+}
+/*
+program{
+    return(númeroDeCuentaConMayorSaldoEntre_Y_(cuentaA(), cuentaB()))
+}
+*/
