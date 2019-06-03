@@ -240,12 +240,124 @@ function listaA(){
         []   
     )
 }
-
+/*
 program{
     return(esSingular_(listaA()))
 }
+*/
 
+//-------------------------------- EJERCICIO 6 ----------------------------------------
 
-//------------------ EJERCICIO 6 ------------------------------
+//---------------- EJERCICIO A ----------------
+
+function haySiguienteTramoEn_(ruta){
+    /*
+        Proposito: Indica si la ruta tiene al menos un tramo completo.
+        Resultado: Booleano.
+        Parametros:
+            *ruta: Una lista con direcciones.
+        Observaciones: Un tramo se compone de las primeras dos direcciones.
+    */
+    return
+    (
+        not  esVacía(ruta) && not esVacía(resto(ruta))
+    )
+}
+
+function ruta1(){
+    /*
+        Proposito: Describe una lista de direcciones que componen una ruta.
+        Resultado: Lista de direcciones.
+    */
+    return([Norte, Este, Este, Norte])
+}
+
+/*
+program{
+    return(haySiguienteTramoEn_(ruta1()))
+}
+*/
+
+//-------------- EJERCICIO B-----------------
+
+function sigueUnaCurvaEn_(ruta){
+    /*
+        Proposito: Indica si el tramo que sigue en la ruta es una curva.
+        Resultado: Booleano.
+        Parametros:
+            *ruta: es una lista con direcciones.
+    */
+    return
+    (
+        primero(resto(ruta)) == siguiente(primero(ruta)) || primero(resto(ruta)) == previo(primero(ruta))
+    )
+}
+/*
+program{
+    return(sigueUnaCurvaEn_(ruta1()))
+}
+*/
+
+//-------------- EJERCICIO C -----------------
+
+function sigueCurvaADerechaEn_(ruta){
+    /*
+        Proposito: Indica si la curva que sigue en la ruta, es hacia la derecha.
+        Resultado: Booleano.
+        Parametros:
+            *ruta: es una lista de direcciones.
+    */
+    return
+    (
+        sigueUnaCurvaEn_(ruta) && primero(resto(ruta)) == siguiente(primero(ruta))
+    )
+}
+
+/*
+program{
+    return(sigueCurvaADerechaEn_(ruta1()))
+} 
+*/
+
+// ----------------- EJERCICIO D -----------------
+
+function sigueCurvaAIzquierdaEn_(ruta){
+    /*
+        Proposito: Indica si la curva que sigue en la ruta, es hacia la Izquierda.
+        Resultado: Booleano.
+        Parametros:
+            *ruta: es una lista de direcciones.
+    */
+    return
+    (
+        sigueUnaCurvaEn_(ruta) && primero(resto(ruta)) == previo(primero(ruta))
+    )
+}
+/*
+program{
+    return(sigueCurvaAIzquierdaEn_(ruta1()))
+}
+*/
+
+// -------------- EJERCICIO E ------------------
+
+function sigueRectaEn_(ruta){
+    /*
+        Proposito: Indica si la el tramo que sigue en la ruta, es recto.
+        Resultado: Booleano.
+        Parametros:
+            *ruta: es una lista de direcciones.
+    */
+    return
+    (
+        not sigueUnaCurvaEn_(ruta) && primero(resto(ruta)) == (primero(ruta))
+    )
+}
+/*
+program{
+    return(sigueRectaEn_(ruta1()))   
+}
+*/
+
 
 
