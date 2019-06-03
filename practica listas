@@ -1,0 +1,254 @@
+//------------------------------- PRACTICA 9 ---------------------------------------
+
+
+//------- EJERCICIO 1 ---------
+
+function contarLasRojas(){
+    /*
+        Proposito: Cuenta la cantidad de bolitas rojas que hay en la fila actual.
+        Resultado: Una lista que contiene la cantidad de bolitas rojas de la fila actual. 
+    */
+    IrAlBorde(Oeste)
+    return
+    (
+        cantidadDeRojas()
+    )
+}
+
+function cantidadDeRojas(){
+    /*
+        Proposito: cuenta la cantidad de bolitas rojas que hay en la fila actual.
+    */
+    cantidadRojas := []
+    while(puedeMover(Este)){
+        cantidadRojas := cantidadRojas ++ [nroBolitas(Rojo)]
+        Mover(Este)
+    }
+    cantidadRojas := cantidadRojas ++ [nroBolitas(Rojo)]//directamente en el return
+    return(cantidadRojas)
+    
+}
+/*
+program{
+    return(contarLasRojas())
+}
+*/
+
+//----------- EJERCICIO 2 -----------
+
+function cantidadDeRojasADistancia2DelBordeOesteDe_(laLista){
+    /*
+        Proposito: Describe la cantidad de bolitas rojas que hay en en el elemento con distancia 2
+        del borde Oeste de la lista "laLista".
+        Parametros: 
+            *laLista: es una lista.
+    */
+    return
+    (
+        primero(resto(resto(laLista)))
+    )
+}
+
+/*
+program{
+    return( cantidadDeRojasADistancia2DelBordeOesteDe_(contarLasRojas()))
+}
+*/
+
+//-------- EJERCICIO 3 ------------
+
+// --------------EJERCICIO A --------------
+
+function las3PrimerasDe_ConLaMismaCantidad(laLista){
+    /*
+        Proposito: Vale verdadero cuando las primeras celdas del borde Oeste contienen la misma 
+        cantidad de bolitas rojas.
+        Precondiciòn: El cabezal està ubicado al borde oeste del tablero y sobre donde estan los
+        elementos de la lista.
+        Parametros :
+            *laLista: es una lista.
+        Resultado: Booleano.
+    */
+    
+    return
+    (
+         (primero(laLista) + primero(resto(laLista)) + (primero (resto(resto(laLista))))) mod 3 == 0
+    )
+}
+/*
+program{
+    return
+    (
+        las3PrimerasDe_ConLaMismaCantidad(contarLasRojas())   
+    )
+}
+*/
+
+
+// --------------EJERCICIO B --------------
+
+function las3PrimerasDe_ConDistintasCantidades(laLista){
+    /*
+        Proposito: Vale verdadero cuando en las primeras 3 celdas desde el borde Oeste, hay
+        bolitas de color distinto a rojo.
+        Precondiciòn: El cabezal està ubicado al borde oeste del tablero y sobre donde estan los
+        elementos de la lista.
+        Parametros :
+            *laLista: es una lista.
+        Resultado: Booleano.
+    */
+    return
+    (
+        (primero(laLista) + segundo(laLista) + tercero(laLista)) mod 3 /= 0
+    )
+}
+
+function segundo(laLista){
+    /*
+        Proposito: Describe el segùndo elemento de la lista "laLista"
+    */
+    return
+    (
+        primero(resto(laLista))
+    )
+}
+
+function tercero(laLista){
+    /*
+        Proposito: Describe el tercer elemento de la lista "laLista"
+    */
+    return(primero(resto(resto(laLista))))
+}
+
+/*
+program{
+    return
+    (
+    las3PrimerasDe_ConDistintasCantidades(cantidadDeRojas())
+    )
+}
+*/
+
+//------------ EJERCICIO C -----------
+
+function hayAlgunaCantidadIgualEnLas3PrimerasDe_(laLista){
+    /*
+        Proposito: Describe si en los primeros 3 elementos de la lista "laLista" hay la misma cantida
+        de bolitas rojas.
+    */
+    return(primeraYTerceraIguales(laLista) || primeraYSegundaIguales(laLista) || segundaYTerceraIguales(laLista))  
+}
+
+function primeraYTerceraIguales(laLista){
+    /*
+        Proposito: Describe si el primer y ultimo elemento de la lista "laLista" tienen la
+        misma cantidad de bolitas rojas.
+        Resultado: Booleano.
+    */
+    return
+    (
+        (primero(laLista) + tercero(laLista)) mod 2 == 0
+    )
+}
+
+function primeraYSegundaIguales(laLista){
+    /*
+        Proposito: Describe si el primer y segundo elemento de la lista "laLista" tienen la
+        misma cantidad de bolitas rojas.
+        Resultado: Booleano.    
+    */
+    return
+    (
+        (primero(laLista) + segundo(laLista)) mod 2 == 0
+    )
+}
+
+function segundaYTerceraIguales(laLista){
+    /*
+        Proposito: Describe si el segundo y tercer elemento de la lista "laLista" tienen la
+        misma cantidad de bolitas rojas.
+        Resultado: Booleano.    
+    */
+    return
+    (
+        (segundo(laLista) + tercero(laLista)) mod 2 == 0
+    )
+}
+
+/*
+program{
+    return
+    (
+    hayAlgunaCantidadIgualEnLas3PrimerasDe_(cantidadDeRojas())
+    )
+}
+*/
+
+//--------------- EJERCICIO 4 -------------------
+
+//------------------------EJERCICIO A ------------------
+
+function direccionesAlBorde(){
+    /*
+        Proposito: Describe una lista con las direcciones en las que se puede mover el cabezal.
+        Resultado: Una Lista de direcciones.
+    */
+    puedeMoverseAl := []
+    direccionActual:= Norte
+    while(not direccionActual == Oeste){
+        puedeMoverseAl := puedeMoverseAl ++ puedeMoverse(direccionActual)
+        direccionActual := siguiente(direccionActual)
+    }
+    return(puedeMoverseAl ++ puedeMoverse(direccionActual))
+} 
+
+function puedeMoverse(direccionActual){
+    /*
+        Proposito: Describe si el cabezal se puede mover en la direccion "direccionActual" y la devuelve
+        como lista.
+        Resultado: Lista con una direccion.
+    */
+    return
+    (
+        choose [direccionActual] when ( not puedeMover(direccionActual))
+                    [] otherwise
+    )
+}
+/*
+program{
+    return (direccionesAlBorde())
+}
+*/
+// ----------------------------- EJERCICIO 5 -------------------------------------
+
+function esSingular_(laLista){
+    /*
+        Proposito: Describe si la lista "laLista" tiene un solo elemento.
+        Resultado: Booleano
+    */
+    return
+    (
+        not esVacía(laLista) && esVacía(resto(laLista))
+    )
+}
+
+function listaA(){
+    return
+    (
+        [1, 2]   
+    )
+}
+/*
+program{
+    return(esSingular_(listaA()))
+}
+*/
+
+//------------------ EJERCICIO 6 ------------------------------
+
+function haySiguienteTramoEn_(ruta){
+    /*
+        Proposito: Describe si existe un tramo de "ruta"
+    */
+}
+
