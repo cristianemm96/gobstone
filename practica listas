@@ -105,7 +105,8 @@ function las3PrimerasDe_ConDistintasCantidades(laLista){
 
 function segundo(laLista){
     /*
-        Proposito: Describe el segùndo elemento de la lista "laLista"
+        Proposito: Describe el segùndo elemento de la lista "laLista".
+        Precondiciòn: La lista dada no està vacìa y tiene al menos 2 elementos.
     */
     return
     (
@@ -115,7 +116,8 @@ function segundo(laLista){
 
 function tercero(laLista){
     /*
-        Proposito: Describe el tercer elemento de la lista "laLista"
+        Proposito: Describe el tercer elemento de la lista "laLista".
+        Precondiciòn: La lista dada no està vacìa y tiene al menos 3 elementos.
     */
     return(primero(resto(resto(laLista))))
 }
@@ -235,20 +237,15 @@ function esSingular_(laLista){
 function listaA(){
     return
     (
-        [1, 2]   
+        []   
     )
 }
-/*
+
 program{
     return(esSingular_(listaA()))
 }
-*/
+
 
 //------------------ EJERCICIO 6 ------------------------------
 
-function haySiguienteTramoEn_(ruta){
-    /*
-        Proposito: Describe si existe un tramo de "ruta"
-    */
-}
 
