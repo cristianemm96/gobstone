@@ -359,5 +359,97 @@ program{
 }
 */
 
+// ----------------------------------- EJERCICIO 7 ----------------------------------------
+
+// --------------------- Ejercicio 1 -------------------
+
+type Carta is record {
+    /*
+        Proposito: Modela una carta española.
+        INV. REP: una carta esta formada por un Palo y un número valido, que está entre 1 y 12.
+    */
+    field palo      //PALO
+    field número    //NÚMERO
+}
+
+type Palo is variant{
+    /*
+        Proposito: Modela los palos de una carta.
+    */
+    case Espadas{}
+    case Bastos{}
+    case Oros{}
+    case Copas{}
+}
+
+function primerasTresCartasDeLaTira_(tiraDeCartas){
+    /*
+        Proposito: Describe las primeras 3 cartas de la tira de cartas "tiraDeCartas".
+        Resultado: Una lista compuesta por 3 cartas.
+    */
+    return
+    (
+        [primero(tiraDeCartas), segundo(tiraDeCartas), tercero(tiraDeCartas)]
+    )
+}
+
+function tira1(){
+    /*
+        Proposito: Describe una lista de cartas, que componen una tira.
+        Resultado: Una lista de cartas.
+    */
+    return
+    (
+        [
+            Carta(palo <- Espadas, número <- 4),
+            Carta(palo <- Oros, número <- 4),
+            Carta(palo <- Bastos, número <- 2),
+            Carta(palo <- Espadas, número <- 9),
+            Carta(palo <- Copas, número <- 12),
+            Carta(palo <- Bastos, número <- 10),
+            Carta(palo <- Oros, número <- 3),
+            Carta(palo <- Oros, número <- 4)
+        ]
+    )
+}
+/*
+program{
+    return(primerasTresCartasDeLaTira_(tira1()))
+}
+*/
+
+//------------ Ejercicio 2 ----------------
+
+function laMano_TieneJugadaParaAgregarALaTira_(mano, tira){
+    /*
+        Proposito: Describe si la mano "mano" puede agregar una carta a la tira "tira".
+        Resultado: Booleano.
+    */
+    return
+    (
+        palo(primero(mano)) /= palo(primero(tira)) && número(primero(mano)) < número(primero(tira)) 
+    )
+}
+
+function mano1(){
+    /*
+        Proposito: Modela una mano de un jugador.
+        Resultado: lista de cartas.
+    */
+    return
+    (
+        [
+            Carta(palo <- Espadas, número <- 2),
+            Carta(palo <- Oros, número <- 4),
+            Carta(palo <- Bastos, número <- 2)
+        ]
+    )
+}
+
+/*
+program{
+    return(laMano_TieneJugadaParaAgregarALaTira_(mano1(), tira1()))
+}
+*/
 
 
