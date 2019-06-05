@@ -598,9 +598,70 @@ function sePuedeJugar(tiraDeCartas, cartaActual){
                 []otherwise
     )
 }
-
+/*
 program{
     return(laTira_DespuésDeJugar_( tira1(), mano1()))
 }
+*/
+
+// ----------------------------------- EJERCICIO 9 ----------------------------------
+function tira2(){
+    /*
+        Proposito: Describe una lista de cartas, que componen una tira.
+        Resultado: Una lista de cartas.
+    */
+    return
+    (
+        [
+            Carta(palo <- Copas, número <- 9),
+            Carta(palo <- Oros, número <- 8),
+            Carta(palo <- Copas, número <- 5),
+            Carta(palo <- Espadas, número <- 9),
+            Carta(palo <- Copas, número <- 12),
+            Carta(palo <- Bastos, número <- 10),
+            Carta(palo <- Oros, número <- 3),
+            Carta(palo <- Oros, número <- 4)
+        ]
+    )
+}
+
+// -------------- Ejercicio 1 -------------
+
+function manoDe3CartasDe_(mazo){
+    /*
+        Proposito: dado un mazo, describe una mano de 3 cartas tomadas del mismo.
+        Resultado: Lista de cartas.
+    */
+    return
+    (
+        [primero(mazo), segundo(mazo), tercero(mazo)]
+    )
+}
+/*
+program{
+    return(manoDe3CartasDe_(tira2()))
+}
+*/
+
+// -------------- Ejercicio 2 ---------------------
+
+function tieneEnvido_(mazo){
+    /*
+        Proposito: Describe si la mano del jugador tiene envido.
+        Parametros: Maso: es una lista de carta
+        Resultado: Booleano.
+        Observación: El envido existe cuando la mano del jugador tiene 2 
+        cartas del mismo palo.
+    */
+    return
+    (
+        palo(primero(mazo)) == palo(segundo(mazo))|| palo(primero(mazo)) == palo(tercero(mazo)) || palo(segundo(mazo)) == palo(tercero(mazo))
+    )
+}
+/*
+program{
+    return(tieneEnvido_(manoDe3CartasDe_(tira2())))
+}
+*/
 
 
