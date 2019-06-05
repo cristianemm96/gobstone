@@ -492,8 +492,39 @@ program{
 }
 */
 
+// -------------- Ejercicio 5 --------------
 
 
+function laMano_LuegoDeJugarUnaCarta(mano){
+    /*
+        Proposito: Describe la mano del jugador luego de jugar la primer carta.
+        Parametros:
+            *mano: Lista de cartas
+        Resultado: Lista de cartas.
+    */
+    return(sinElPrimero(mano))
+}
+
+/*
+program{
+    return (laMano_LuegoDeJugarUnaCarta(mano1()))
+}
+*/
+
+//------------ Ejercicio 6 -----------------
+
+function laMano_LuegoDeJugarLaSegundaCarta(mano){
+    /*
+        Proposito: Describe la mano luego de jugar la segunda carta de la mano "mano".
+        Resultado: Lista de cartas.
+    */
+    return([primero(mano)] ++ resto(resto(mano)))
+}
+/*
+program{
+    return(laMano_LuegoDeJugarLaSegundaCarta(mano1()))
+}
+*/
 
 // --------------------------------- EJERCICIO 8 ---------------------------------------
 
