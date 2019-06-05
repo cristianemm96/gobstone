@@ -382,6 +382,122 @@ type Palo is variant{
     case Copas{}
 }
 
+function mano2(){
+    /*
+        Proposito: Describe una lista de cartas, que componen una tira.
+        Resultado: Una lista de cartas.
+    */
+    return
+    (
+        [
+            Carta(palo <- Espadas, número <- 4),
+            Carta(palo <- Oros, número <- 4),
+            Carta(palo <- Bastos, número <- 2),
+            Carta(palo <- Espadas, número <- 9)
+        ]
+    )
+}
+
+
+function primerCartaDeLaMano_(cartasEnLaMano){
+    /*
+        Proposito: Describe la primer carta a jugar de la mano "cartasEnLaMano" del jugador
+        actual.
+        Parametros:
+            *cartaEnLaMano: es la mano de un  jugador.
+        Resultado: Una carta.
+        Precondición: 
+            *La mano del jugador tiene un maso de cartas españolas.
+            *La mano del jugador tiene al menos una carta.
+    */
+    return
+    (
+        primero(cartasEnLaMano)
+    )
+}
+/*
+program{
+    return(primerCartaDeLaMano_(mano2()))
+}
+*/
+
+// --------------------- Ejercicio 2 ------------------
+
+function segundaCartaDeLaMano_(cartasEnLaMano){
+    /*
+        Proposito: Describe la segunda carta a jugar de la mano "cartasEnLaMano" del jugador
+        actual.
+        Parametros:
+            *cartaEnLaMano: es la mano de un  jugador.
+        Resultado: Una carta.
+        Precondición: 
+            *La mano del jugador tiene un maso de cartas españolas.
+            *La mano del jugador tiene al menos dos cartas.
+    */    
+    return
+    (
+        segundo(cartasEnLaMano)
+    )
+}
+
+/*
+program{
+    return(segundaCartaDeLaMano_(mano2()))
+}
+*/
+
+// ----------------- Ejercicio 3 ----------------------
+
+function tercerCartaDeLaMano_(cartasEnLaMano){
+    /*
+        Proposito: Describe la tercer carta a jugar de la mano "cartasEnLaMano" del jugador
+        actual.
+        Parametros:
+            *cartaEnLaMano: es una lista de cartas.
+        Resultado: Una carta.
+        Precondición: 
+            *La mano del jugador tiene un maso de cartas españolas.
+            *La mano del jugador tiene al menos tres cartas.         
+    */
+    return
+    (
+        tercero(cartasEnLaMano)
+    )
+}
+/*
+program{
+    return(tercerCartaDeLaMano_(mano2()))
+}
+*/
+
+// ----------------- Ejecicio 4 ------------------
+
+function laMano_LuegoDeRobarUnaCartaDe_(manoDelJugador, mazoDeCartas){
+    /*
+        Proposito: Describe la mano de un jugador luego de robar una carta del mazo.
+        Parametros:
+            *manoDelJugador: Es una lista con cartas.
+            *mazoDeCartas: Es una lista con cartas.
+        Precondición: 
+            *El mazoDeCartas del jugador tiene al menos una carta.
+    */
+    return
+    (
+        manoDelJugador ++ [primero(mazoDeCartas)]
+    )
+}
+/*
+program{
+   return(laMano_LuegoDeRobarUnaCartaDe_(mano2(), tira1())) 
+}
+*/
+
+
+
+
+// --------------------------------- EJERCICIO 8 ---------------------------------------
+
+
 function primerasTresCartasDeLaTira_(tiraDeCartas){
     /*
         Proposito: Describe las primeras 3 cartas de la tira de cartas "tiraDeCartas".
@@ -401,7 +517,7 @@ function tira1(){
     return
     (
         [
-            Carta(palo <- Espadas, número <- 4),
+            Carta(palo <- Bastos, número <- 10),
             Carta(palo <- Oros, número <- 4),
             Carta(palo <- Bastos, número <- 2),
             Carta(palo <- Espadas, número <- 9),
@@ -451,5 +567,40 @@ program{
     return(laMano_TieneJugadaParaAgregarALaTira_(mano1(), tira1()))
 }
 */
+
+// -----------------------Ejercicio 3 -----------------
+
+function  laTira_DespuésDeJugar_(tiraDeCartas, manoDelJugador){
+    /*
+        Proposito: Describe como queda la tira de cartas "tiraDeCartas", después de 
+        agregar la carta "cartaParaJugar".
+        Parametros:
+            *tiraDeCartas: es una lista con cartas.
+            *cartaParaJugar: es una carta.
+        Resultado: Lista de cartas.
+    */
+    return
+    (
+        tiraDeCartas ++ sePuedeJugar(tiraDeCartas, manoDelJugador)
+    )
+}
+
+function sePuedeJugar(tiraDeCartas, cartaActual){
+    /*
+        Proposito: Analiza si la primer carta de "manoDelJugador" puede ser jugada y agregada
+        a "tiraDeCartas".
+        Observación: Una carta puede ser jugada, cuando tiene distinto palo, y número menor, al de la primer
+        carta de la tira.
+    */
+    return
+    (
+        choose [primero(cartaActual)] when (laMano_TieneJugadaParaAgregarALaTira_(cartaActual, tiraDeCartas))
+                []otherwise
+    )
+}
+
+program{
+    return(laTira_DespuésDeJugar_( tira1(), mano1()))
+}
 
 
