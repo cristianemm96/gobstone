@@ -951,7 +951,7 @@ function costoExtraPorTramos(boleto){
         Proposito: Calcula el costo extra del boleto "boleto".
     */
     
-    return((3 * cantidadTramos(boleto)) - 3)
+    return((3 * cantidadTramos(boleto)) - 3) // 3 * (cantidadTramos(boleto) - 1)
 }
 /*
 program{
