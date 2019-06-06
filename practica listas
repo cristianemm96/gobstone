@@ -865,14 +865,17 @@ type BoletoDeColectivo is record{
 }
 
 function boleto1(){
+    /*
+        Proposito: Modela un boleto.
+    */
     return
     (
         BoletoDeColectivo
         (
             nroLinea       <- 300,
             cantidadTramos <- 1,
-            serie          <- "AB55",
-            nroBoleto      <- [1, 2, 5, 2, 3]
+            serie          <- "A", 
+            nroBoleto      <- [1, 2, 5, 2, 1]
         )
     )
 }
@@ -950,10 +953,107 @@ function costoExtraPorTramos(boleto){
     
     return((3 * cantidadTramos(boleto)) - 3)
 }
-
+/*
 program{
     return(costoDeBoleto_(boleto1()))
 }
+*/
+
+// ------------- Ejercicio B --------------
+
+function elBoleto_TieneElMismoNúmeroQue_(boleto1, boleto2){
+    /*
+        Proposito: Describe si el número del boleto "boleto1" y el número del boleto
+        "boleto2" son iguales.
+    */
+    return(nroBoleto(boleto1) == nroBoleto(boleto2))
+}
+
+/*
+program{
+    return(elBoleto_TieneElMismoNúmeroQue_(boleto1(), boleto2()))
+}
+*/
+
+// ------------- Ejercicio C ---------------
+
+function elBoleto_EsParejaCapicúaDe_(boleto1, boleto2){
+    /*
+        Proposito: Describe si el número del primer boleto es igual al número del segundo
+        boleto dado vuelta.
+        Resultado: Booleano.
+        Parametros:
+            *boleto1: Boleto.
+            *boleto2: Boleto.
+        Precondición: El boleto cumple con la estructura del numero del boleto.
+    */
+    return(nroBoleto(boleto2) == numeroDelPrimeroVolteado(boleto1))
+}
+
+function numeroDelPrimeroVolteado(boleto1){
+    /*
+        Proposito: Da vuelta el numero de boleto del "boleto1".
+        Resultado: Lista de numeros.
+        Parametros:
+            *boleto1: es un boleto.
+        Precondición Ninguna.
+    */
+    numeroDelBoleto := nroBoleto(boleto1)
+    numeroVolteado := []
+    while (not esVacía(numeroDelBoleto)){
+        numeroVolteado := [primero(numeroDelBoleto)] ++ numeroVolteado
+        numeroDelBoleto := sinElPrimero(numeroDelBoleto)
+    }    
+    return(numeroVolteado)
+}
+/*
+program{
+    return(elBoleto_EsParejaCapicúaDe_(boleto1(), boleto2()))
+}*/
+
+// ---------------- Ejercicio D -----------------
+
+function esCapicúaDePrimeraSerie_(boleto){
+    /*
+        Proposito: Describe si el boleto es de primera serie, y además si tiene número
+        capicúa.
+        Parametros:
+            *boleto: Un boleto.
+        Resultado: Booleano.
+    */
+    return
+        (
+             esDePrimeraSerie(boleto) && elBoleto_EsCapicúa(boleto)
+        )
+}
+
+
+function elBoleto_EsCapicúa(boleto){
+    /*
+        Proposito: Comprueba si el boleto "boleto" es capicúa.
+        Parametros: 
+            *boleto: Un boleto.
+        Resultado: Booleano.
+    */
+    return(esCapicúa_(boleto))
+}
+
+function esDePrimeraSerie(boleto){
+    /*
+        Proposito: Describe si el boleto "boleto" es de primera serie.
+        Parametros: 
+            *boleto: es un boleto.
+        Resultado: Booleano
+    */
+    return(serie(boleto) == "1" || serie(boleto) == "A" )
+}
+/*
+program{
+    return( esCapicúaDePrimeraSerie_(boleto1()))
+}
+*/
+
+
 
 
 
