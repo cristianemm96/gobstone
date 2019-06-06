@@ -1,0 +1,60 @@
+///////// ------------------ PRACTICA 10 ---------------------////////////
+
+//// ----------- EJERCICIO 1 -------------////
+procedure PonerColores_EnLaCeldaActual(lista){
+    /*
+        Proposito: dada una lista de Colores, pone una bolita del color correspondiente por 
+        cada uno de los elementos de la misma.
+        Parametros:
+            *lista: es una lista.
+        Precondición: Ninguna.
+    */
+    listaDeColores := lista
+    while (not esVacía(listaDeColores)){
+        Poner(primero(listaDeColores))
+        listaDeColores := resto(listaDeColores)
+    }
+}
+
+
+function listaConColores(){
+    return([Azul, Azul, Verde, Rojo, Verde])
+}
+/*
+program{
+    PonerColores_EnLaCeldaActual(listaConColores())
+}
+*/
+
+//// ------------- Ejercicio 2 ----------- ////
+
+procedure RecorrerCamino_(lista){
+    /*
+        Proposito: Mueve el cabezal en base a las direcciones de la lista "lista"
+        Parametros:
+            *lista: es una lista.
+        Precondición: Ninguna.
+    */
+    listaDeDirecciones := lista
+    while (not esVacía(listaDeDirecciones)){
+        MoverAl_SiCorresponde(primero(listaDeDirecciones))
+        listaDeDirecciones := resto(listaDeDirecciones)
+    }
+}
+
+procedure MoverAl_SiCorresponde(direccionDeLista){
+    if(puedeMover(direccionDeLista)){
+        Mover(direccionDeLista)
+    }
+    else{
+        
+    }
+}
+
+function listaDeDirecciones(){
+    return([Norte, Este, Sur, Sur, Oeste])
+}
+
+program{
+    RecorrerCamino_(listaDeDirecciones())
+}
