@@ -644,9 +644,9 @@ function tira2(){
     return
     (
         [
-            Carta(palo <- Copas, número <- 9),
-            Carta(palo <- Oros, número <- 8),
-            Carta(palo <- Copas, número <- 5),
+            Carta(palo <- Espadas, número <- 12),
+            Carta(palo <- Espadas, número <- 8),
+            Carta(palo <- Espadas, número <- 1),
             Carta(palo <- Espadas, número <- 9),
             Carta(palo <- Copas, número <- 12),
             Carta(palo <- Bastos, número <- 10),
@@ -694,5 +694,167 @@ program{
     return(tieneEnvido_(manoDe3CartasDe_(tira2())))
 }
 */
+
+// ------------- Ejercicio 3 ----------------
+
+function tieneFlor_(mano){
+    /*
+        Proposito: Describe si la mano "mano" del actual jugador tiene flor.
+        Parametros: 
+            *mano: es una lista de cartas.
+        Precondición: Ninguna.
+        Resultado: Booleano.
+    */
+    return(palo(primero(mano)) == palo(segundo(mano)) && palo(primero(mano)) == palo(tercero(mano)))
+}
+/*
+program{
+    return(tieneFlor_(manoDe3CartasDe_(tira2())))
+}
+*/
+
+// ------------ Ejercicio 4 ---------------
+
+function cuántoDeFlor_(mano){
+    /*
+        Proposito: En el caso de que la mano "mano" tenga flor, describe el valor de esta.
+        Resultado: Número.
+    */
+    
+    return
+    (
+        choose sumarFlor(mano)  when (tieneFlor_(mano))
+                0 otherwise
+    )
+}
+
+function sumarFlor(mano){
+    /*
+        Proposito: Cuenta los valores de la flor de la mano "mano".
+        Parametros:
+            *mano: Lista de cartas.
+        Resultado: Número
+    */
+    valorDeFlor := 0
+    cartasDeMano := mano
+    while(not esVacía(cartasDeMano)){
+        valorDeFlor := valorDeFlor + esFigura(primero(cartasDeMano))
+        cartasDeMano := resto(cartasDeMano)
+    }
+    return(valorDeFlor + 30)
+}
+
+function esFigura(cartaActual){
+    /*
+        Proposito: Determina si la carta actual es una figura o no. Si no es figura, devuelve el
+        número de "cartaActual", 0 en caso contrario.
+        Parametros: 
+            *cartaActual: Una carta.
+        Observación: Una carta es figura si tiene número 10, 11 u 12.
+    */
+    return
+    (
+        choose número(cartaActual) when (número(cartaActual) < 10 && número(cartaActual)>= 1)
+               0 otherwise
+    )
+}
+/*
+program{
+    return(cuántoDeFlor_(manoDe3CartasDe_(tira2())))
+}
+*/
+
+// ------------- Ejercicio 5 ---------------
+
+function cuántoDeEnvido_(mano){
+    /*
+        Proposito: Dada una mano de 3 cartas, describe cuánto se suma para un envido.
+        Si tiene envido, la suma de los valores de las cartas del mismo palo más 20.
+        si tiene flor, la suma de las 2 cartas de mayor valor más 20.
+        si no tiene ni envido ni flor, el valor de la carta de mayor valor
+    */
+    return
+    (
+        choose contarEnvido(mano) when (tieneEnvido_(mano))
+               contarFlor(mano) when (tieneFlor_(mano))
+               cartaDeMayorValor(mano) otherwise
+    )
+}
+
+function contarEnvido(mano){
+    /*
+        Proposito: Describe la cantidad de envido que hay en la mano "mano".
+        Resultado: Número.
+    */
+    return(cantidadEnvido(mano) + 20)
+}
+
+function cantidadEnvido(mano){
+    /*
+        Proposto: Cuenta el envido que hay en la mano "mano".
+    */
+    return
+    (
+        choose esFigura(primero(mano)) + esFigura(segundo(mano))  when (palo(primero(mano)) == palo(segundo(mano)))
+               esFigura(primero(mano)) + esFigura(tercero(mano)) when (palo(primero(mano)) == palo(tercero(mano)))
+               esFigura(segundo(mano)) + esFigura(tercero(mano))  otherwise
+    )
+}
+
+
+
+function contarFlor(mano){
+    /*
+        Proposito: Cuenta la flor de la mano "mano" en caso de que haya flor.
+        Resultado: Número.
+        
+    */
+    return
+    (          //La primer y segunda carta son las que tienen mayor número de la mano "mano".        
+        choose esFigura(primero(mano)) + esFigura(segundo(mano)) when (elElemento_EsMayorQue_(número(primero(mano)), número(tercero(mano)))  && elElemento_EsMayorQue_(número(segundo(mano)),número(tercero(mano))))
+               //La primer y tercer carta son las que tienen mayor número de la mano "mano".
+               esFigura(primero(mano)) + esFigura(tercero(mano)) when (elElemento_EsMayorQue_(número(primero(mano)), número(segundo(mano))) && elElemento_EsMayorQue_(número(tercero(mano)), número(segundo(mano))))
+               //Las condiciones anteriores no se cumplieron, por lo tanto la segunda y tercer carta son las que tienen mayor número de la mano "mano."
+               esFigura(segundo(mano)) + esFigura(tercero(mano)) otherwise
+    )              
+}
+
+
+function elElemento_EsMayorQue_(elemento1, elemento2){
+    /*
+        Proposito: Describe el mayor entre "elemento1" y "elemento2".
+        Parametros: 
+            *elemento1: Es un número.
+            *elemento2: Es un número.
+        Resultado: Número.
+        
+    */
+    return(elemento1 > elemento2)
+}
+
+function cartaDeMayorValor(mano){
+    /*
+        Proposito: Describe con el número de mayor valor
+    */
+    return
+    (           //Analiza si el número de la primer carta de la mano "mano" es es el mayor.
+        choose esFigura(primero(mano)) when (elElemento_EsMayorQue_(número(primero(mano)), número(segundo(mano))) && elElemento_EsMayorQue_(número(primero(mano)), número(tercero(mano))))
+                //Analiza si el número de la segunda carta de la mano "mano" es el mayor.
+               esFigura(segundo(mano)) when (elElemento_EsMayorQue_(número(segundo(mano)), número(primero(mano))) && elElemento_EsMayorQue_(número(segundo(mano)), número(tercero(mano))))
+                //Las condiciones anteriores no se cumplieron, por lo tanto el número más grande lo tiene la tercer carta de la mano "mano". 
+               esFigura(tercero(mano)) otherwise
+    )
+}
+/*
+program{
+    return(cuántoDeEnvido_(manoDe3CartasDe_(tira2())))
+}
+*/
+
+
+
+
+
+
 
 
