@@ -852,6 +852,109 @@ program{
 */
 
 
+// ------------------------------------ EJERCICIO 10 -------------------------------------------
+
+type BoletoDeColectivo is record{
+    /*
+        Proposito: Modela el boleto de un colectivo.
+    */
+    field nroLinea       //NÚMERO
+    field cantidadTramos //NÚMERO
+    field serie          //STRING
+    field nroBoleto      //LISTA DE NÚMEROS    
+}
+
+function boleto1(){
+    return
+    (
+        BoletoDeColectivo
+        (
+            nroLinea       <- 300,
+            cantidadTramos <- 1,
+            serie          <- "AB55",
+            nroBoleto      <- [1, 2, 5, 2, 3]
+        )
+    )
+}
+// --------------------------- EJERCICIO 11 ---------------------------
+
+function esCapicúa_(boleto){
+    return
+    (
+        primero(nroBoleto(boleto)) == quinto(nroBoleto(boleto)) && segundo(nroBoleto(boleto)) == cuarto(nroBoleto(boleto)) 
+    )
+}
+
+
+function quinto(lista){
+    /*
+        Proposito: Describe el quinto elemento de la lista "lista".
+        Parametros:
+            *lista: es una lista.
+        Precondición: La lista "lista" tiene al menos 5 elementos.
+        Resultado: Elemento de lista.
+        
+    */
+    return(primero(resto(sinLosTresPrimeros(lista))))
+}
+
+function cuarto(lista){
+    /*
+        Proposito: Describe el cuarto elemento de la lista "lista".
+        Precondición: La lista "lista" tiene al menos 4 elementos.
+        Resultado: Elemento de la lista.
+    */
+    return(primero(sinLosTresPrimeros(lista)))
+}
+
+function sinLosTresPrimeros(lista){
+    return(resto(sinLosDosPrimeros(lista)))
+}
+
+function sinLosDosPrimeros(lista){
+    return(resto(resto(lista)))
+}
+/*
+program{
+    return(esCapicúa_(boleto1()))
+}
+*/
+
+function costoDeBoleto_(boleto){
+    /*
+        Proposito: Calcula el costo del boleto "boleto".
+        Precondición: El boleto tiene al menos 1 tramo.
+        resultado: Número
+    */
+    return(costoPorTramo(boleto) + 18)
+}
+
+
+function costoPorTramo(boleto){
+    /*
+        Proposito: Calcula el costo del boleto dependiendo de la cantidad de tramos del "boleto".
+        Resultado: Número
+        
+    */
+    return
+        (
+            choose 0 when (cantidadTramos(boleto) == 1)
+            costoExtraPorTramos(boleto) otherwise
+        )
+}
+
+function costoExtraPorTramos(boleto){
+    /*
+        Proposito: Calcula el costo extra del boleto "boleto".
+    */
+    
+    return((3 * cantidadTramos(boleto)) - 3)
+}
+
+program{
+    return(costoDeBoleto_(boleto1()))
+}
+
 
 
 
