@@ -266,3 +266,64 @@ program{
     return(coloresEnLaCeldaActual())
 }
 */
+
+//// ------------ Ejercicio 6 -------------- ////
+
+function aparicionesDelColor_EnElCamino_(colorBuscado, direccionesDelCamino){
+    /*
+        Proposito:dado un color, colorBuscado, y una lista de Direcciones, direccionesDelCamino,
+        describa la lista con la cantidad de bolitas del color dado en las celdas recorridas.
+        Parametros:
+            *colorBuscado: Lista con elementos de tipo Color.
+            *direccionesDelCamino: Lista con elementos de tipo Direccion.
+        Precondiciónes: Si el cabezal está ubicado en cualquiera de los bordes, el siguiente
+        elemento de "direccionesDelCamino" no debe ser el mismo que la direccion en la que
+        se encuentra el borde, en referencia a la celda de donde se encuentra el cabezal.
+    */
+    nroDeBolitasDeColor := 0
+    direccionARecorrer := direccionesDelCamino
+    while (not (esVacía(direccionARecorrer))){
+        nroDeBolitasDeColor := nroDeBolitasDeColor + nroBolitasColor_(colorBuscado)
+        MoverAlSiguienteDeLaLista(primero(direccionARecorrer))
+        direccionARecorrer := resto(direccionARecorrer)
+    }
+    return(nroDeBolitasDeColor + nroBolitasColor_(colorBuscado))
+}
+
+procedure MoverAlSiguienteDeLaLista(direccionARecorrer){
+    /*
+        Proposito: Mueve el cabezal en direccion "direccionARecorrer".
+        Parametros:
+            *direccionARecorrer: Dirección.
+        Precondición: Si hay un borde lindante a la celda actual,"direccionARecorrer" no puede
+        ser una direccion que indique donde se encuentra el borde.
+    */
+    Mover(direccionARecorrer)
+}
+
+function nroBolitasColor_(colorBuscado){
+    /*
+        Proposito: Describe la cantidad de bolitas de color "colorBuscado" que hay en la celda
+        actual.
+        Parametros:
+            *colorBuscado: es un color.
+        Precondición: Ninguna.
+        Resultado: Número.
+    */
+    return(nroBolitas(colorBuscado))
+}
+
+
+function listaDirecciones(){
+    /*
+        Proposito: Describe una lista de direcciones.
+        Resultado: Lista con elementos de tipo Dirección.
+        Precondición: Ninguna.
+    */
+    return([Oeste, Norte, Norte, Oeste, Oeste, Oeste, Oeste])
+}
+/*
+program{
+    return(aparicionesDelColor_EnElCamino_(Verde,listaDirecciones()))
+}
+*/
