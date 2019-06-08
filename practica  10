@@ -229,4 +229,40 @@ program{
 }
 */
 
+//// ------- Ejercicio 5 ---------////
 
+function coloresEnLaCeldaActual(){
+    /*
+        Proposito: Describe una lista con los colores que aparecen en la celda actual.
+        Precondición: Ninguna.
+        Observación: La lista puede ser vacía, o puede tener 4 elementos.
+        Resultado: Lista de elementos tipo color.
+    */
+    listaDeColores := []                                                //Inicializa una variable con contenido tipo lista.
+    colorActual := minColor()                                           //Inicializa una variable con un valor tipo color.
+    while (not colorActual == maxColor()){                                             //Inicia la repetición condicional
+        listaDeColores := listaDeColores ++ hayColorActual(colorActual) //Agrega el color actual a la lista de colores si corresponde.
+        colorActual := siguiente(colorActual)
+    }
+    return(listaDeColores ++ hayColorActual(colorActual))               //Devuelve la lista de colores luego de haber analizado la celda actual.
+}
+
+function hayColorActual(colorActual){
+    /*
+        Proposito: Describe si en la celda actual hay bolitas de color "colorActual".
+        Parametros:
+            *colorActual: es un color.
+        Precondición: Ninguna.
+        Resultado: Color.
+    */
+    return
+    (
+        choose [colorActual] when (hayBolitas(colorActual))            //Devuelve "colorActual" cuando hay bolita de este color.
+                    []       otherwise    
+    )
+}
+/*
+program{
+    return(coloresEnLaCeldaActual())
+}
+*/
