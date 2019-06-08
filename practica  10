@@ -54,7 +54,179 @@ procedure MoverAl_SiCorresponde(direccionDeLista){
 function listaDeDirecciones(){
     return([Norte, Este, Sur, Sur, Oeste])
 }
-
+/*
 program{
     RecorrerCamino_(listaDeDirecciones())
 }
+*/
+
+//// ------------ Ejercicio 3 -----------////
+
+
+function aparicionesDeColor_(color){
+    /*
+        Proposito: Describe una lista de números, que contiene la cantidad de bolitas de color
+        "color" que aparecen en todo el tablero. La lista queda ordenada, según la cantidad de
+        bolitas de color "color", que van apareciendo en el tablero, en sentido Norte- Oeste.
+        Parametros:
+            *color: un color.
+        Resultado: Lista de números.
+        Precondición: El cabezal esta ubicado en la esquina Sur - Este.
+    */
+    bolitasPorCelda := []
+    while ( not esLaUltimaCelda()){ 
+        bolitasPorCelda := bolitasPorCelda ++ [nroBolitas(Rojo)]
+        IrASiguienteCelda()
+    }
+    return(bolitasPorCelda ++ [nroBolitas(Rojo)])
+}
+
+function esLaUltimaCelda(){
+    /*
+        Proposito: Describe si es la última celda del tablero.
+        Resultado: Booleano
+    */
+    return(not puedeMover(Norte) && not puedeMover(Oeste))
+}
+
+procedure IrASiguienteCelda(){
+    /*
+        Proposito: Mueve el cabezal una celda por vez en direccion Norte-Oeste hasta llegar
+        a la esquina Norte - Este.
+        Precondición: Ninguna.
+    */
+    if(puedeMover(Norte)){
+        Mover(Norte)
+    }
+    else{
+        IrAlBorde(Sur)
+        Mover(Oeste)
+    }
+}
+/*
+program{
+    return(aparicionesDeColor_(Rojo))
+}
+*/
+
+//// ------- Ejercicio 4 ---------////
+
+procedure Poner_Bolitas_EnElTablero(lista, color){
+    /*
+        Proposito:  Dada una lista de números y un color, recorre el tablero con dirección 
+        principal Norte y dirección secundaria Oeste y pone en cada celda la cantidad de bolitas 
+        del color dado, según el elemento en la posición correspondiente.
+        Parametros:
+            *lista: es una lista de números.
+            *color: es un color.
+        Precondición: Ninguna.
+    */
+    if(hayMasNumerosQueCeldas(lista)){
+        Poner_BolitasPorCeldaDeColor_(lista, color)
+    }
+    else{
+        
+    }
+}
+
+procedure Poner_BolitasPorCeldaDeColor_(lista, color){
+    /*
+        Proposito: Pone bolitas de color "color" en la celda actual, tantas veces como
+        el elemento actual de la lista lista.
+        Parametros:
+            *lista: Lista de números.
+            *color: Color
+        Precondición: Ninguna.
+    */
+    IrAlInicioDelTablero()
+    listaDeNumeros := lista
+    while (not esLaUltimaCelda()){
+        Poner_BolitasDeColor_(primero(listaDeNumeros), color)
+        listaDeNumeros := resto(listaDeNumeros)
+        IrASiguienteCelda()
+    }
+     Poner_BolitasDeColor_(primero(listaDeNumeros), color)
+}
+
+procedure Poner_BolitasDeColor_(elementoDeLista, color){
+    /*
+        Proposito: Pone "elementoDeLista" bolitas de color "color".
+        Parametros:
+            *elementoDeLista: Número.
+            *color: Color.
+        Precondicion: Ninguna
+    */
+    repeat(elementoDeLista){
+        Poner(color)
+    }
+}
+
+procedure IrAlInicioDelTablero(){
+    /*
+        Proposito: Ubica el cabezal en la esquina Sur - Este.
+        Precondición: Ninguna.
+    */
+    IrAlBorde(Sur)
+    IrAlBorde(Este)
+}
+
+function hayMasNumerosQueCeldas(lista){
+    /*
+        Proposito: Describe si hay más elementos de la lista que celdas del tablero actual.
+        Parametros:
+            *lista: Lista de Números.
+        Resultado: Booleano.
+        Precondicion: Ninguna
+    */
+    return(numeroElementos(lista) >= cantidadDeCeldas())
+}
+
+
+function cantidadDeCeldas(){
+    /*
+        Proposito: Describe la cantidad de celdas que hay en el tablero actual.
+        Precondición: Ninguna.
+        Resultado: Número.
+        Precondicion: Ninguna.
+    */
+    IrAlInicioDelTablero()
+    nroDeCeldas := 0                
+    while (not esLaUltimaCelda()){
+        nroDeCeldas := nroDeCeldas + 1 
+        IrASiguienteCelda()
+    }
+    return(nroDeCeldas + 1)
+}
+
+function numeroElementos(lista){
+    /*
+        Proposito: Describe la cantidad de elementos que tiene la lista "lista".
+        Parametros:
+            *lista: es una lista de números.
+        Precondición: Ninguna.
+        Resultado: Número.
+        Precondicion: Ninguna.
+    */
+    nroDeElementos := 0
+    elementos := lista
+    while (not esVacía(elementos)){
+        nroDeElementos := nroDeElementos + 1 
+        elementos := resto(elementos)
+    }
+    return(nroDeElementos)
+}
+
+function listaPrueba(){
+    /*
+        Proposito: Describe una lista con elementos de tipo número.
+        Precondición: Ninguna.
+    */
+    return([4, 0, 3, 1, 0, 2, 10, 7, 9, 10])
+}
+/*
+program{
+    Poner_Bolitas_EnElTablero(listaPrueba(), Rojo)
+}
+*/
+
+
