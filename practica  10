@@ -327,3 +327,80 @@ program{
     return(aparicionesDelColor_EnElCamino_(Verde,listaDirecciones()))
 }
 */
+
+//// ----------- Ejercicio 7 ----------- ////
+
+function longitudDe_(lista){
+    /*
+        Proposito: Describe la cantidad de elementos que tiene la lista "lista".
+        Parametros: 
+            *lista: Es una lista de elementos.
+        Precondición: Ninguna.
+        Resultado: Número
+    */
+    nroDeElementos := 0
+    listaDeElementos := lista
+    while (not esVacía(listaDeElementos)){
+        nroDeElementos := nroDeElementos + 1
+        listaDeElementos := resto(listaDeElementos)
+    }
+    return(nroDeElementos)
+}
+/*
+program{
+    return(longitudDe_(listaDirecciones()))   
+}
+*/
+
+//// ---------- Ejercicio 8 ---------////
+/// --------Ejercicio A --------///
+
+function sumatoriaDe_(lista){
+    /*
+        Proposito: Describe la suma de todos los elementos de la lista "lista".
+        Resultado: Número.
+        Parametros:
+            *Lista: lista con elementos tipo Número.
+        Precondición: Ninguna.
+    */
+    sumatoria := 0
+    elementosDeLista := lista
+    while (not esVacía(elementosDeLista)){
+        sumatoria := sumatoria + primero(elementosDeLista)
+        elementosDeLista := resto(elementosDeLista)
+    }
+    return(sumatoria)
+}
+
+function listaParaSumar(){
+    return([5, 5, 5])
+}
+/*
+program{
+    return(sumatoriaDe_(listaParaSumar()))
+}
+*/
+
+/// -------- Ejercicio B --------///
+
+function productoriaDe_(lista){
+    /*
+        Proposito: Describe el producto de todos los elementos de la lista "lista".}
+        Parametros:
+            *lista: es un elemento tipo Número.
+        Precondición: La lista tiene al menos un elemento.
+        Resultado: Número.
+    */
+    productosDeLaLista := primero(lista)
+    elementosSinElPrimero := resto(lista)
+    while(not esVacía(elementosSinElPrimero)){
+        productosDeLaLista := productosDeLaLista * primero(elementosSinElPrimero)
+        elementosSinElPrimero := resto(elementosSinElPrimero)
+    }
+    return(productosDeLaLista)
+}
+/*
+program{
+    return(productoriaDe_([1]))
+}
+*/
