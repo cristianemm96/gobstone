@@ -404,3 +404,132 @@ program{
     return(productoriaDe_([1]))
 }
 */
+
+/// -------- Ejercicio C -------///
+
+function cantidadDeBolitas_DelTablero(color){
+    /*
+        Proposito: indique la cantidad total de bolitas de color "color" que hay en el tablero.
+        Parametros:
+            *color: Un color.
+        Resultad: Número.
+        Precondición: Ninguna.
+    */
+    return(sumatoriaDe_(aparicionesDeColor_(color)))
+}
+
+//// ---------------- Ejercicio 9 ------------////
+
+/// ----------Ejercicio A --------------///
+
+function repetición_VecesDe_(numero, elemento){
+    /*
+        Proposito: describa una lista con la cantidad indicada de repeticiones, dado por "numero"
+        del elemento.
+        Parametros:
+            *numero: Númeroo
+            *elemento: elemento de tipo elemento.
+        Precondición: Ninguna.
+        Resultado: Lista de elementos tipo "elemento".
+    */
+    return(
+        choose repetir__Veces(numero, elemento) when (numero > 0)
+                        []    otherwise
+    )
+}
+
+function repetir__Veces(numero, elemento){
+    /*
+        Proposito: Repite "numero" de veces el elemento "elemento".
+        Parametros:
+            *numero: Número.
+            *elemento: elemento de tipo "elemento".
+        Precondición: Ninguna.
+        Resultado: lista de elementos tipo "elemento".
+    */
+    numeroDeVeces := numero
+    listaDeElementos := []
+    while (not numeroDeVeces == 0){
+        listaDeElementos := listaDeElementos ++ [elemento]
+        numeroDeVeces := numeroDeVeces - 1
+    }
+    return(listaDeElementos)
+}
+/*
+program{
+    return(repetición_VecesDe_(3, 8))
+}
+*/
+
+/// ---------- Ejercicio B ---------///
+
+function laLista_Clonada_Veces(lista, cantidadVeces){
+    /*
+        Proposito: dada una lista "lista" de elementos y un número "cantidadVeces", 
+        describe la lista resultante de clonar la lista dada tantas veces como lo indica 
+        "cantidadVeces".
+    */
+    numeroDeVeces := cantidadVeces
+    listaClonada := []
+    while (not numeroDeVeces == 0){
+        listaClonada := listaClonada ++ lista
+        numeroDeVeces := numeroDeVeces - 1
+    }
+    return(listaClonada)
+}
+/*
+program{
+    return(laLista_Clonada_Veces([1,2], 2))
+}
+*/
+
+/// --------- Ejercicio C --------- ///
+
+function losElementosDe_Clonados_Veces(lista, cantidadVeces){
+    /*
+        Proposito: dados una lista "lista"de elementos y un
+        número "cantidadVeces", describa la lista que contenga los elementos dados en el orden 
+        de dicha lista, pero repetidos la cantidad de veces "cantidadVeces".
+        Parametros: 
+            *lista: Una lista.
+            *cantidadVeces: Número.
+        Resultado: Lista de elementos elementos.
+    */
+    listaDeElementos := lista
+    listaDeClonados := []
+    while(not esVacía(listaDeElementos)){
+        listaDeClonados := listaDeClonados ++ repetición_VecesDe_(cantidadVeces, primero(listaDeElementos))
+        listaDeElementos := resto(listaDeElementos)
+    }
+    return(listaDeClonados)
+}
+/*
+program{
+    return(losElementosDe_Clonados_Veces([1,2], 3))
+}
+*/
+
+//// ------------- Ejercicio 10 ----------////
+
+function reversoDe_(lista){
+    /*
+        Proposito: Describe los elementos de la lista "lista", pero en orden reverso.
+        Paremetros:
+            *lista: Es una lista con elementos de cualquier tipo.
+        Precondición: Ninguna.
+        Resultado: Lista de elementos de tipo elementos de la lista "lista".
+    */
+    elementosDeLista := lista
+    elementosAlReverso := []
+    while (not esVacía(elementosDeLista)){
+        elementosAlReverso := [primero(elementosDeLista)] ++ elementosAlReverso
+        elementosDeLista := resto(elementosDeLista)
+    }
+    return(elementosAlReverso)
+}
+/*
+program{
+    return(reversoDe_([1, 2, 3, 4, 5]))
+}
+*/
+
