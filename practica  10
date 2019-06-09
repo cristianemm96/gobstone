@@ -608,3 +608,51 @@ program{
     return(siguientesDe_([Verde, Azul]))
 }
 */
+
+//// ----------- Ejercicio 12 --------------////
+
+function homologar_PorDebajoDe_A_(lista, umbral, default){
+    /*
+        Proposito: describe una lista de números que está basada en la
+        lista dada de la siguiente manera: aquellos números de la lista dada que son mayores o
+        iguales al umbral , permanecen igual, pero aquellos que son menores, son
+        reemplazados por el valor default.
+        Parametros:
+            *lista: Lista de elementos tipo Número.
+            *umbra: Número.
+            *default: Número.
+        Resultado: Lista de elementos tipo Número.
+        Precondición: Ninguna.
+    */
+    listaSinHomologar := lista
+    listaHomologada := []
+    while (not esVacía(listaSinHomologar)){
+        listaHomologada := listaHomologada ++ numeroHomologado(primero(listaSinHomologar), umbral, default)
+        listaSinHomologar := resto(listaSinHomologar)
+    }
+    return(listaHomologada)
+}
+
+function numeroHomologado(numero, umbral, default){
+    /*  
+        Proposito: Describe el numero "elemento" homologado.
+        Parametros: 
+            *numero: Número.
+        Precondición: Ninguna.
+        Resultado: Número.
+        Observación: Los numeros homologados quedan iguales cuando son mayores o iguales al umbral
+        determinado por el parametro "umbral". Si son menores al umbral, los numeros se reemplaza
+        por el numero determinado por el parametro "default".
+    */
+    return
+        (
+            choose [numero] when (numero >= umbral)
+                   [default] otherwise
+        )
+}
+/*
+program{
+    return(homologar_PorDebajoDe_A_([5, 6, 9, 4 ], 5, 2))
+}
+*/
+
