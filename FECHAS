@@ -1,0 +1,156 @@
+type Mes is variant {
+    /*
+        Proposito: Modela los meses del año.
+    */
+    case Enero{}
+    case Febrero{}
+    case Marzo{}
+    case Abril{}
+    case Mayo{}
+    case Junio{}
+    case Julio{}
+    case Agosto{}
+    case Septiembre{}
+    case Octubre{}
+    case Noviembre{}
+    case Diciembre{}
+}
+
+type  Fecha is record {
+    /*
+        Proposito: Modela una fecha en calendario gregoriano.
+        INVARIANTE DE REPRESENTACION: 
+            *si el mes es Enero, Marzo, Mayo, Julio,
+            Agosto, Octubre o Diciembre, el dìa debe estar
+            entre 1y 31.
+            *si el mes es Abril,  Junio, Septiembre o Noviembre,
+            dia debe estar entre 1 y 30.
+            *si el mes es Febrero y el año NO es bisiesto, dìa
+            debe estar entre 1 y 28.
+            *si el mes es Febrero y el año es bisiesto dia debe estar entre 1 y 29.
+    */
+    field dia //Numero
+    field mes //Mes
+    field año //Año
+}
+
+function siguienteFecha_(fecha){
+    return
+    (
+        Fecha
+            (
+                dia <- siguienteDíaDelMes__(dia(fecha), mes(fecha)),
+                mes <- siguienteMesDeLaFechaActual(dia(fecha), mes(fecha)),
+                año <- siguienteAñoDeLaFechaActual(dia(fecha), mes(fecha), año(fecha))
+            )
+    )
+}
+
+// ----------- SIGUIENTE DIA -------------
+function siguienteDíaDelMes__(diaActual, mesActual){
+    return
+    (
+        choose primerDíaDelMes() when (esFinDeMes(diaActual, mesActual))
+               diaActual + 1 otherwise
+    )
+}
+
+function primerDíaDelMes(){
+    return (1)
+}
+
+function esFinDeMes(diaActual, mesActual, añoActual){
+    return
+        (
+            esFinDeMesDe30O31Dias__(diaActual, mesActual) || esFinDeFebrero(diaActual, mesActual, añoActual)
+        )
+}
+
+function esFinDeMesDe30O31Dias__(diaActual, mesActual){
+    return
+        (
+            diaActual == 30 &&  mesDe30Dias(mesActual) || diaActual == 31 && mesDe31Días(mesActual)
+        )
+}
+
+function mesDe30Dias(mesActual){
+    return
+    (
+        mesActual == Abril      ||
+        mesActual == Junio      ||        
+        mesActual == Septiembre ||
+        mesActual == Noviembre  
+    )
+}
+
+
+function esFinDeFebrero(diaActual, mesActual, añoActual){
+    return 
+        (
+            diaActual == 28 && mesActual == Febrero || diaActual == 29 
+        )
+            
+}
+
+function mesDe31Días(mesActual){
+    return
+    (
+        mesActual == Enero     ||
+        mesActual == Marzo     ||
+        mesActual == Mayo      ||
+        mesActual == Julio     ||
+        mesActual == Agosto    ||    
+        mesActual == Octubre   ||
+        mesActual == Diciembre 
+    )
+}
+
+// ---------------- SIGUIENTE MES -------------------//
+
+function siguienteMesDeLaFechaActual(diaActual, mesActual){
+    return
+        (
+            choose siguienteMes(mesActual) when (esFinDeMes(diaActual, mesActual))
+                       mesActual otherwise
+        )
+}
+
+function siguienteMes(mesActual){
+    return
+        (
+            matching (mesActual) select
+                Enero  on Diciembre
+                Febrero on Enero
+                Marzo on Febrero
+                Abril on Marzo
+                Mayo on Abril
+                Junio on Mayo
+                Julio on Junio
+                Agosto on Julio
+                Septiembre on Agosto
+                Octubre on Septiembre
+                Noviembre on Octubre
+                Diciembre on Noviembre
+                boom("No es un Mes valido") otherwise
+        )
+}
+
+function siguienteAñoDeLaFechaActual(diaActual, mesActual, añoActual){
+    return
+        (
+            choose añoActual + 1 when (esFinDeAño(diaActual, mesActual))
+                     añoActual otherwise
+        )
+}
+
+function esFinDeAño(diaActual, mesActual){
+    return(diaActual == 31 && mesActual == Diciembre)
+}
+
+program{
+    return(siguienteFecha_(Fecha(dia <- 31, mes <- Marzo, año <- 1996)))
+}
+
+
+
+
