@@ -413,11 +413,12 @@ function productoriaDe_(lista){
         Precondición: La lista tiene al menos un elemento.
         Resultado: Número.
     */
-    productosDeLaLista := listaVacíaONo(lista)
+    productosDeLaLista := primero(lista)
     numerosAMultiplicar := lista
     while(not esVacía(numerosAMultiplicar)){
-        productosDeLaLista := productosDeLaLista * primero(numerosAMultiplicar)
         numerosAMultiplicar := resto(numerosAMultiplicar)
+        productosDeLaLista := productosDeLaLista * primero(numerosAMultiplicar)
+        
     }
     return(productosDeLaLista)
 }
