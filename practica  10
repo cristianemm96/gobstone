@@ -696,3 +696,86 @@ program{
 }
 */
 
+
+
+
+
+/////// --------- Ejercicio 13 ----------- ////////
+
+/// --------- Ejercicio A ---------- ///
+
+function númerosParesDe_(lista){
+    /*
+        Proposito: Describe la lista de números pares que aparecen en "lista".
+        Parametros: 
+            *lista: es una lista con elementos tipo Número.
+        Precondición: Ninguna.
+        Resultado: Lista de elementos tipo número.
+    */
+    numerosPares := []
+    foreach número in lista{
+        numerosPares := numerosPares ++ numerosParesDe_(número) 
+    }
+    return(numerosPares)
+}
+
+function numerosParesDe_(elemento){
+    /*
+        Proposito: Describe si el número "elemento" es par o impar.
+        Precondición: Ninguna.
+        Parametros:
+            *elemento: Número.
+        Resultado: Lista de un número.
+    */
+    return
+        (
+            choose [elemento] when (elemento mod 2 == 0)
+                       [] otherwise    
+        ) 
+}
+/*
+program{
+    return (númerosParesDe_([1, 2, 4, 4, 8, 10, 11]))
+}
+*/
+
+/// ----------- Ejercicio B -------------- ///
+
+function laLista_SinElElemento(lista, elementoAQuitar){
+    /*
+        Proposito: Describe la lista "lista" sin el elemento "elemento".
+        Parametros:
+            *lista: Lista de elementos tipo "elemento".
+            *elemento: elemento de tipo de elemento de "lista".
+        Precondición: "elemento" es de tipo elemento que contiene la lista actual.
+        Resultado: Lista de elementos tipo elementos.
+    */
+    listaSinElemento := []
+    foreach elementoActual in lista{
+        listaSinElemento := listaSinElemento ++ elemento_EsDeTipo_(elementoActual, elementoAQuitar)
+    }
+    return(listaSinElemento)
+}
+
+function elemento_EsDeTipo_(elementoActual, elementoAQuitar){
+    /*
+        Proposito: Describe si el elemento actual, es de tipo "elemento".
+        Parametros:
+            *elemento: Elemento de tipo "elemento".
+        Precondición Ninguna.
+        Resultado: Lista de tipo "elemento".
+    */
+    return
+    (
+        choose [] when (elementoActual == elementoAQuitar)
+         [elementoActual] otherwise
+    )
+}
+/*
+program {
+    return (laLista_SinElElemento([Azul, Rojo, Verde, Negro, Azul], Azul))
+}
+*/
+
+
+
