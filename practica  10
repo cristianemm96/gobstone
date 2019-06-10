@@ -380,6 +380,28 @@ program{
     return(sumatoriaDe_(listaParaSumar()))
 }
 */
+////// ------- SUMATORIA CON FOREACH ------ //////
+
+function sumatoriaDe_(lista){
+    /*
+        Proposito: Describe la suma de todos los elementos de la lista "lista".
+        Parametros: 
+            *lista: Lista de elementos tipo Número.
+        Precondición: Ninguna.
+        Resultado: Número
+    */
+    sumaActual := 0
+    foreach número in lista{
+        sumaActual := sumaActual + número
+    }
+    return(sumaActual)
+}
+
+/*
+program{
+    return(sumatoriaDe_([1]))
+}
+*/
 
 /// -------- Ejercicio B --------///
 
