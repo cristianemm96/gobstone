@@ -391,19 +391,37 @@ function productoriaDe_(lista){
         Precondición: La lista tiene al menos un elemento.
         Resultado: Número.
     */
-    productosDeLaLista := primero(lista)
-    elementosSinElPrimero := resto(lista)
-    while(not esVacía(elementosSinElPrimero)){
-        productosDeLaLista := productosDeLaLista * primero(elementosSinElPrimero)
-        elementosSinElPrimero := resto(elementosSinElPrimero)
+    productosDeLaLista := listaVacíaONo(lista)
+    numerosAMultiplicar := lista
+    while(not esVacía(numerosAMultiplicar)){
+        productosDeLaLista := productosDeLaLista * primero(numerosAMultiplicar)
+        numerosAMultiplicar := resto(numerosAMultiplicar)
     }
     return(productosDeLaLista)
 }
+
+function listaVacíaONo(lista){
+    /*
+        Proposito: Describe si la lista esta vacía o no.
+        Parametros: 
+            *lista: es una lista de elementos tipo número.
+        Precondición: Ninguna.
+        Observación: Si "lista" es vacía, devuelve 0. Si "lista" tiene elementos,
+        devuelve 1.
+        Resultado: Número
+    */
+    return
+    (
+        choose 0 when (esVacía(lista))
+               1 otherwise    
+    )
+}
 /*
 program{
-    return(productoriaDe_([1]))
+    return(productoriaDe_([3, 2]))
 }
 */
+
 
 /// -------- Ejercicio C -------///
 
