@@ -228,6 +228,30 @@ program{
     Poner_Bolitas_EnElTablero(listaPrueba(), Rojo)
 }
 */
+------------------------------------------------------
+
+procedure  Poner_Bolitas_EnElTablero(lista, color){
+    IrAlInicioDelRecorrido__(Norte, Oeste)
+    listaRestante := lista
+    while (not estoyElFinalDelRecorrido(Norte, Oeste)){
+        Poner__Veces(color, primeroSiLista_NoEsVacía(lista))
+        IrASiguienteCelda(Norte, Oeste)
+        listaRestante := resto(listaRestante)
+    }
+     Poner__Veces(color, primeroSiLista_NoEsVacía()) //COMPROBAR
+}
+
+function primeroSiLista_NoEsVacía(lista){
+    return
+    (
+        choose primero(lista) when (not esVacía(lista))
+                    0 otherwise
+    )
+}
+
+
+
+
 
 //// ------- Ejercicio 5 ---------////
 
