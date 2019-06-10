@@ -413,12 +413,11 @@ function productoriaDe_(lista){
         Precondición: La lista tiene al menos un elemento.
         Resultado: Número.
     */
-    productosDeLaLista := primero(lista)
+    productosDeLaLista := listaVacíaONo(lista)
     numerosAMultiplicar := lista
     while(not esVacía(numerosAMultiplicar)){
-        numerosAMultiplicar := resto(numerosAMultiplicar)
         productosDeLaLista := productosDeLaLista * primero(numerosAMultiplicar)
-        
+        numerosAMultiplicar := resto (numerosAMultiplicar)
     }
     return(productosDeLaLista)
 }
@@ -436,7 +435,7 @@ function listaVacíaONo(lista){
     return
     (
         choose 0 when (esVacía(lista))
-               1 otherwise    
+               [] otherwise  // boom("La lista actual es vacía, por lo tanto no es valida.")  
     )
 }
 /*
