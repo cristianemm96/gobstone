@@ -1,0 +1,33 @@
+function sinDuplicados_(lista){
+    elementosQueFaltan := lista
+    listaSinDuplicados := []
+    foreach elemento in lista{
+        listaSinDuplicados := listaSinDuplicados ++ elemento_EsDuplicado(primero(elementosQueFaltan), lista)
+        elementosQueFaltan := resto(elementosQueFaltan)
+    }
+    return(listaSinDuplicados)
+}
+
+function elementoEsDuplicado(elemento, lista){
+    return
+    (
+        [elemento] when (not esRepetido(elemento, lista))
+        sinElRepetido(elemento, lista) otherwise
+    )
+}
+
+function esRepetido (elemento, lista){
+    cantidadDeApariciones := 0
+    elementosPorVer:=lista
+    while (not esVacía(elementosPorVer)){
+        cantidadDeApariciones := cantidadDeApariciones + vecesQueAparece_En_(elemento, primero(elementosPorVer))
+        elementosPorVer := resto(elementosPorVer)
+    }
+    return(cantidadDeApariciones > 1)
+}
+function vecesQueAparece_En_(elemento, lista){
+    return
+    (
+        choose 1 when (elemento ==)    
+    )
+}
