@@ -59,6 +59,46 @@ function elemento_EsTambienElementoDe_(elemento, lista){
     )
 }
 
+function uniónDe_Con_(lista1, lista2){
+    listaDePosiblesAAgregar := lista1
+    listaDeUnion := lista2
+    while (not esVacía(listaDePosiblesAAgregar)){
+        listaDeUnion :=  listaDeUnion ++ elemento_AUnirEn_(primero(listaDePosiblesAAgregar), listaDeUnion)
+        listaDePosiblesAAgregar := resto(listaDePosiblesAAgregar)
+    }
+    return(listaDeUnion)
+}
+
+function elemento_AUnirEn_(elemento, lista){
+    return 
+    (
+        choose [elemento] when (elemento_NoFiguraEn_(elemento, lista))
+                  [] otherwise
+    )
+}
+
+function elemento_NoFiguraEn_(elemento, lista){
+    vecesQueAparece := 0
+    listaQueFalta := lista
+    while (not esVacía(listaQueFalta)){
+        vecesQueAparece := vecesQueAparece + sePuedeUnir(elemento, primero(listaQueFalta))
+        listaQueFalta := resto(listaQueFalta)
+    }
+    return(vecesQueAparece == 0)
+}
+
+function sePuedeUnir(elemento, elementoDeLista){
+    return(
+        choose 1 when (elemento == elementoDeLista)
+               0 otherwise     
+    )
+}
+
+program{
+    return(uniónDe_Con_([1,2,3], [3,4,5]))
+}
+
+
 
 function elemento_TambienEstáEn_(elemento, lista){
     vecesQueAparece := 0
