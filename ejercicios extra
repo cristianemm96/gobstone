@@ -1,33 +1,39 @@
 function sinDuplicados_(lista){
-    elementosQueFaltan := lista
-    listaSinDuplicados := []
-    foreach elemento in lista{
-        listaSinDuplicados := listaSinDuplicados ++ elemento_EsDuplicado(primero(elementosQueFaltan), lista)
-        elementosQueFaltan := resto(elementosQueFaltan)
+    listaSinDuplicados := [primero(lista)] 
+    listaAChequear := lista
+    while (not esVacía(listaAChequear)){                                    //elemento               lista a verificar
+        listaSinDuplicados := listaSinDuplicados ++ elemento_NoApareceEn_(primero(listaAChequear), listaSinDuplicados)
+        listaAChequear := resto(listaAChequear)
     }
     return(listaSinDuplicados)
 }
 
-function elementoEsDuplicado(elemento, lista){
+function elemento_NoApareceEn_(elemento, listaDeElementos){
     return
     (
-        [elemento] when (not esRepetido(elemento, lista))
-        sinElRepetido(elemento, lista) otherwise
+        choose [elemento] when (elemento_NoEstaEn_(elemento, listaDeElementos))
+                  [] otherwise
     )
 }
 
-function esRepetido (elemento, lista){
-    cantidadDeApariciones := 0
-    elementosPorVer:=lista
-    while (not esVacía(elementosPorVer)){
-        cantidadDeApariciones := cantidadDeApariciones + vecesQueAparece_En_(elemento, primero(elementosPorVer))
-        elementosPorVer := resto(elementosPorVer)
+function elemento_NoEstaEn_(elemento, lista){
+    vecesQueAparece := 0
+    listaAComparar := lista
+    while (not esVacía(listaAComparar)){
+        vecesQueAparece := vecesQueAparece + elemento_ApareceEn_(elemento, primero(listaAComparar))
+        listaAComparar := resto(listaAComparar)
     }
-    return(cantidadDeApariciones > 1)
-}
-function vecesQueAparece_En_(elemento, lista){
+    return (vecesQueAparece == 0)
+} 
+
+function elemento_ApareceEn_(elemento, elementoDeLista){
     return
     (
-        choose 1 when (elemento ==)    
+        choose 1 when (elemento == elementoDeLista)
+               0 otherwise    
     )
+}
+
+program{
+    return(sinDuplicados_([1, 2, 3, 4, 1, 4, 5, 3]))
 }
