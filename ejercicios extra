@@ -1,3 +1,4 @@
+//-------------Ejercicio 15 ---------------//
 function sinDuplicados_(lista){
     listaSinDuplicados := [primero(lista)] 
     listaAChequear := lista
@@ -36,4 +37,47 @@ function elemento_ApareceEn_(elemento, elementoDeLista){
 
 program{
     return(sinDuplicados_([1, 2, 3, 4, 1, 4, 5, 3]))
+}
+
+//---------------- Ejercicio 16 -----------------//
+function intersecciónDe_Con_(lista1, lista2){
+    listaQueFaltaVer:= lista1
+    listaConIntersección := []
+    while (not esVacía(listaQueFaltaVer)){
+        listaConIntersección := listaConIntersección ++ elemento_EsTambienElementoDe_(primero(listaQueFaltaVer), lista2)
+        listaQueFaltaVer := resto(listaQueFaltaVer)
+    }
+    return(listaConIntersección)
+}
+
+
+function elemento_EsTambienElementoDe_(elemento, lista){
+    return
+    (
+        choose [elemento] when (elemento_TambienEstáEn_(elemento, lista))
+                   [] otherwise
+    )
+}
+
+
+function elemento_TambienEstáEn_(elemento, lista){
+    vecesQueAparece := 0
+    listaQueFalta := lista
+    while (not esVacía(listaQueFalta)){
+        vecesQueAparece := vecesQueAparece + elemento_EsIgualA_(elemento, primero(listaQueFalta))
+        listaQueFalta := resto(listaQueFalta)
+    }
+    return(vecesQueAparece == 1)
+}
+
+function elemento_EsIgualA_(elemento, elementoDeLista){
+    return
+    (
+        choose 1 when (elemento == elementoDeLista)
+               0 otherwise    
+    )
+}
+
+program{
+    return(intersecciónDe_Con_([1,2,3,4,5], [2,3,5]))
 }
