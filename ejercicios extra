@@ -121,3 +121,41 @@ function elemento_EsIgualA_(elemento, elementoDeLista){
 program{
     return(intersecciónDe_Con_([1,2,3,4,5], [2,3,5]))
 }
+
+// ----------------EJERCICIO 17------------------
+
+function algunoDe_Entre_Y(lista, desde, hasta){
+    /*
+        Proposito: Describe si en "lista" hay un numero que esté entre los numeros "desde" y "hasta".
+        Parametros: 
+            *lista: es una lista de elementos tipo número.
+            *desde: numero
+            *hasta: numero.
+        Precondición: Ninguna.
+        Resultado: Booleano.
+    */
+    faltanVer := lista
+    while (not esVacía(faltanVer) &&  not elemento_EstáEntre_Y_(primero(faltanVer), desde, hasta)){
+        faltanVer:= resto(faltanVer)
+    }
+    return(not esVacía(faltanVer))
+}
+
+function elemento_EstáEntre_Y_(elementoActual, desde, hasta){
+    /*
+        Proposito: Indica verdadero si "elementoActual" es un número que se encuentre entre "desde" y
+        "hasta".
+        Parametros:
+            *elementoActual: es un número.
+            *desde: número.
+            *hasta: número.
+        Precondición: Ninguna.
+        Resultado: Booleano.
+    */
+    return(elementoActual > desde && elementoActual < hasta)
+}
+/*
+program{
+    return(algunoDe_Entre_Y([1, 2, 3, 12], 8, 12))
+}
+*/
